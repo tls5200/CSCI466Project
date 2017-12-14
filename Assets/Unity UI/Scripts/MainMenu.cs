@@ -16,23 +16,6 @@ public class MainMenu : MonoBehaviour
     public UnityEngine.UI.Button loadGame;
     public UnityEngine.UI.Button watchReplay;
 
-    void Update()
-    {
-        //determines if the user is playing without an account i.e. playing the demo version
-        if (User.user.isTrial) 
-        {
-            //if they are then these features are disabled for them
-            loadGame.interactable = false; 
-            watchReplay.interactable = false;
-        }
-        else 
-        {
-            //else they can use these features on the main menu
-            loadGame.interactable = true;
-            watchReplay.interactable = true;
-        }
-    }
-
     /// <summary>
     /// Method the New Game button calls, changes the screen to the New Game screen
     /// </summary>

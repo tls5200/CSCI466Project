@@ -6,8 +6,6 @@
 using UnityEngine;
 using System.Collections;
 using System;
-using static User;
-using static CRUD;
 using static GameStates;
 
 public class Level5 : Level

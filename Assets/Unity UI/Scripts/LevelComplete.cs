@@ -8,8 +8,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using static CRUD;
-using static UserData;
 
 /// <summary>
 /// LevelComplete is a MonoBehavior that controls the Level Complete menu and

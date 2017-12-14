@@ -31,28 +31,6 @@ public class NewGame : MonoBehaviour
         practice.interactable = false;
 	}
 
-	void Update ()
-    {
-        //disable these features if the user is playing a trial verson of the game
-		if (User.user.isTrial) 
-        {
-            cooperative.interactable = false;
-            competative.interactable = false;
-            practice.interactable = false;
-            survival.interactable = false;
-            hard.interactable = false;
-        }
-        //don't disable these featuers if the user is not playign a trial version of the game
-        else 
-        {
-            cooperative.interactable = true;
-            competative.interactable = true;
-            //practice.interactable = true;
-            survival.interactable = true;
-            hard.interactable = true;
-        }
-	}
-
     /// <summary>
     /// Method called by the Start button, creates a new Level with the settings selected by the user
     /// </summary>

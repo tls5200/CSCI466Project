@@ -19,8 +19,6 @@ public class GameLoop : MonoBehaviour
     private GameState lastGameState;
     
     //initilzed in editor
-    public GameObject loginMenu;
-    public GameObject createAccountMenu;
     public GameObject mainMenu;
     public GameObject newGameMenu;
     public GameObject loadGameMenu;
@@ -61,8 +59,8 @@ public class GameLoop : MonoBehaviour
 
     IEnumerator StateMachine()
     {
-        gameState = GameState.LoggingIn; //initial game state
-        previousGameState = GameState.LoggingIn;
+        gameState = GameState.Main; //initial game state
+        previousGameState = GameState.Main;
         lastGameState = GameState.Exit;
 
         //keep repeting this loop to switch between screens and control the program until GameState
@@ -75,8 +73,6 @@ public class GameLoop : MonoBehaviour
                 //only enable the one that it is set to
                 if (gameState != lastGameState)
                 {
-                    loginMenu.SetActive(false);
-                    createAccountMenu.SetActive(false);
                     mainMenu.SetActive(false);
                     newGameMenu.SetActive(false);
                     loadGameMenu.SetActive(false);
@@ -103,12 +99,6 @@ public class GameLoop : MonoBehaviour
                 //set the timeScale to 1 if the Level is being played or replayed
                 switch (gameState)
                 {
-                    case GameState.LoggingIn:
-                        loginMenu.SetActive(true);
-                        break;
-                    case GameState.CreateAccount:
-                        createAccountMenu.SetActive(true);
-                        break;
                     case GameState.Main:
                         mainMenu.SetActive(true);
                         break;
@@ -119,7 +109,6 @@ public class GameLoop : MonoBehaviour
                         loadGameMenu.SetActive(true);
                         break;
                     case GameState.Playing:
-                        loginMenu.SetActive(false);
                         ingameInterface.SetActive(true);
                         Time.timeScale = 1;
 

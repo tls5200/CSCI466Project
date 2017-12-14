@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
-using static User;
 
 /// <summary>
 /// Level is a MonoBehavior that is used to control and keep track of a level's settings 
@@ -24,7 +23,6 @@ public abstract class Level : MonoBehaviour
     public const string AUTO_SAVE_EXTENTION = ".NEBULA";
     public const string SAVE_EXTENTION = ".nebula";
     public const string REPLAY_EXTENTION = ".replay";
-    public const int TRIAL_LEVELS = 5;
 
     //Used if the Level is a replay
     private System.IO.StreamReader updateFile;
@@ -691,23 +689,16 @@ public abstract class Level : MonoBehaviour
             {
                 GameStates.gameState = GameStates.GameState.LoadReplay;
             }
-            //if the user is on a trail account and this is the last trial Level 
-            //or if this is the last Level, then go to the WonGame screen
-            else if (User.user.isTrial && levelNumber >= TRIAL_LEVELS || !levelExists(levelNumber + 1))
-            {
-                GameStates.gameState = GameStates.GameState.WonGame;
-
-                if (!User.user.isTrial)
-                    saveToLeaderboard();
-            }
             //if this is not the last Level, then autosave and go to the LevelComplete screen
-            else
+            else if (levelExists(levelNumber + 1))
             {
                 save();
                 GameStates.gameState = GameStates.GameState.LevelComplete;
-
-                if (!User.user.isTrial)
-                    saveToLeaderboard();
+            }
+            //if last Level, go to WoneGame screen
+            else
+            {
+                GameStates.gameState = GameStates.GameState.WonGame;
             }
         }
 
@@ -751,16 +742,6 @@ public abstract class Level : MonoBehaviour
         }
 
         updateObjectLists();
-    }
-
-    /// <summary>
-    /// Calculate the score and save it and this Level's settings to the leaderboard.
-    /// </summary>
-    private void saveToLeaderboard()
-    {
-        CRUD.crud.SaveUserData((int)score, levelNumber, (int)duration.TotalMilliseconds, players.Length, (float)Math.Round(difficulty, 2), pvp);
-
-        Debug.Log("Saving a score of: " + score);
     }
 
     /// <summary>
