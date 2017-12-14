@@ -57,12 +57,12 @@ public class CameraController : MonoBehaviour
             }
 
             //Allow the Players zoom the camera in and out
-            foreach (PlayerControls item in Controls.get().players)
+            foreach (PlayerControls item in Controls.Get().players)
             {
                 if (item.zoomOut)
-                    preferedSize *= 1 + Options.get().cameraZoomSpeed;
+                    preferedSize *= 1 + Options.Get().cameraZoomSpeed;
                 if (item.zoomIn)
-                    preferedSize /= 1 + Options.get().cameraZoomSpeed;
+                    preferedSize /= 1 + Options.Get().cameraZoomSpeed;
             }
         }
         //if a Level does not exist, use the defaults to control the camra
@@ -86,17 +86,17 @@ public class CameraController : MonoBehaviour
             preferedSize = levelBounds.height / 2f;
         else if (aspectRatio * 2f * preferedSize > levelBounds.width)
             preferedSize = levelBounds.width / (aspectRatio * 2f);
-        else if (preferedSize < Options.get().cameraEdgeBufferSize)
-            preferedSize = Options.get().cameraEdgeBufferSize;
+        else if (preferedSize < Options.Get().cameraEdgeBufferSize)
+            preferedSize = Options.Get().cameraEdgeBufferSize;
 
         size = preferedSize;
 
         //change the limits to put a buffer space around the edges of where the camera will see
         //so that the Players are not right on the edge of the screen
-        xUpperLimit += Options.get().cameraEdgeBufferSize;
-        xLowerLimit -= Options.get().cameraEdgeBufferSize;
-        yUpperLimit += Options.get().cameraEdgeBufferSize;
-        yLowerLimit -= Options.get().cameraEdgeBufferSize;
+        xUpperLimit += Options.Get().cameraEdgeBufferSize;
+        xLowerLimit -= Options.Get().cameraEdgeBufferSize;
+        yUpperLimit += Options.Get().cameraEdgeBufferSize;
+        yLowerLimit -= Options.Get().cameraEdgeBufferSize;
 
         //make sure the limites are out outside the Level's bounds
         if (xUpperLimit > levelBounds.xMax)

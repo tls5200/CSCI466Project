@@ -21,39 +21,39 @@ public class HomingMissile : DestructableObject
     private SpaceObject target;
 
 
-    protected override void destroyDestructableObject()
+    protected override void DestroyDestructableObject()
     {
         
     }
 
-    protected override void destructableObjectCollision(DestructableObject other, Collision2D collision)
+    protected override void DestructableObjectCollision(DestructableObject other, Collision2D collision)
     {
-        other.damageThis(damage);
-        destroyThis();
+        other.DamageThis(damage);
+        DestroyThis();
     }
 
-    protected override void indestructableObjectCollision(IndestructableObject other, Collision2D collision)
+    protected override void IndestructableObjectCollision(IndestructableObject other, Collision2D collision)
     {
-        destroyThis();
+        DestroyThis();
     }
 
-    protected override void nonInteractiveObjectCollision(NonInteractiveObject other)
-    {
-        
-    }
-
-    protected override void playerCollision(Player other, Collision2D collision)
-    {
-        other.damageThis(damage);
-        destroyThis();
-    }
-
-    protected override void startDestructableObject()
+    protected override void NonInteractiveObjectCollision(NonInteractiveObject other)
     {
         
     }
 
-    protected override void updateDestructableObject()
+    protected override void PlayerCollision(Player other, Collision2D collision)
+    {
+        other.DamageThis(damage);
+        DestroyThis();
+    }
+
+    protected override void StartDestructableObject()
+    {
+        
+    }
+
+    protected override void UpdateDestructableObject()
     {
         //destroys itself after so long if it is set to
         if (timeToLiveSecs > 0)
@@ -61,22 +61,22 @@ public class HomingMissile : DestructableObject
             timeAlive++;
 
             if (timeAlive > timeToLiveSecs * level.updatesPerSec)
-                destroyThis();
+                DestroyThis();
         }
 
         //trys to find a target if it doesn't have one
         //the target would be the closest enemy DestructableObject infront of it
         if (target == null || !target.active)
         {
-            target = closestObjectInDirection(level.getTypes(true, true, false, false), angle, false);
+            target = ClosestObjectInDirection(level.GetTypes(true, true, false, false), angle, false);
         }
 
         //turn towards the target if it has one
         if (target != null)
         {
-            turnTowards(target, turnSpeed * difficultyModifier);
+            TurnTowards(target, turnSpeed * difficultyModifier);
         }
 
-        moveForward(acceleration);
+        MoveForward(acceleration);
     }
 }

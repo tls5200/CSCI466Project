@@ -23,14 +23,14 @@ public class OptionsAudVid : MonoBehaviour
     {
         get
         {
-            return Options.get();
+            return Options.Get();
         }
     }
 
     /// <summary>
     /// Set values in the menu to the values in Options
     /// </summary>
-    private void refresh()
+    private void Refresh()
     {
         master.value = options.volumeMaster;
         soundEffects.value = options.volumeEffects;
@@ -44,7 +44,7 @@ public class OptionsAudVid : MonoBehaviour
     /// </summary>
     void Start()
     {
-        refresh();
+        Refresh();
 
         //find supported resolutions and current resolution
         Resolution[] supportedResolutions = Screen.resolutions;
@@ -73,7 +73,7 @@ public class OptionsAudVid : MonoBehaviour
 
     private void OnEnable()
     {
-        refresh();
+        Refresh();
     }
 
     //The following methods are called when the value of the corrosponding input UI item is 
@@ -81,22 +81,22 @@ public class OptionsAudVid : MonoBehaviour
     public void MasterVolume()
     {
         options.volumeMaster = master.value;
-        refresh();
+        Refresh();
     }
     public void SoundEffectVolume()
     {
         options.volumeEffects = soundEffects.value;
-        refresh();
+        Refresh();
     }
     public void MusicVolume()
     {
         options.volumeMusic = music.value;
-        refresh();
+        Refresh();
     }
     public void Resolution()
     {
-        options.setResolution(resolution.options[resolution.value].text);
-        refresh();
+        options.SetResolution(resolution.options[resolution.value].text);
+        Refresh();
     }
     public void FullScreen()
     {
@@ -110,8 +110,8 @@ public class OptionsAudVid : MonoBehaviour
     /// </summary>
     public void ResetButton()
     {
-        options.setDefaultOptions();
-        refresh();
+        options.SetDefaultOptions();
+        Refresh();
     }
 
     /// <summary>

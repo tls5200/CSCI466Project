@@ -31,7 +31,7 @@ public class ReplayItem : MonoBehaviour
     /// </summary>
     /// <param name="file">File containing the replay.</param>
     /// <returns>The created ReplayItem or null.</returns>
-    public static GameObject getFromFile(FileInfo file)
+    public static GameObject GetFromFile(FileInfo file)
     {
         StreamReader reader = null;
 
@@ -93,7 +93,7 @@ public class ReplayItem : MonoBehaviour
     /// Creates a Level in replay mode from the replay file represented by this ReplayItem
     /// </summary>
     /// <returns>True if the Level was created succesfully, false otherwise.</returns>
-    public bool loadReplay()
+    public bool LoadReplay()
     {
         if (replayFile == null)
         {
@@ -101,7 +101,7 @@ public class ReplayItem : MonoBehaviour
         }
         else
         {
-            return (Level.loadReplay(replayFile.FullName) != null);
+            return (Level.LoadReplay(replayFile.FullName) != null);
         }
     }
 }

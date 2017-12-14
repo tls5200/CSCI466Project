@@ -37,7 +37,7 @@ public class Player : DestructableObject
         }
     }
 
-    protected override void startDestructableObject()
+    protected override void StartDestructableObject()
     {
         if (team < 1)
         {
@@ -66,9 +66,9 @@ public class Player : DestructableObject
         }
     }
 
-    protected override void updateDestructableObject()
+    protected override void UpdateDestructableObject()
     {
-        input = Controls.get().players[playerNum];
+        input = Controls.Get().players[playerNum];
 
         Vector2 move = new Vector2();
 
@@ -84,11 +84,11 @@ public class Player : DestructableObject
 
         //move this Player relative to its current angle
         if (input.relativeMovement)
-            modifyVelocityRelative(move);
+            ModifyVelocityRelative(move);
 
         //move this Player relative to the screen
         else
-            modifyVelocityAbsolute(move);
+            ModifyVelocityAbsolute(move);
 
         //turn this Player left or right
         if (input.turns)
@@ -99,7 +99,7 @@ public class Player : DestructableObject
         //point this Player in a direction on the screen
         else
         {
-            double toTurn = new Vector2(input.turnL - input.turnR, input.turnUp - input.turnDown).getAngle();
+            double toTurn = new Vector2(input.turnL - input.turnR, input.turnUp - input.turnDown).GetAngle();
 
             if (!double.IsNaN(toTurn))
                 angle = (float)toTurn;
@@ -115,9 +115,9 @@ public class Player : DestructableObject
             shootTimer = shootTimeSecs * level.updatesPerSec;
 
             //create a new lazerShot infront of this Player
-            SpaceObject shot = level.createObject("LazerShotPF", new Vector2(0, 2).rotate(angle) + position, angle);
+            SpaceObject shot = level.CreateObject("LazerShotPF", new Vector2(0, 2).Rotate(angle) + position, angle);
             shot.velocity = velocity;
-            shot.moveForward(shotSpeed);
+            shot.MoveForward(shotSpeed);
             shot.color = color;
             shot.team = team;
 
@@ -129,36 +129,36 @@ public class Player : DestructableObject
         {
             if (theItems[i] != null)
             {
-                theItems[i].holding(input.items(i));
+                theItems[i].Holding(input.items(i));
                 if (input.pickupDrop && input.items(i))
-                    theItems[i].drop();
+                    theItems[i].Drop();
             }
         }
     }
 
-    protected override void destroyDestructableObject()
+    protected override void DestroyDestructableObject()
     {
         //when this Player is destroyed, drop all of its Items
         for (int i = 0; i < theItems.Length; i++)
         {
             if (theItems[i] != null)
             {
-                theItems[i].drop();
+                theItems[i].Drop();
             }
         }
     }
 
-    protected override void destructableObjectCollision(DestructableObject other, Collision2D collision)
+    protected override void DestructableObjectCollision(DestructableObject other, Collision2D collision)
     {
         
     }
 
-    protected override void indestructableObjectCollision(IndestructableObject other, Collision2D collision)
+    protected override void IndestructableObjectCollision(IndestructableObject other, Collision2D collision)
     {
         
     }
 
-    protected override void nonInteractiveObjectCollision(NonInteractiveObject other)
+    protected override void NonInteractiveObjectCollision(NonInteractiveObject other)
     {
         //if this Player is colliding with an Item then check to see if it should be picked up
         if (input.pickupDrop && other.GetType().IsSubclassOf(typeof(Item)))
@@ -168,32 +168,32 @@ public class Player : DestructableObject
             {
                 if (input.items(i))
                 {
-                    item.pickup(this, i);
+                    item.Pickup(this, i);
                     return;
                 }
             }
-            item.pickup(this);
+            item.Pickup(this);
         }
     }
 
-    protected override void playerCollision(Player other, Collision2D collision)
+    protected override void PlayerCollision(Player other, Collision2D collision)
     {
         
     }
 
-    public override void damageThis(float damage)
+    public override void DamageThis(float damage)
     {
         //don't let this take damage during the begining seconds of the Level
         if (level.duration.Seconds > INVULNERABLE_SECS)
         {
-            base.damageThis(damage);
+            base.DamageThis(damage);
 
             if (damage > armor)
                 level.score += (damage - armor) * DAMAGE_POINT_MULTIPLIER;
         }
     }
 
-    public Player clone()
+    public Player Clone()
     {
         Player clone = (Player)this.MemberwiseClone();
         clone.theItems = new Item[PlayerInput.NUM_ITEMS];

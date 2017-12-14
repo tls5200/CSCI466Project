@@ -14,7 +14,7 @@ public class AboutMenu : MonoBehaviour
     /// <summary>
     /// method the back button calls, changes the screen to the Main menu
     /// </summary>
-    public void back() 
+    public void Back() 
     {
         GameStates.gameState = GameStates.GameState.Main;
     }

@@ -148,7 +148,7 @@ public abstract class Level : MonoBehaviour
     /// Get a random angle in degrees between 0 and 360.
     /// </summary>
     /// <returns>A random angle in degrees.</returns>
-    public float getRandomAngle()
+    public float GetRandomAngle()
     {
         return random.Next((int)(360 * PRECISION)) / PRECISION;
     }
@@ -158,7 +158,7 @@ public abstract class Level : MonoBehaviour
     /// </summary>
     /// <param name="maxValues">Max value of the Vector2's parts.</param>
     /// <returns>A Vector2 with random values.</returns>
-    public Vector2 getRandomVector2(float maxValues)
+    public Vector2 GetRandomVector2(float maxValues)
     {
         return new Vector2(random.Next((int)(maxValues * PRECISION)) / PRECISION,
             random.Next((int)(maxValues * PRECISION)) / PRECISION);
@@ -170,7 +170,7 @@ public abstract class Level : MonoBehaviour
     /// <param name="maxValues">Max value of the Vector2's parts.</param>
     /// <param name="minValues">Min value of the Vector2's parts.</param>
     /// <returns>A Vector2 with random values.</returns>
-    public Vector2 getRandomVector2(float minValues, float maxValues)
+    public Vector2 GetRandomVector2(float minValues, float maxValues)
     {
         return new Vector2(random.Next((int)(minValues * PRECISION), (int)(maxValues * PRECISION)) / PRECISION,
            random.Next((int)(minValues * PRECISION), (int)(maxValues * PRECISION)) / PRECISION);
@@ -180,7 +180,7 @@ public abstract class Level : MonoBehaviour
     /// Get a Vector2 representing a random position in this Level.
     /// </summary>
     /// <returns>A random position in this Level.</returns>
-    public Vector2 getRandomPosition()
+    public Vector2 GetRandomPosition()
     {
         return new Vector2(random.Next((int)(gameBounds.width * PRECISION)) / PRECISION,
             random.Next((int)(gameBounds.height * PRECISION)) / PRECISION) + gameBounds.min;
@@ -190,7 +190,7 @@ public abstract class Level : MonoBehaviour
     /// Get a Vector2 representing a random positoin on the edge of this Level. 
     /// </summary>
     /// <returns></returns>
-    public Vector2 getRandomGameEdge()
+    public Vector2 GetRandomGameEdge()
     {
         int edge = random.Next(3);
 
@@ -216,9 +216,9 @@ public abstract class Level : MonoBehaviour
     /// </summary>
     /// <param name="maxSpeed">Maximum magnitude of velocity</param>
     /// <returns>A random velocity.</returns>
-    public Vector2 getRandomVelocity(float maxSpeed)
+    public Vector2 GetRandomVelocity(float maxSpeed)
     {
-        float angle = getRandomAngle() * Mathf.Deg2Rad;
+        float angle = GetRandomAngle() * Mathf.Deg2Rad;
         float speed = random.Next((int)(maxSpeed * PRECISION));
 
         return new Vector2((speed / PRECISION) * Mathf.Cos(angle),
@@ -230,9 +230,9 @@ public abstract class Level : MonoBehaviour
     /// </summary>
     /// <param name="speed">Magnitude of velocity</param>
     /// <returns>A velocity in a random direction.</returns>
-    public Vector2 getVelocityInRandomDirection(float speed)
+    public Vector2 GetVelocityInRandomDirection(float speed)
     {
-        float angle = getRandomAngle() * Mathf.Deg2Rad;
+        float angle = GetRandomAngle() * Mathf.Deg2Rad;
 
         return new Vector2(random.Next((int)(speed * PRECISION)) / PRECISION * Mathf.Cos(angle * Mathf.Deg2Rad),
             random.Next((int)(speed * PRECISION)) / PRECISION) * Mathf.Sin(angle * Mathf.Deg2Rad);
@@ -242,61 +242,61 @@ public abstract class Level : MonoBehaviour
     //The following methods give simple ways to create a GameObject and get that 
     //GameObject's SpaceObject script.
     #region createObject helper methods
-    public SpaceObject createObject(string namePF)
+    public SpaceObject CreateObject(string namePF)
     {
-        return createObject(namePF, getRandomPosition(), getRandomAngle());
+        return CreateObject(namePF, GetRandomPosition(), GetRandomAngle());
     }
 
-    public SpaceObject createObject(string namePF, Vector2 position)
+    public SpaceObject CreateObject(string namePF, Vector2 position)
     {
-        SpaceObject current = createObject(namePF, position, getRandomAngle());
+        SpaceObject current = CreateObject(namePF, position, GetRandomAngle());
         return current;
     }
 
-    public SpaceObject createObject(string namePF, Vector2 position, float angle)
+    public SpaceObject CreateObject(string namePF, Vector2 position, float angle)
     {
         UnityEngine.GameObject obj = Instantiate(Resources.Load(namePF), position, Quaternion.Euler(0, 0, angle)) as GameObject;
         return obj.GetComponent<SpaceObject>();
     }
 
-    public SpaceObject createObject(string namePF, Vector2 position, float angle, Vector2 velocity)
+    public SpaceObject CreateObject(string namePF, Vector2 position, float angle, Vector2 velocity)
     {
-        SpaceObject current = createObject(namePF, position, angle);
+        SpaceObject current = CreateObject(namePF, position, angle);
         current.velocity = velocity;
         return current;
     }
 
-    public SpaceObject createObject(string namePF, Vector2 position, float angle, Vector2 veloctiy, float angularVelocity)
+    public SpaceObject CreateObject(string namePF, Vector2 position, float angle, Vector2 veloctiy, float angularVelocity)
     {
-        SpaceObject current = createObject(namePF, position, angle, veloctiy);
+        SpaceObject current = CreateObject(namePF, position, angle, veloctiy);
         current.angularVelocity = angularVelocity;
         return current;
     }
 
-    public SpaceObject createObject(string namePF, Vector2 position, float angle, float speedForward)
+    public SpaceObject CreateObject(string namePF, Vector2 position, float angle, float speedForward)
     {
-        SpaceObject current = createObject(namePF, position, angle);
-        current.moveForward(speedForward);
+        SpaceObject current = CreateObject(namePF, position, angle);
+        current.MoveForward(speedForward);
         return current;
     }
 
-    public SpaceObject createObject(string namePF, Vector2 position, float angle, float speedForward, float angularVelocity)
+    public SpaceObject CreateObject(string namePF, Vector2 position, float angle, float speedForward, float angularVelocity)
     {
-        SpaceObject current = createObject(namePF, position, angle, speedForward);
+        SpaceObject current = CreateObject(namePF, position, angle, speedForward);
         current.angularVelocity = angularVelocity;
         return current;
     }
 
-    public SpaceObject createObject(string namePF, Vector2 position, float angle, Vector2 veloctiy, float angularVelocity, Vector2 scale)
+    public SpaceObject CreateObject(string namePF, Vector2 position, float angle, Vector2 veloctiy, float angularVelocity, Vector2 scale)
     {
-        SpaceObject current = createObject(namePF, position, angle, veloctiy, angularVelocity);
+        SpaceObject current = CreateObject(namePF, position, angle, veloctiy, angularVelocity);
         current.scale = scale;
         return current;
     }
 
-    public SpaceObject createObject(string namePF, Vector2 position, float angle, Vector2 veloctiy, float angularVelocity, float scale)
+    public SpaceObject CreateObject(string namePF, Vector2 position, float angle, Vector2 veloctiy, float angularVelocity, float scale)
     {
-        SpaceObject current = createObject(namePF, position, angle, veloctiy, angularVelocity);
+        SpaceObject current = CreateObject(namePF, position, angle, veloctiy, angularVelocity);
         current.scale = new Vector2(scale, scale);
         return current;
     }
@@ -345,7 +345,7 @@ public abstract class Level : MonoBehaviour
     /// <param name="indestructables">Should the list contain IndestructableObjects?</param>
     /// <param name="nonInteractives">Should the list contain NonInteractiveObjects?</param>
     /// <returns>A list of lists containing all the selected types of SpaceObjects</returns>
-    public List<IEnumerable<SpaceObject>> getTypes(bool players, bool destructables, bool indestructables, bool nonInteractives)
+    public List<IEnumerable<SpaceObject>> GetTypes(bool players, bool destructables, bool indestructables, bool nonInteractives)
     {
         List<IEnumerable<SpaceObject>> objects = new List<IEnumerable<SpaceObject>>();
 
@@ -404,35 +404,35 @@ public abstract class Level : MonoBehaviour
     */
 
     //The following methods remove or add the given DestructableObject to the correct list.
-    public void removeFromGame(DestructableObject remove)
+    public void RemoveFromGame(DestructableObject remove)
     {
         if (remove.GetType() == typeof(Player))
-            remove.destroyThis();
+            remove.DestroyThis();
         else
             removeDestructables.Add(remove);
     }
 
-    public void removeFromGame(IndestructableObject remove)
+    public void RemoveFromGame(IndestructableObject remove)
     {
         removeIndestructables.Add(remove);
     }
 
-    public void removeFromGame(NonInteractiveObject remove)
+    public void RemoveFromGame(NonInteractiveObject remove)
     {
         removeNonInteractives.Add(remove);
     }
 
-    public void addToGame(DestructableObject add)
+    public void AddToGame(DestructableObject add)
     {
         addDestructables.Add(add);
     }
 
-    public void addToGame(IndestructableObject add)
+    public void AddToGame(IndestructableObject add)
     {
         addIndestructables.Add(add);
     }
 
-    public void addToGame(NonInteractiveObject add)
+    public void AddToGame(NonInteractiveObject add)
     {
         addNonInteractives.Add(add);
     }
@@ -459,18 +459,18 @@ public abstract class Level : MonoBehaviour
             return theMusicAudio;
         }
     }
-    protected void musicPlay(AudioClip clip)
+    protected void MusicPlay(AudioClip clip)
     {
         theMusicAudio.clip = clip;
         theMusicAudio.loop = true;
         theMusicAudio.Play();
     }
-    protected void musicPlay(string clipName)
+    protected void MusicPlay(string clipName)
     {
         AudioClip clip = Resources.Load(clipName) as AudioClip;
 
         if (clip != null)
-            musicPlay(clip);
+            MusicPlay(clip);
         else
             Debug.Log("Couldn't load audioclip: " + clipName);
     }
@@ -495,17 +495,17 @@ public abstract class Level : MonoBehaviour
             return theEffectAudio;
         }
     }
-    public void effectPlay(AudioClip clip)
+    public void EffectPlay(AudioClip clip)
     {
         theEffectAudio.clip = clip;
         theEffectAudio.Play();
     }
-    protected void effectPlay(string clipName)
+    protected void EffectPlay(string clipName)
     {
         AudioClip clip = Resources.Load(clipName) as AudioClip;
 
         if (clip != null)
-            effectPlay(clip);
+            EffectPlay(clip);
         else
             Debug.Log("Couldn't load audioclip: " + clipName);
     }
@@ -527,7 +527,7 @@ public abstract class Level : MonoBehaviour
     /// Abstract method for derived Levels to impliment to do things when the Level is created, 
     /// like adding enemies to the this Level. Called by create() method below.
     /// </summary>
-    protected abstract void createLevel();
+    protected abstract void CreateLevel();
 
 
     private bool created = false;
@@ -538,14 +538,14 @@ public abstract class Level : MonoBehaviour
     /// <param name="difficulty">Difficulty of this Level.</param>
     /// <param name="randomSeed">A number to start the RandomNumbers, used so that replay can sync up.</param>
     /// <param name="pvp">If Players are competing in this Level or not.</param>
-    public void create(int numPlayers, float difficulty, int randomSeed, bool pvp)
+    public void Create(int numPlayers, float difficulty, int randomSeed, bool pvp)
     {
         if (numPlayers > Controls.MAX_PLAYERS)
         {
             throw new Exception("Too manp players given to Level.create(): " + numPlayers.ToString() + " players given.");
         }
 
-        Controls.get().clearInputs();
+        Controls.Get().ClearInputs();
         theCurrentLevel = this;
         
         background = GetComponent<SpriteRenderer>();
@@ -577,22 +577,22 @@ public abstract class Level : MonoBehaviour
             thePlayers[i] = current;
 
             //save the initial Player so that it can be saved in if a replay is made
-            initialPlayers[i] = current.clone();
+            initialPlayers[i] = current.Clone();
         }
 
         //reset Player inputs
-        foreach (PlayerControls item in Controls.get().players)
+        foreach (PlayerControls item in Controls.Get().players)
         {
-            item.clearInputs();
+            item.ClearInputs();
         }
 
         theMusicAudio = gameObject.AddComponent<AudioSource>();
         theEffectAudio = gameObject.AddComponent<AudioSource>();
         
         //Let derived class do things at Level creation
-        createLevel();
+        CreateLevel();
 
-        updateObjectLists();
+        UpdateObjectLists();
 
         //set the scale of the background so that it covers this entire Level
         backgroundPosition = gameBounds.center;
@@ -617,7 +617,7 @@ public abstract class Level : MonoBehaviour
     /// Abstract method for derived Levels to impliment to do things every update. 
     /// Called by the FixedUpdate() method below.
     /// </summary>
-    protected abstract void updateLevel();
+    protected abstract void UpdateLevel();
     
     /// <summary>
     /// Method calld by Unity 50 times a second. This method is used to keep track of the 
@@ -632,7 +632,7 @@ public abstract class Level : MonoBehaviour
         //so destroy it.
         if (current != this)
         {
-            clearLevel();
+            ClearLevel();
             Destroy(this.gameObject);
             return;
         }
@@ -640,12 +640,12 @@ public abstract class Level : MonoBehaviour
         theDuration += UnityEngine.Time.fixedDeltaTime;
 
         //Let derived class do things at Level update
-        updateObjectLists();
-        updateLevel();
+        UpdateObjectLists();
+        UpdateLevel();
 
         //set the volumes depending on the user controlled volume and code controlled volume.
-        theMusicAudio.volume = Options.get().volumeMusic * musicVolume;
-        theEffectAudio.volume = Options.get().volumeMusic * effectVolume;
+        theMusicAudio.volume = Options.Get().volumeMusic * musicVolume;
+        theEffectAudio.volume = Options.Get().volumeMusic * effectVolume;
 
         if (GameStates.gameState == GameStates.GameState.Replay)
         {
@@ -656,7 +656,7 @@ public abstract class Level : MonoBehaviour
             //if there is more to in the updateFile, then update using it
             else if (updateFile.Peek() >= 0)
             {
-                Controls.get().updateFromFile(updateFile);
+                Controls.Get().UpdateFromFile(updateFile);
             }
             else
             {
@@ -667,7 +667,7 @@ public abstract class Level : MonoBehaviour
         }
         else
         {
-            Controls.get().updateFromInput();
+            Controls.Get().UpdateFromInput();
         }
 
         int playersRemaining = 0;
@@ -683,16 +683,16 @@ public abstract class Level : MonoBehaviour
 
         //The Level is won if the won() method returns true, there is only 1 Player remaining if pvp 
         //and 2 seconds has past
-        if (won() && (!pvp || pvp && playersRemaining == 1) && duration.TotalSeconds > 2)
+        if (Won() && (!pvp || pvp && playersRemaining == 1) && duration.TotalSeconds > 2)
         {
             if (GameStates.gameState == GameStates.GameState.Replay)
             {
                 GameStates.gameState = GameStates.GameState.LoadReplay;
             }
             //if this is not the last Level, then autosave and go to the LevelComplete screen
-            else if (levelExists(levelNumber + 1))
+            else if (LevelExists(levelNumber + 1))
             {
-                save();
+                Save();
                 GameStates.gameState = GameStates.GameState.LevelComplete;
             }
             //if last Level, go to WoneGame screen
@@ -703,7 +703,7 @@ public abstract class Level : MonoBehaviour
         }
 
         //The Level is lost if lost() returns true or there are no Players remaining
-        if (lost() || playersRemaining == 0)
+        if (Lost() || playersRemaining == 0)
         {
             if (GameStates.gameState == GameStates.GameState.Replay)
             {
@@ -717,7 +717,7 @@ public abstract class Level : MonoBehaviour
         
         //If the static Level setting is not turned on, then set the center of this Level
         //to the center of the Player's positions
-        if (!Options.get().levelStatic && playersRemaining > 0)
+        if (!Options.Get().levelStatic && playersRemaining > 0)
         {
             float xUpperLimit = theGameBounds.xMin;
             float xLowerLimit = theGameBounds.xMax;
@@ -741,7 +741,7 @@ public abstract class Level : MonoBehaviour
             theGameBounds.center = new Vector2((xUpperLimit - xLowerLimit) / 2.0f + xLowerLimit, (yUpperLimit - yLowerLimit) / 2.0f + yLowerLimit);
         }
 
-        updateObjectLists();
+        UpdateObjectLists();
     }
 
     /// <summary>
@@ -772,7 +772,7 @@ public abstract class Level : MonoBehaviour
     /// DestructableObjects remain in this Level.
     /// </summary>
     /// <returns>If the Level has been won or not.</returns>
-    protected virtual bool won()
+    protected virtual bool Won()
     {
         foreach (DestructableObject item in destructables)
         {
@@ -790,7 +790,7 @@ public abstract class Level : MonoBehaviour
     /// objectives have been lost yet. By default, always returns false. 
     /// </summary>
     /// <returns>If this Level has been lost or not yet.</returns>
-    protected virtual bool lost()
+    protected virtual bool Lost()
     {
         return false;
     }
@@ -799,7 +799,7 @@ public abstract class Level : MonoBehaviour
     /// Updates the lists of SpaceObjects in this Level, adding and removing any 
     /// that have been set to be added or removed. 
     /// </summary>
-    private void updateObjectLists()
+    private void UpdateObjectLists()
     {
         foreach (DestructableObject item in addDestructables)
         {
@@ -842,7 +842,7 @@ public abstract class Level : MonoBehaviour
     /// Abstract method for derived Levels to impliment to do things right before this Level is destroyed. 
     /// Called by the OnDestroy() method below.
     /// </summary>
-    protected abstract void endLevel();
+    protected abstract void EndLevel();
 
     /// <summary>
     /// Called by Unity right before this Level is destoryed. Destroys all SpaceObjects in 
@@ -850,9 +850,9 @@ public abstract class Level : MonoBehaviour
     /// </summary>
     private void OnDestroy()
     {
-        endLevel();
+        EndLevel();
 
-        clearLevel();
+        ClearLevel();
 
         if (updateFile != null)
         {
@@ -867,9 +867,9 @@ public abstract class Level : MonoBehaviour
 
     
     /// Destroys all SpaceObjects in this Level
-    private void clearLevel()
+    private void ClearLevel()
     {
-        updateObjectLists();
+        UpdateObjectLists();
 
         foreach (Player item in thePlayers)
         {
@@ -903,9 +903,9 @@ public abstract class Level : MonoBehaviour
     /// Saves the Players' current Items to the given file. 
     /// </summary>
     /// <param name="save">File to save Items to.</param>
-    private void saveItems(System.IO.StreamWriter save)
+    private void SaveItems(System.IO.StreamWriter save)
     {
-        saveItems(save, thePlayers);
+        SaveItems(save, thePlayers);
     }
 
     /// <summary>
@@ -913,7 +913,7 @@ public abstract class Level : MonoBehaviour
     /// </summary>
     /// <param name="save">File to save Items to.</param>
     /// <param name="players">The Players holding the Items to be saved.</param>
-    private void saveItems(System.IO.StreamWriter save, Player[] players)
+    private void SaveItems(System.IO.StreamWriter save, Player[] players)
     {
         foreach (Player player in players)
         {
@@ -934,7 +934,7 @@ public abstract class Level : MonoBehaviour
                     save.WriteLine(name);
 
                     //save additional Item values. 
-                    save.WriteLine(item.getValues());
+                    save.WriteLine(item.GetValues());
                 }
             }
         }
@@ -944,7 +944,7 @@ public abstract class Level : MonoBehaviour
     /// Loads Items from the given file into the Players' Item lists. 
     /// </summary>
     /// <param name="load">File to load the Items from.</param>
-    private void loadItems(System.IO.StreamReader load)
+    private void LoadItems(System.IO.StreamReader load)
     {
         foreach (Player player in players)
         {
@@ -962,13 +962,13 @@ public abstract class Level : MonoBehaviour
                 else
                 {
                     //create the Item
-                    Item item = (Item)createObject(name, Vector2.zero, 0);
+                    Item item = (Item)CreateObject(name, Vector2.zero, 0);
 
                     //load any additional values it saved
-                    item.loadValues(values);
+                    item.LoadValues(values);
 
                     //put the Item into the correct Item slot
-                    item.pickup(player, i);
+                    item.Pickup(player, i);
                 }
             }
         }
@@ -979,7 +979,7 @@ public abstract class Level : MonoBehaviour
     /// Returns null if there was a problem creating the Level.
     /// </summary>
     /// <returns>A Level with this Level's starting settings or null.</returns>
-    public Level restartLevel()
+    public Level RestartLevel()
     {
         Level lvl;
 
@@ -987,12 +987,12 @@ public abstract class Level : MonoBehaviour
         if (updateFile == null)
         {
             //get the same number Level
-            lvl = getLevel(levelNumber);
+            lvl = GetLevel(levelNumber);
 
             if (lvl != null)
             {
                 //create the Level using the same settings
-                lvl.create(thePlayers.Length, theDifficulty, randomSeed, thePvp);
+                lvl.Create(thePlayers.Length, theDifficulty, randomSeed, thePvp);
 
                 //copy the Item's the Players had at the begining of the Level
                 for (int i = 0; i < thePlayers.Length; i++)
@@ -1001,16 +1001,16 @@ public abstract class Level : MonoBehaviour
                     {
                         if (initialPlayers[i].items[j] != null)
                         {
-                            initialPlayers[i].items[j].pickup(lvl.thePlayers[i], j);
+                            initialPlayers[i].items[j].Pickup(lvl.thePlayers[i], j);
                             lvl.theNonInteractives.AddLast(lvl.thePlayers[i].items[j]);
                             theNonInteractives.Remove(lvl.thePlayers[i].items[j]);
                         }
                     }
-                    lvl.initialPlayers[i] = lvl.thePlayers[i].clone();
+                    lvl.initialPlayers[i] = lvl.thePlayers[i].Clone();
                 }
 
                 //destroy this Level
-                clearLevel();
+                ClearLevel();
                 Destroy(this.gameObject);
             }
         }
@@ -1020,13 +1020,13 @@ public abstract class Level : MonoBehaviour
             //set the replay file to the begining and reload the replay
             updateFile.DiscardBufferedData();
             updateFile.BaseStream.Seek(0, System.IO.SeekOrigin.Begin);
-            lvl = loadReplay(updateFile);
+            lvl = LoadReplay(updateFile);
 
             //if the replay was loaded successfuly, then destroy this Level
             if (lvl != null)
             {
                 updateFile = null;
-                clearLevel();
+                ClearLevel();
                 Destroy(this.gameObject);
             }
         }
@@ -1040,16 +1040,16 @@ public abstract class Level : MonoBehaviour
     /// Should only be called when the current Level is completed
     /// </summary>
     /// <returns>The next Level or null</returns>
-    public Level nextLevel()
+    public Level NextLevel()
     {
         //find the next Level
-        Level lvl = getLevel(levelNumber + 1);
+        Level lvl = GetLevel(levelNumber + 1);
 
         //if there is a next Level
         if (lvl != null)
         {
             //create it with the same settings and a new random seed
-            lvl.create(thePlayers.Length, theDifficulty, theRandom.Next(), thePvp);
+            lvl.Create(thePlayers.Length, theDifficulty, theRandom.Next(), thePvp);
 
             //copy the Item's the Players had at the end of this Level into the next one
             for (int i = 0; i < thePlayers.Length; i++)
@@ -1058,16 +1058,16 @@ public abstract class Level : MonoBehaviour
                 {
                     if (thePlayers[i].items[j] != null)
                     {
-                        thePlayers[i].items[j].pickup(lvl.thePlayers[i], j);
+                        thePlayers[i].items[j].Pickup(lvl.thePlayers[i], j);
                         lvl.theNonInteractives.AddLast(lvl.thePlayers[i].items[j]);
                         theNonInteractives.Remove(lvl.thePlayers[i].items[j]);
                     }
                 }
-                lvl.initialPlayers[i] = lvl.thePlayers[i].clone();
+                lvl.initialPlayers[i] = lvl.thePlayers[i].Clone();
             }
 
             //destroy this Level
-            clearLevel();
+            ClearLevel();
             Destroy(this.gameObject);
         }
 
@@ -1079,20 +1079,20 @@ public abstract class Level : MonoBehaviour
     /// to an autosave file. 
     /// </summary>
     /// <returns>True if the save was successful, false otherwise.</returns>
-    private bool save()
+    private bool Save()
     {
         System.IO.Directory.CreateDirectory(SAVE_PATH);
 
         //make sure there aren't too many autosaves, delete the oldest first
         string[] filePaths = System.IO.Directory.GetFiles(SAVE_PATH, "*" + AUTO_SAVE_EXTENTION);
         Array.Sort(filePaths);
-        for (int i = 0; i < filePaths.Length - Options.get().levelMaxAutosaves - 1; i++)
+        for (int i = 0; i < filePaths.Length - Options.Get().levelMaxAutosaves - 1; i++)
         {
             System.IO.File.Delete(filePaths[i]);
         }
 
         //create the save with the autosave filename
-        return save(DateTime.Now.ToLocalTime().ToString("yy-MM-dd-HH-mm-ss"), true);
+        return Save(DateTime.Now.ToLocalTime().ToString("yy-MM-dd-HH-mm-ss"), true);
     }
 
     /// <summary>
@@ -1102,7 +1102,7 @@ public abstract class Level : MonoBehaviour
     /// <param name="fileName">Filename of the file to save to.</param>
     /// <param name="autoSave">Should this use the auto-save extention or the normal one?</param>
     /// <returns>True if the save was successful, false otherwise.</returns>
-    private bool save(string fileName, bool autoSave)
+    private bool Save(string fileName, bool autoSave)
     {
         System.IO.StreamWriter file = null;
 
@@ -1128,7 +1128,7 @@ public abstract class Level : MonoBehaviour
             file.WriteLine(Convert.ToString(random.Next()));
 
             //save the Players' Items to the file
-            saveItems(file);
+            SaveItems(file);
 
             return true;
         }
@@ -1149,9 +1149,9 @@ public abstract class Level : MonoBehaviour
     /// </summary>
     /// <param name="fileName">Filename of the file to save to.</param>
     /// <returns>True if successful</returns>
-    public bool save(string fileName)
+    public bool Save(string fileName)
     {
-        return save(fileName, false);
+        return Save(fileName, false);
     }
 
     /// <summary>
@@ -1160,7 +1160,7 @@ public abstract class Level : MonoBehaviour
     /// </summary>
     /// <param name="fileName">Name of the file to save the replay to.</param>
     /// <returns>True if the save was successful, false otherwise.</returns>
-    public bool saveReplay(string fileName)
+    public bool SaveReplay(string fileName)
     {
         System.IO.StreamWriter file = null;
 
@@ -1177,10 +1177,10 @@ public abstract class Level : MonoBehaviour
             file.WriteLine(Convert.ToString(randomSeed));
 
             //save the Players' initial Items to the file
-            saveItems(file, initialPlayers);
+            SaveItems(file, initialPlayers);
 
             //save the Player's input to the file
-            Controls.get().saveInputsToFile(file);
+            Controls.Get().SaveInputsToFile(file);
 
             return true;
         }
@@ -1200,9 +1200,9 @@ public abstract class Level : MonoBehaviour
     /// </summary>
     /// <param name="levelNum">Number of the Level.</param>
     /// <returns>True if the Level exists, false otherwise.</returns>
-    public static bool levelExists(int levelNum)
+    public static bool LevelExists(int levelNum)
     {
-        Level lvl = getLevel(levelNum);
+        Level lvl = GetLevel(levelNum);
 
         if (lvl == null)
         {
@@ -1221,7 +1221,7 @@ public abstract class Level : MonoBehaviour
     /// </summary>
     /// <param name="levelNum">Number of the Level.</param>
     /// <returns>A Level of the given number of null.</returns>
-    public static Level getLevel(int levelNum)
+    public static Level GetLevel(int levelNum)
     {
         UnityEngine.GameObject obj;
 
@@ -1288,7 +1288,7 @@ public abstract class Level : MonoBehaviour
     /// </summary>
     /// <param name="fileName">Name of the save file.</param>
     /// <returns>A Level loaded from the save file or null.</returns>
-    public static Level loadLevel(string fileName)
+    public static Level LoadLevel(string fileName)
     {
         System.IO.StreamReader file = null;
 
@@ -1297,7 +1297,7 @@ public abstract class Level : MonoBehaviour
             file = new System.IO.StreamReader(fileName);
 
             //Create a Level with the saved Level number
-            Level lvl = getLevel(Convert.ToInt32(file.ReadLine()));
+            Level lvl = GetLevel(Convert.ToInt32(file.ReadLine()));
 
             //if a Level with that number exists, create it
             if (lvl != null)
@@ -1309,16 +1309,16 @@ public abstract class Level : MonoBehaviour
                 int randomSeed = Convert.ToInt32(file.ReadLine());
 
                 //create the Level with the settings
-                lvl.create(players, difficulty, randomSeed, pvp);
+                lvl.Create(players, difficulty, randomSeed, pvp);
 
                 //load the Players' Items from the file
-                lvl.loadItems(file);
+                lvl.LoadItems(file);
 
                 //save the Player's initial settings
                 lvl.initialPlayers = new Player[lvl.players.Length];
                 for (int i = 0; i < lvl.thePlayers.Length; i++)
                 {
-                    lvl.initialPlayers[i] = lvl.thePlayers[i].clone();
+                    lvl.initialPlayers[i] = lvl.thePlayers[i].Clone();
                 }
             }
 
@@ -1341,11 +1341,11 @@ public abstract class Level : MonoBehaviour
     /// </summary>
     /// <param name="fileName">Name of the replay file.</param>
     /// <returns>A Level replay loaded from the replay file or null.</returns>
-    public static Level loadReplay(string fileName)
+    public static Level LoadReplay(string fileName)
     {
         try
         {
-            return loadReplay(new System.IO.StreamReader(fileName));
+            return LoadReplay(new System.IO.StreamReader(fileName));
         }
         catch
         {
@@ -1359,12 +1359,12 @@ public abstract class Level : MonoBehaviour
     /// </summary>
     /// <param name="file">The replay file.</param>
     /// <returns>A Level replay loaded from the replay file or null.</returns>
-    public static Level loadReplay(System.IO.StreamReader file)
+    public static Level LoadReplay(System.IO.StreamReader file)
     {
         try
         {
             //Create a Level with the saved Level number
-            Level lvl = getLevel(Convert.ToInt32(file.ReadLine()));
+            Level lvl = GetLevel(Convert.ToInt32(file.ReadLine()));
 
             //get the Level's setting from the file
             int players = Convert.ToInt32(file.ReadLine());
@@ -1373,16 +1373,16 @@ public abstract class Level : MonoBehaviour
             int randomSeed = Convert.ToInt32(file.ReadLine());
 
             //create the Level with the settings
-            lvl.create(players, difficulty, randomSeed, pvp);
+            lvl.Create(players, difficulty, randomSeed, pvp);
 
             //load the Players' Items from the file
-            lvl.loadItems(file);
+            lvl.LoadItems(file);
 
             //save the Player's initial settings
             lvl.initialPlayers = new Player[lvl.players.Length];
             for (int i = 0; i < lvl.thePlayers.Length; i++)
             {
-                lvl.initialPlayers[i] = lvl.thePlayers[i].clone();
+                lvl.initialPlayers[i] = lvl.thePlayers[i].Clone();
             }
 
             //set the Level's replay file to the given file so it can read the inputs from the file as needed.

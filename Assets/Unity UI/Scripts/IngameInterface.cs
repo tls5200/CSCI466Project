@@ -74,7 +74,7 @@ public class IngameInterface : MonoBehaviour
     //to be displayed without having a reference to an instance of this.
     private static IngameInterface current;
     private List<Message> messageList = new List<Message>();
-    public static void displayMessage(Message message)
+    public static void DisplayMessage(Message message)
     {
         if (current == null)
         {
@@ -86,9 +86,9 @@ public class IngameInterface : MonoBehaviour
             current.messageList.Add(message);
         }
     }
-    public static void displayMessage(string message, float durationSecs)
+    public static void DisplayMessage(string message, float durationSecs)
     {
-        displayMessage(new Message(message, durationSecs));
+        DisplayMessage(new Message(message, durationSecs));
     }
 
     void Start()
@@ -105,15 +105,15 @@ public class IngameInterface : MonoBehaviour
 
             //update the display of the current Level's duration
             durationText.text = level.duration.ToString(@"hh\:mm\:ss");
-            durationText.applyAlpha(Options.get().ingameInterfaceAlpha);
+            durationText.ApplyAlpha(Options.Get().ingameInterfaceAlpha);
 
             //update the display of the current Level's name
             numberName.text = level.levelNumber.ToString() + ":" + level.levelName;
-            numberName.applyAlpha(Options.get().ingameInterfaceAlpha);
+            numberName.ApplyAlpha(Options.Get().ingameInterfaceAlpha);
 
             //update the display of the progress though the current Level
             progress.text = level.progress;
-            progress.applyAlpha(Options.get().ingameInterfaceAlpha);
+            progress.ApplyAlpha(Options.Get().ingameInterfaceAlpha);
 
             //put each message in the messageList into one string with each on its own line
             string messageText = "";
@@ -138,7 +138,7 @@ public class IngameInterface : MonoBehaviour
 
             //update the display of messages
             messages.text = messageText;
-            messages.applyAlpha(Options.get().ingameInterfaceAlpha);
+            messages.ApplyAlpha(Options.Get().ingameInterfaceAlpha);
 
             for (int i = 0; i < playerPanels.Count; i++)
             {
@@ -152,7 +152,7 @@ public class IngameInterface : MonoBehaviour
                 {
                     playerPanels[i].SetActive(true);
                     playerPanels[i].GetComponent<PlayerPanel>().player = level.players[i];
-                    playerPanels[i].applyAlphaToChildren(Options.get().ingameInterfaceAlpha);
+                    playerPanels[i].ApplyAlphaToChildren(Options.Get().ingameInterfaceAlpha);
                 }
             }
         }      

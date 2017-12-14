@@ -19,48 +19,48 @@ public class Rammer : DestructableObject
     private float ramTime = 0;
     public float overRunSecs = 2;
 
-    protected override void destroyDestructableObject()
+    protected override void DestroyDestructableObject()
     {
 
     }
 
-    protected override void destructableObjectCollision(DestructableObject other, Collision2D collision)
-    {
-        if (other.team != team)
-        {
-            other.damageThis(damage);
-        }
-    }
-
-    protected override void indestructableObjectCollision(IndestructableObject other, Collision2D collision)
-    {
-        
-    }
-
-    protected override void nonInteractiveObjectCollision(NonInteractiveObject other)
-    {
-        
-    }
-
-    protected override void playerCollision(Player other, Collision2D collision)
+    protected override void DestructableObjectCollision(DestructableObject other, Collision2D collision)
     {
         if (other.team != team)
         {
-            other.damageThis(damage);
+            other.DamageThis(damage);
         }
     }
 
-    protected override void startDestructableObject()
+    protected override void IndestructableObjectCollision(IndestructableObject other, Collision2D collision)
     {
         
     }
 
-    protected override void updateDestructableObject()
+    protected override void NonInteractiveObjectCollision(NonInteractiveObject other)
+    {
+        
+    }
+
+    protected override void PlayerCollision(Player other, Collision2D collision)
+    {
+        if (other.team != team)
+        {
+            other.DamageThis(damage);
+        }
+    }
+
+    protected override void StartDestructableObject()
+    {
+        
+    }
+
+    protected override void UpdateDestructableObject()
     {
         //find new target if there is not currently one
         if (target == null || !target.active)
         {
-            target = closestObject(level.getTypes(true, true, false, false), false);
+            target = ClosestObject(level.GetTypes(true, true, false, false), false);
         }
         //continue moving forward until ramTime runs out
         else if (ramTime > 0)
@@ -71,7 +71,7 @@ public class Rammer : DestructableObject
         else
         {
             //find position to ram baised on this and target's current position, ram speed and target's current velocity
-            Vector3 temp = intersectPosTime(target, maxSpeed);
+            Vector3 temp = IntersectPosTime(target, maxSpeed);
             if (temp.z < 0)
             {
                 //remove target if it cannot be rammed
@@ -81,10 +81,10 @@ public class Rammer : DestructableObject
             {
                 //set how long to move towards target then move towards target
                 ramTime = (temp.z + overRunSecs) * level.updatesPerSec;
-                turnTowards(temp);
+                TurnTowards(temp);
                 angularVelocity = 0;
                 velocity = Vector2.zero;
-                moveTowards(temp, maxSpeed);
+                MoveTowards(temp, maxSpeed);
             }
         }
     }
@@ -93,12 +93,12 @@ public class Rammer : DestructableObject
     /// takes less damage baised on difficulty
     /// </summary>
     /// <param name="damage"></param>
-    public override void damageThis(float damage)
+    public override void DamageThis(float damage)
     {
         float temp = armor;
         armor *= difficultyModifier;
 
-        base.damageThis(damage);
+        base.DamageThis(damage);
 
         armor = temp;
     }

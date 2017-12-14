@@ -15,7 +15,7 @@ public class PullOthers : BlobBehaviour
         this.pullSpeed = pullSpeed;
     }
 
-    public override bool combine(BlobBehaviour other)
+    public override bool Combine(BlobBehaviour other)
     {
         if (other.GetType() == typeof(PullOthers))
         {
@@ -38,13 +38,13 @@ public class PullOthers : BlobBehaviour
     /// Pulls each other Blob in the current Level towards thisBlob baised on pullSpeed 
     /// </summary>
     /// <param name="thisBlob">The Blob this behavior is attached to.</param>
-    public override void update(Blob thisBlob)
+    public override void Update(Blob thisBlob)
     {
         foreach (DestructableObject item in Level.current.destructables)
         {
             if ((item.GetType().IsSubclassOf(typeof(Blob)) || item.GetType() == typeof(Blob)) && item != thisBlob)
             {
-                item.moveTowards(thisBlob, pullSpeed * magnitude * thisBlob.difficultyModifier / thisBlob.distanceFrom(item));
+                item.MoveTowards(thisBlob, pullSpeed * magnitude * thisBlob.difficultyModifier / thisBlob.DistanceFrom(item));
             }
         }
     }
@@ -54,7 +54,7 @@ public class BlueBlob : Blob
 {
     public float pullSpeed = 0.05f;
 
-    protected override void startBlob()
+    protected override void StartBlob()
     {
         color = new Color(0, 0, 1, color.a);
 

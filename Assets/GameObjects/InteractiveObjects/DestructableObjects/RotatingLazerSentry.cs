@@ -22,40 +22,40 @@ public class RotatingLazerSentry : DestructableObject
     private SpaceObject target = null;
     private Lazer lazer = null;
 
-    protected override void destroyDestructableObject()
+    protected override void DestroyDestructableObject()
     {
        
     }
 
-    protected override void destructableObjectCollision(DestructableObject other, Collision2D collision)
+    protected override void DestructableObjectCollision(DestructableObject other, Collision2D collision)
     {
        
     }
 
-    protected override void indestructableObjectCollision(IndestructableObject other, Collision2D collision)
+    protected override void IndestructableObjectCollision(IndestructableObject other, Collision2D collision)
     {
        
     }
 
-    protected override void nonInteractiveObjectCollision(NonInteractiveObject other)
+    protected override void NonInteractiveObjectCollision(NonInteractiveObject other)
     {
        
     }
 
-    protected override void playerCollision(Player other, Collision2D collision)
+    protected override void PlayerCollision(Player other, Collision2D collision)
     {
        
     }
 
-    protected override void startDestructableObject()
+    protected override void StartDestructableObject()
     {
        
     }
 
-    protected override void updateDestructableObject()
+    protected override void UpdateDestructableObject()
     {
         //if target is too far away, make it no longer the target
-        if (target != null && distanceFrom(target) > maxLength * difficultyModifier)
+        if (target != null && DistanceFrom(target) > maxLength * difficultyModifier)
         {
             target = null;
         }
@@ -63,10 +63,10 @@ public class RotatingLazerSentry : DestructableObject
         //if there is no target, try to find one
         if (target == null)
         {
-            target = closestObjectInDirection(level.getTypes(true, true, false, false), angle, false);
+            target = ClosestObjectInDirection(level.GetTypes(true, true, false, false), angle, false);
 
             //make sure the target is within the correct distance
-            if (target != null && distanceFrom(target) > maxLength * difficultyModifier)
+            if (target != null && DistanceFrom(target) > maxLength * difficultyModifier)
             {
                 target = null;
             }
@@ -79,7 +79,7 @@ public class RotatingLazerSentry : DestructableObject
 
             if (lazer != null)
             {
-                lazer.destroyThis();
+                lazer.DestroyThis();
                 lazer = null;
             }
         }
@@ -87,11 +87,11 @@ public class RotatingLazerSentry : DestructableObject
         else
         {
             angularVelocity = 0f;
-            turnTowards(target, Mathf.Abs(turnSpeed));
+            TurnTowards(target, Mathf.Abs(turnSpeed));
 
             if (lazer == null)
             {
-                lazer = (Lazer)level.createObject("LazerPF", position, angle);
+                lazer = (Lazer)level.CreateObject("LazerPF", position, angle);
                 lazer.attachedTo = this;
                 lazer.damage = damage;
                 lazer.extendSpeed = extendSpeed * difficultyModifier;

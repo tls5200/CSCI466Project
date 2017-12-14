@@ -22,39 +22,39 @@ public class Lazer : NonInteractiveObject
 
     private float originalLength;
 
-    protected override void destroyNonInteractiveObject()
+    protected override void DestroyNonInteractiveObject()
     {
 
     }
 
-    protected override void destructableObjectCollision(DestructableObject other)
+    protected override void DestructableObjectCollision(DestructableObject other)
     {
         if (other != attachedTo)
         {
-            other.damageThis(damage);
+            other.DamageThis(damage);
 
             //Retract the Lazer to only go to what it collided with, not past it
-            scale = new Vector2(scale.x, distanceFrom(other) / originalLength);
+            scale = new Vector2(scale.x, DistanceFrom(other) / originalLength);
         }
     }
 
-    protected override void indestructableObjectCollision(IndestructableObject other)
+    protected override void IndestructableObjectCollision(IndestructableObject other)
     {
         
     }
 
-    protected override void playerCollision(Player other)
+    protected override void PlayerCollision(Player other)
     {
         if (other != attachedTo)
         {
-            other.damageThis(damage);
+            other.DamageThis(damage);
 
             //Retract the Lazer to only go to what it collided with, not past it
-            scale = new Vector2(scale.x, distanceFrom(other) / originalLength);
+            scale = new Vector2(scale.x, DistanceFrom(other) / originalLength);
         }
     }
 
-    protected override void startNonInteractiveObject()
+    protected override void StartNonInteractiveObject()
     {
         //find and save the length of this
         angle = 0;
@@ -62,7 +62,7 @@ public class Lazer : NonInteractiveObject
         angle = attachedTo.angle + attachAngle;
     }
 
-    protected override void updateNonInteractiveObject()
+    protected override void UpdateNonInteractiveObject()
     {
         if (attachedTo != null && attachedTo.active)
         {
@@ -75,7 +75,7 @@ public class Lazer : NonInteractiveObject
             //keep it attached to the correct position relative to what it is attached to
             angle = attachedTo.angle + attachAngle;
             Vector2 toRotate = attachPoint;
-            position = attachedTo.position + toRotate.rotate(angle);
+            position = attachedTo.position + toRotate.Rotate(angle);
 
             //make sure physics is not moving this, would cause it to be attached incorrectly
             velocity = Vector2.zero;
@@ -84,7 +84,7 @@ public class Lazer : NonInteractiveObject
         //if this is not attached to anything, destroy it
         else
         {
-            destroyThis();
+            DestroyThis();
         }
     }
 }

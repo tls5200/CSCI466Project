@@ -16,7 +16,7 @@ public static class GameObjectExtentions
     /// </summary>
     /// <param name="applyTo"></param>
     /// <param name="alpha">What to change the alpha channel to.</param>
-    public static void applyAlpha(this Transform applyTo, float alpha)
+    public static void ApplyAlpha(this Transform applyTo, float alpha)
     {
         SpriteRenderer sprite = applyTo.GetComponent<SpriteRenderer>();
         if (sprite != null)
@@ -48,7 +48,7 @@ public static class GameObjectExtentions
     /// </summary>
     /// <param name="applyTo"></param>
     /// <param name="alpha">What to change the alpha channel to.</param>
-    public static void applyAlpha(this Text applyTo, float alpha)
+    public static void ApplyAlpha(this Text applyTo, float alpha)
     { 
             Color color = applyTo.color;
             color.a = alpha;
@@ -60,7 +60,7 @@ public static class GameObjectExtentions
     /// </summary>
     /// <param name="applyTo"></param>
     /// <param name="alpha">What to change the alpha channel to.</param>
-    public static void applyAlpha(this SpriteRenderer applyTo, float alpha)
+    public static void ApplyAlpha(this SpriteRenderer applyTo, float alpha)
     {
         Color color = applyTo.color;
         color.a = alpha;
@@ -72,7 +72,7 @@ public static class GameObjectExtentions
     /// </summary>
     /// <param name="applyTo"></param>
     /// <param name="alpha">What to change the alpha channel to.</param>
-    public static void applyAlpha(this Image applyTo, float alpha)
+    public static void ApplyAlpha(this Image applyTo, float alpha)
     {
         Color color = applyTo.color;
         color.a = alpha;
@@ -84,11 +84,11 @@ public static class GameObjectExtentions
     /// </summary>
     /// <param name="applyTo"></param>
     /// <param name="alpha">What to change the alpha channel to.</param>
-    public static void applyAlphaToChildren(this GameObject applyTo, float alpha)
+    public static void ApplyAlphaToChildren(this GameObject applyTo, float alpha)
     {
         foreach (Transform item in applyTo.transform)
         {
-            item.applyAlpha(alpha);
+            item.ApplyAlpha(alpha);
         }
     }
 }
@@ -104,7 +104,7 @@ public static class VectorExtentions
     /// <param name="addend">this</param>
     /// <param name="toAdd">Amount to add</param>
     /// <returns>The result of the addition</returns>
-    public static Vector2 add(this Vector2 addend, float toAdd)
+    public static Vector2 Add(this Vector2 addend, float toAdd)
     {
         return new Vector2(addend.x + toAdd, addend.y + toAdd);
     }
@@ -115,7 +115,7 @@ public static class VectorExtentions
     /// <param name="addend">this</param>
     /// <param name="subtrahend">Amount to subtract</param>
     /// <returns>The result of the subtraction</returns>
-    public static Vector2 sub(this Vector2 minuend, float subtrahend)
+    public static Vector2 Sub(this Vector2 minuend, float subtrahend)
     {
         return new Vector2(minuend.x + subtrahend, minuend.y + subtrahend);
     }
@@ -126,7 +126,7 @@ public static class VectorExtentions
     /// <param name="dividend">this</param>
     /// <param name="divisor">What to mod by</param>
     /// <returns>The result of the mod</returns>
-    public static Vector2 mod(this Vector2 dividend, Vector2 divisor)
+    public static Vector2 Mod(this Vector2 dividend, Vector2 divisor)
     {
         return new Vector2(dividend.x % divisor.x, dividend.y % divisor.y);
     }
@@ -137,7 +137,7 @@ public static class VectorExtentions
     /// <param name="dividend">this</param>
     /// <param name="divisor">What to mod by</param>
     /// <returns>The result of the mod</returns>
-    public static Vector3 mod(this Vector3 dividend, Vector3 divisor)
+    public static Vector3 Mod(this Vector3 dividend, Vector3 divisor)
     {
         return new Vector3(dividend.x % divisor.x, dividend.y % divisor.y, dividend.z % divisor.z);
     }
@@ -148,7 +148,7 @@ public static class VectorExtentions
     /// <param name="dividend">this</param>
     /// <param name="divisor">What to dot by</param>
     /// <returns>The result of the dot product</returns>
-    public static Vector2 dot(this Vector2 v1, Vector2 v2)
+    public static Vector2 Dot(this Vector2 v1, Vector2 v2)
     {
         return new Vector2(v1.x * v2.x, v1.y * v2.y);
     }
@@ -159,7 +159,7 @@ public static class VectorExtentions
     /// <param name="dividend">this</param>
     /// <param name="divisor">What to dot by</param>
     /// <returns>The result of the dot product</returns>
-    public static Vector3 dot(this Vector3 v1, Vector3 v2)
+    public static Vector3 Dot(this Vector3 v1, Vector3 v2)
     {
         return new Vector3(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z);
     }
@@ -170,7 +170,7 @@ public static class VectorExtentions
     /// <param name="dividend">this</param>
     /// <param name="divisor">What to divide by</param>
     /// <returns>The result of the division</returns>
-    public static Vector2 div(this Vector2 dividend, Vector2 divisor)
+    public static Vector2 Div(this Vector2 dividend, Vector2 divisor)
     {
         return new Vector2(dividend.x / divisor.x, dividend.y / divisor.y);
     }
@@ -181,7 +181,7 @@ public static class VectorExtentions
     /// <param name="dividend">this</param>
     /// <param name="divisor">What to divide by</param>
     /// <returns>The result of the division</returns>
-    public static Vector3 div(this Vector3 dividend, Vector3 divisor)
+    public static Vector3 Div(this Vector3 dividend, Vector3 divisor)
     {
         return new Vector3(dividend.x / divisor.x, dividend.y / divisor.y, dividend.z / divisor.z);
     }
@@ -192,7 +192,7 @@ public static class VectorExtentions
     /// <param name="toRotate">this</param>
     /// <param name="angle">Amount to rotate in degrees</param>
     /// <returns>The result of the rotation</returns>
-    public static Vector2 rotate(this Vector2 toRotate, float angle)
+    public static Vector2 Rotate(this Vector2 toRotate, float angle)
     {
         float sin = Mathf.Sin(angle * Mathf.Deg2Rad);
         float cos = Mathf.Cos(angle * Mathf.Deg2Rad);
@@ -206,7 +206,7 @@ public static class VectorExtentions
     /// <param name="position">this</param>
     /// <param name="positionTo">What to find the angle between.</param>
     /// <returns>The angle between this and the given Vector2</returns>
-    public static float angleFrom(this Vector2 position, Vector2 positionTo)
+    public static float AngleFrom(this Vector2 position, Vector2 positionTo)
     {
         return Mathf.Rad2Deg * (Mathf.Atan2(position.y - positionTo.y, position.x - positionTo.x) + Mathf.PI / 2);
     }
@@ -217,7 +217,7 @@ public static class VectorExtentions
     /// <param name="original">this</param>
     /// <param name="direction">direction to point the Vector2 in</param>
     /// <returns>A Vector2 with the same magnitude in the given direction</returns>
-    public static Vector2 toAngle(this Vector2 original, float direction)
+    public static Vector2 ToAngle(this Vector2 original, float direction)
     {
         float magnitude = original.magnitude;
         original.x = -Mathf.Sin(direction * Mathf.Deg2Rad) * magnitude;
@@ -230,7 +230,7 @@ public static class VectorExtentions
     /// </summary>
     /// <param name="angleFrom">this</param>
     /// <returns>The angle this Vector2 is pointing</returns>
-    public static float getAngle(this Vector2 angleFrom)
+    public static float GetAngle(this Vector2 angleFrom)
     {
         if (angleFrom.x == 0f)
         {

@@ -44,7 +44,7 @@ public class HealthBar : MonoBehaviour
             Vector3 scale = healthFront.transform.localScale;
             if (owner.maxHealth <= 0)
             {
-                owner.destroyThis();
+                owner.DestroyThis();
                 Destroy(this.gameObject);
                 return;
             }
@@ -53,12 +53,12 @@ public class HealthBar : MonoBehaviour
 
             //update the alpha of the front image baised on Options
             Color color = frontSpriteRenderer.color;
-            color.a = Options.get().healthBarAlpha;
+            color.a = Options.Get().healthBarAlpha;
             frontSpriteRenderer.color = color;
 
             //update the alpha of the back image baised on Options
             color = backSpriteRenderer.color;
-            color.a = Options.get().healthBarAlpha / 2.0f;
+            color.a = Options.Get().healthBarAlpha / 2.0f;
             backSpriteRenderer.color = color;
 
             //move this HealthBar to always be ontop of its owner

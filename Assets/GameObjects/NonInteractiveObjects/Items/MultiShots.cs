@@ -30,7 +30,7 @@ public class MultiShots : Item
     private float spreadSpeed;
     private float spread;
 
-    protected override void dropItem()
+    protected override void DropItem()
     {
         
     }
@@ -38,7 +38,7 @@ public class MultiShots : Item
     /// <summary>
     ///shoot LazerShots infront of the holder in an arch 
     /// </summary>
-    private void shoot()
+    private void Shoot()
     {
         //make sure the arch is within the correct bounds
         if (spread < spreadStart)
@@ -57,8 +57,8 @@ public class MultiShots : Item
             float currentAngle = holder.angle - spread / 2.0f + i * spread / (numberOfShots - 1);
 
             //create the LazerShot infront of the holder its angle
-            LazerShot current = (LazerShot)level.createObject("LazerShotPF", holder.position + offset.rotate(currentAngle), 
-                currentAngle, new Vector2(shotSpeed, 0).toAngle(currentAngle) + holder.velocity);
+            LazerShot current = (LazerShot)level.CreateObject("LazerShotPF", holder.position + offset.Rotate(currentAngle), 
+                currentAngle, new Vector2(shotSpeed, 0).ToAngle(currentAngle) + holder.velocity);
 
             //set the LazerShot's initial settings
             current.damage = damageEach;
@@ -75,7 +75,7 @@ public class MultiShots : Item
         level.score += USE_POINTS;
     }
 
-    protected override void holdingItem(bool use, bool startUse, bool endUse, bool doubleUse)
+    protected override void HoldingItem(bool use, bool startUse, bool endUse, bool doubleUse)
     {
         //update the time until the next shot
         if (shotCooldown > 0)
@@ -85,7 +85,7 @@ public class MultiShots : Item
         //if it is time and the holder releases this Item's key, shoot the shots
         else if (endUse)
         {
-            shoot(); 
+            Shoot(); 
         }
 
         //update the time since the holder pressed this Item's key,
@@ -96,7 +96,7 @@ public class MultiShots : Item
 
             if (shotTimer <= 0)
             {
-                shoot();
+                Shoot();
             }
         }
 
@@ -121,7 +121,7 @@ public class MultiShots : Item
         }
     }
 
-    protected override void pickupItem()
+    protected override void PickupItem()
     {
         //calculate the spreadSpeed
         spreadSpeed = (spreadMax - spreadStart) / (shotTimeSecs * level.updatesPerSec);

@@ -36,18 +36,18 @@ public class Controls
         //is a problem, the set the PlayerControls Keys to default values
         try
         {
-            loadControls();
+            LoadControls();
         }
         catch
         {
-            setDefaultControls();
+            SetDefaultControls();
         }
     }
 
     /// <summary>
     /// Sets the PlayerControl Keys and input settings to default values
     /// </summary>
-    public void setDefaultControls()
+    public void SetDefaultControls()
     {
         Debug.Log("Setting default controls");
 
@@ -74,8 +74,8 @@ public class Controls
         players[0].pauseKey = new Key(KeyCode.Escape);
         players[0].zoomInKey = new Key(KeyCode.LeftShift);
         players[0].zoomOutKey = new Key(KeyCode.LeftControl);
-        players[0].setRelativeMovement(false);
-        players[0].setTurns(true);
+        players[0].SetRelativeMovement(false);
+        players[0].SetTurns(true);
         players[0].mouseTurn = true;
 
         if (MAX_PLAYERS > 1)
@@ -103,8 +103,8 @@ public class Controls
             players[1].pauseKey = new Key(KeyCode.Joystick1Button7);
             players[1].zoomInKey = new Key(KeyCode.Joystick1Button4);
             players[1].zoomOutKey = new Key(KeyCode.Joystick1Button5);
-            players[1].setRelativeMovement(false);
-            players[1].setTurns(false);
+            players[1].SetRelativeMovement(false);
+            players[1].SetTurns(false);
             players[1].mouseTurn = false;
         }
         if (MAX_PLAYERS > 2)
@@ -132,8 +132,8 @@ public class Controls
             players[2].pauseKey = new Key(KeyCode.Joystick2Button7);
             players[2].zoomInKey = new Key(KeyCode.Joystick2Button4);
             players[2].zoomOutKey = new Key(KeyCode.Joystick2Button5);
-            players[2].setRelativeMovement(false);
-            players[2].setTurns(false);
+            players[2].SetRelativeMovement(false);
+            players[2].SetTurns(false);
             players[2].mouseTurn = false;
         }
         if (MAX_PLAYERS > 3)
@@ -161,8 +161,8 @@ public class Controls
             players[3].pauseKey = new Key(KeyCode.Joystick3Button7);
             players[3].zoomInKey = new Key(KeyCode.Joystick3Button4);
             players[3].zoomOutKey = new Key(KeyCode.Joystick3Button5);
-            players[3].setRelativeMovement(false);
-            players[3].setTurns(false);
+            players[3].SetRelativeMovement(false);
+            players[3].SetTurns(false);
             players[3].mouseTurn = false;
         }
     }
@@ -170,13 +170,13 @@ public class Controls
     /// <summary>
     /// Updates the PlayerControls from the user's input
     /// </summary>
-    public void updateFromInput()
+    public void UpdateFromInput()
     {
         foreach (PlayerControls item in players)
         {
             if (item != null)
             {
-                item.updateFromInput();
+                item.UpdateFromInput();
             }
         }
     }
@@ -185,14 +185,14 @@ public class Controls
     /// Updates the PlayerControls from the given file
     /// </summary>
     /// <param name="file">file to update from</param>
-    public void updateFromFile(System.IO.StreamReader file)
+    public void UpdateFromFile(System.IO.StreamReader file)
     {
         if (file.Peek() >= 0)
-            Options.get().levelStatic = System.Convert.ToBoolean(file.ReadLine());
+            Options.Get().levelStatic = System.Convert.ToBoolean(file.ReadLine());
         foreach (PlayerControls item in players)
         {
             if (file.Peek() >= 0)
-                item.updateFromString(file.ReadLine());
+                item.UpdateFromString(file.ReadLine());
         }
     }
 
@@ -200,11 +200,11 @@ public class Controls
     /// Saves the input history in PlayerControls to the given file
     /// </summary>
     /// <param name="file">file to save to</param>
-    public void saveInputsToFile(System.IO.StreamWriter file)
+    public void SaveInputsToFile(System.IO.StreamWriter file)
     {
         for (int i = 0; i < players[0].inputs.Count; i++)
         {
-            file.WriteLine(Options.get().levelStatic.ToString());
+            file.WriteLine(Options.Get().levelStatic.ToString());
             for (int j = 0; j < MAX_PLAYERS; j++)
             {
                 file.WriteLine(players[j].inputs[i].ToString());
@@ -215,16 +215,16 @@ public class Controls
     /// <summary>
     /// Loads the PlayerControls Keys and input options from the default file
     /// </summary>
-    public void loadControls()
+    public void LoadControls()
     {
-        loadControls(CONTROLS_FILE);
+        LoadControls(CONTROLS_FILE);
     }
 
     /// <summary>
     /// Loads the PlayerControls Keys and input options from the given file
     /// </summary>
     /// <param name="fileName">file to load PlayerControls from</param>
-    public void loadControls(string fileName)
+    public void LoadControls(string fileName)
     {
         System.IO.StreamReader file = null;
         try
@@ -233,7 +233,7 @@ public class Controls
 
             foreach (PlayerControls item in thePlayers)
             {
-                item.setFromString(file.ReadLine());
+                item.SetFromString(file.ReadLine());
             }
         }
         catch (System.Exception e)
@@ -252,16 +252,16 @@ public class Controls
     /// <summary>
     /// Saves the PlayerControls Keys and input options to the default file
     /// </summary>
-    public void saveControls()
+    public void SaveControls()
     {
-        saveControls(CONTROLS_FILE);
+        SaveControls(CONTROLS_FILE);
     }
 
     /// <summary>
     /// Saves the PlayerControls Keys and input options to the given file
     /// </summary>
     /// <param name="fileName">file to save PlayerControls to</param>
-    public void saveControls(string fileName)
+    public void SaveControls(string fileName)
     {
         System.IO.StreamWriter file = null;
         try
@@ -291,17 +291,17 @@ public class Controls
     /// <summary>
     /// Clear the input history in all the PlayerControls
     /// </summary>
-    public void clearInputs()
+    public void ClearInputs()
     {
         foreach (PlayerControls item in thePlayers)
         {
-            item.clearInputs();
+            item.ClearInputs();
         }
     }
 
     private static Controls singleton;
 
-    public static Controls get()
+    public static Controls Get()
     {
         if (singleton == null)
         {

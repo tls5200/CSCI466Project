@@ -113,7 +113,7 @@ public class GameLoop : MonoBehaviour
                         Time.timeScale = 1;
 
                         //pause the game if the pause key is pressed by the user
-                        foreach (PlayerControls item in Controls.get().players)
+                        foreach (PlayerControls item in Controls.Get().players)
                         {
                             if (item.Pause)
                             {
@@ -129,7 +129,7 @@ public class GameLoop : MonoBehaviour
 
                         //unpause the game and set the gameState to its prevous one
                         //(Paying or Replay) if the pause key is pressed by the user
-                        foreach (PlayerControls item in Controls.get().players)
+                        foreach (PlayerControls item in Controls.Get().players)
                         {
                             if (item.Pause)
                             {
@@ -155,7 +155,7 @@ public class GameLoop : MonoBehaviour
                         Time.timeScale = 1;
 
                         //pause the game if the pause key is pressed by the user
-                        foreach (PlayerControls item in Controls.get().players)
+                        foreach (PlayerControls item in Controls.Get().players)
                         {
                             if (item.Pause)
                             {
@@ -198,8 +198,8 @@ public class GameLoop : MonoBehaviour
         }
 
         //save Controls and Options settings to their default files
-        Controls.get().saveControls();
-        Options.get().saveOptions();
+        Controls.Get().SaveControls();
+        Options.Get().SaveOptions();
 
         #if UNITY_EDITOR
         // Application.Quit() does not work in the editor so

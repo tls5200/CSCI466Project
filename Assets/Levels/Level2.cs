@@ -26,59 +26,59 @@ public class Level2 : Level
         }
     }
 
-    protected override void createLevel()
+    protected override void CreateLevel()
     {
-        musicPlay("sounds/level1Loop");
+        MusicPlay("sounds/level1Loop");
   
         levelSize = new Vector2(80, 60); //set the level size
         
-        createObject("SpaceDustPF", gameBounds.center, 0);
+        CreateObject("SpaceDustPF", gameBounds.center, 0);
 
         for (int i = 0; i < 2; i++)
         {
-            GravityWell current = (GravityWell)createObject("GravityWellPF", getRandomPosition(), getRandomAngle());
-            current.velocity = getRandomVelocity(current.maxSpeed);
+            GravityWell current = (GravityWell)CreateObject("GravityWellPF", GetRandomPosition(), GetRandomAngle());
+            current.velocity = GetRandomVelocity(current.maxSpeed);
         }
 
         for (int i = 0; i < 4; i++)
         {
-            RandomTurner current = (RandomTurner)createObject("RandomTurnerPF", getRandomPosition(), getRandomAngle());
-            current.velocity = getRandomVelocity(current.maxSpeed);
+            RandomTurner current = (RandomTurner)CreateObject("RandomTurnerPF", GetRandomPosition(), GetRandomAngle());
+            current.velocity = GetRandomVelocity(current.maxSpeed);
         }
 
         for (int i = 0; i < 2; i++)
         {
-            RubberyDebris current = (RubberyDebris)createObject("RubberyDebrisPF", getRandomPosition(), getRandomAngle());
-            current.velocity = getRandomVelocity(current.maxSpeed);
+            RubberyDebris current = (RubberyDebris)CreateObject("RubberyDebrisPF", GetRandomPosition(), GetRandomAngle());
+            current.velocity = GetRandomVelocity(current.maxSpeed);
         }
 
         for (int i = 0; i < 4; i++)
         {
-            SputteringDebris current = (SputteringDebris)createObject("SputteringDebrisPF", getRandomPosition(), getRandomAngle());
-            current.velocity = getRandomVelocity(current.maxSpeed);
+            SputteringDebris current = (SputteringDebris)CreateObject("SputteringDebrisPF", GetRandomPosition(), GetRandomAngle());
+            current.velocity = GetRandomVelocity(current.maxSpeed);
         }
 
         for (int i = 0; i < 1; i++)
         {
-            IndestructableDebris current = (IndestructableDebris)createObject("IndestructableDebrisPF", getRandomPosition(), getRandomAngle());
-            current.velocity = getRandomVelocity(current.maxSpeed);
+            IndestructableDebris current = (IndestructableDebris)CreateObject("IndestructableDebrisPF", GetRandomPosition(), GetRandomAngle());
+            current.velocity = GetRandomVelocity(current.maxSpeed);
         }
 
-        HomingMissiles homing = (HomingMissiles)createObject("HomingMissilesPF");
+        HomingMissiles homing = (HomingMissiles)CreateObject("HomingMissilesPF");
     }
 
-    protected override void updateLevel()
+    protected override void UpdateLevel()
     {
 
     }
 
-    protected override void endLevel()
+    protected override void EndLevel()
     {
         
     }
     
     /*
-    protected override bool won()
+    protected override bool Won()
     {
         //add win conditinos here, default is when all enimes die    
 
@@ -86,7 +86,7 @@ public class Level2 : Level
     }
 
     
-    protected override bool lost()
+    protected override bool Lost()
     {
         //add loss conditions here, if player dies then its always loss
 

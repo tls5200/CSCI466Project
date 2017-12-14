@@ -12,8 +12,8 @@ using System.Collections;
 public abstract class IndestructableObject : InteractiveObject
 {
     //called shortly after this IndestructableObject is created
-    protected abstract void startIndestructableObject();
-    protected override void startInteractiveObject()
+    protected abstract void StartIndestructableObject();
+    protected override void StartInteractiveObject()
     {
         //if there is no level, this should not exist, so it is destoryed 
         if (level == null)
@@ -23,29 +23,29 @@ public abstract class IndestructableObject : InteractiveObject
         }
         else
         {
-            startIndestructableObject();
+            StartIndestructableObject();
 
             //add this to the Level's lists of what it contains
-            level.addToGame(this);
+            level.AddToGame(this);
         }
     }
 
     // Called every time the game is FixedUpated, 50 times a second by default
-    protected abstract void updateIndestructableObject();
-    protected override void updateInteractiveObject()
+    protected abstract void UpdateIndestructableObject();
+    protected override void UpdateInteractiveObject()
     {
-        updateIndestructableObject();
+        UpdateIndestructableObject();
     }
 
     // Called right before this IndestructableObject is destroyed
     // removes this from the Level's lists
-    protected abstract void destroyIndestructableObject();
-    protected override void destroyInteractiveObject()
+    protected abstract void DestroyIndestructableObject();
+    protected override void DestroyInteractiveObject()
     {
-        destroyIndestructableObject();
+        DestroyIndestructableObject();
         if (level != null && level.indestructables != null)
         {
-            level.removeFromGame(this);
+            level.RemoveFromGame(this);
         }
     }
 
@@ -60,15 +60,15 @@ public abstract class IndestructableObject : InteractiveObject
 
         if (spaceObject.GetType() == (typeof(Player)))
         {
-            playerCollision((Player)spaceObject, collision);
+            PlayerCollision((Player)spaceObject, collision);
         }
         else if (spaceObject.GetType().IsSubclassOf(typeof(DestructableObject)))
         {
-            destructableObjectCollision((DestructableObject)spaceObject, collision);
+            DestructableObjectCollision((DestructableObject)spaceObject, collision);
         }
         else if (spaceObject.GetType().IsSubclassOf(typeof(IndestructableObject)))
         {
-            indestructableObjectCollision((IndestructableObject)spaceObject, collision);
+            IndestructableObjectCollision((IndestructableObject)spaceObject, collision);
         }
     }
 }

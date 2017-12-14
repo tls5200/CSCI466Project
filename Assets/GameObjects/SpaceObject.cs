@@ -68,11 +68,11 @@ public abstract class SpaceObject : MonoBehaviour
     {
         get
         {
-            return spriteSize.dot(scale);
+            return spriteSize.Dot(scale);
         }
         set
         {
-            scale = value.div(spriteSize);
+            scale = value.Div(spriteSize);
         }
     }
 
@@ -223,17 +223,17 @@ public abstract class SpaceObject : MonoBehaviour
 
     #region helper methods
 
-    public void effectPlay(AudioClip clip)
+    public void EffectPlay(AudioClip clip)
     {
         theEffectAudio.clip = clip;
         theEffectAudio.Play();
     }
-    protected void effectPlay(string clipName)
+    protected void EffectPlay(string clipName)
     {
         AudioClip clip = Resources.Load(clipName) as AudioClip;
 
         if (clip != null)
-            effectPlay(clip);
+            EffectPlay(clip);
         else
             Debug.Log("Couldn't load audioclip: " + clipName);
     }
@@ -243,16 +243,16 @@ public abstract class SpaceObject : MonoBehaviour
     /// </summary>
     /// <param name="changeX">Change X value of velocity by, right being positive</param>
     /// <param name="changeY">Change Y value of velocity by, up being positive</param>
-    public void modifyVelocityAbsolute(float changeX, float changeY)
+    public void ModifyVelocityAbsolute(float changeX, float changeY)
     {
-        modifyVelocityAbsolute(new Vector2(changeX, changeY));
+        ModifyVelocityAbsolute(new Vector2(changeX, changeY));
     }
 
     /// <summary>
     /// Modifies the velocity by directly add the given Vector2 to it
     /// </summary>
     /// <param name="change">Change velocity by, +x being right and +y being up</param>
-    public void modifyVelocityAbsolute(Vector2 change)
+    public void ModifyVelocityAbsolute(Vector2 change)
     {
         GetComponent<Rigidbody2D>().velocity += change;
     }
@@ -263,9 +263,9 @@ public abstract class SpaceObject : MonoBehaviour
     /// </summary>
     /// <param name="changeX">How much forward and back to modify the velocity, right being positive.</param>
     /// <param name="changeY">How much left and right to modifty the velocity, forward being positive.</param>
-    public void modifyVelocityRelative(float changeX, float changeY)
+    public void ModifyVelocityRelative(float changeX, float changeY)
     {
-        modifyVelocityRelative(new Vector2(changeX, changeY));
+        ModifyVelocityRelative(new Vector2(changeX, changeY));
 
     }
 
@@ -274,9 +274,9 @@ public abstract class SpaceObject : MonoBehaviour
     /// The given Vector2 is rotated by this SpaceObject's angle.
     /// </summary>
     /// <param name="change">How much to modify the velocity, +x being right and +y being forward.</param>
-    public void modifyVelocityRelative(Vector2 change)
+    public void ModifyVelocityRelative(Vector2 change)
     {
-        GetComponent<Rigidbody2D>().velocity += change.rotate(angle);
+        GetComponent<Rigidbody2D>().velocity += change.Rotate(angle);
     }
 
     /// <summary>
@@ -295,7 +295,7 @@ public abstract class SpaceObject : MonoBehaviour
         {
             if (speed == 0)
             {
-                moveForward(value);
+                MoveForward(value);
             }
             else if (velocity.x == 0)
             {
@@ -323,13 +323,13 @@ public abstract class SpaceObject : MonoBehaviour
     /// then its moved foward by the given value. 
     /// </summary>
     /// <param name="change"></param>
-    public void modifySpeed(float change)
+    public void ModifySpeed(float change)
     {
         if (change != 0)
         {
             if (speed == 0)
             {
-                moveForward(change);
+                MoveForward(change);
             }
             else
             {
@@ -345,9 +345,9 @@ public abstract class SpaceObject : MonoBehaviour
     /// </summary>
     /// <param name="from">The given position.</param>
     /// <returns>The distance between this SpaceObject and the given position on the screen.</returns>
-    public float distanceFromScreenPosition(Vector2 from)
+    public float DistanceFromScreenPosition(Vector2 from)
     {
-        return (float)System.Math.Sqrt(distanceFromScreenPositionSquared(from));
+        return (float)System.Math.Sqrt(DistanceFromScreenPositionSquared(from));
     }
 
     /// <summary>
@@ -358,7 +358,7 @@ public abstract class SpaceObject : MonoBehaviour
     /// </summary>
     /// <param name="from">The given position.</param>
     /// <returns>The distance squared between this SpaceObject and the given position on the screen.</returns>
-    public float distanceFromScreenPositionSquared(Vector2 from)
+    public float DistanceFromScreenPositionSquared(Vector2 from)
     {
         return (float)(position.y - from.y) * (position.y - from.y) +
             (position.x - from.x) * (position.x - from.x);
@@ -374,7 +374,7 @@ public abstract class SpaceObject : MonoBehaviour
     /// </summary>
     /// <param name="position">The given position to find mirrors of.</param>
     /// <returns>Alll 9 mirrors of the given position.</returns>
-    public static Vector2[] mirrorsOfPosition(Vector2 position)
+    public static Vector2[] MirrorsOfPosition(Vector2 position)
     {
         Vector2[] mirrors = new Vector2[9];
 
@@ -403,14 +403,14 @@ public abstract class SpaceObject : MonoBehaviour
     /// </summary>
     /// <param name="position">Postion to find the closest mirror of.</param>
     /// <returns>The closest mirror of the given position.</returns>
-    public Vector2 closestMirrorOfPosition(Vector2 position)
+    public Vector2 ClosestMirrorOfPosition(Vector2 position)
     {
         Vector2 closestPosition = position;
         float shortestDistance = float.PositiveInfinity;
 
-        foreach (Vector2 item in mirrorsOfPosition(position))
+        foreach (Vector2 item in MirrorsOfPosition(position))
         {
-            float tempDistance = distanceFromScreenPositionSquared(item);
+            float tempDistance = DistanceFromScreenPositionSquared(item);
             if (tempDistance < shortestDistance)
             {
                 closestPosition = item;
@@ -427,9 +427,9 @@ public abstract class SpaceObject : MonoBehaviour
     /// </summary>
     /// <param name="from">Position to find the distance from.</param>
     /// <returns>Returns the ingame distance from the given position.</returns>
-    public float distanceFrom(Vector2 from)
+    public float DistanceFrom(Vector2 from)
     {
-        return distanceFromScreenPosition(closestMirrorOfPosition(from));
+        return DistanceFromScreenPosition(ClosestMirrorOfPosition(from));
     }
 
     /// <summary>
@@ -438,9 +438,9 @@ public abstract class SpaceObject : MonoBehaviour
     /// </summary>
     /// <param name="from">SpaceObject to find the distance from.</param>
     /// <returns>Returns the ingame distance from the given SpaceObject's position.</returns>
-    public float distanceFrom(SpaceObject from)
+    public float DistanceFrom(SpaceObject from)
     {
-        return distanceFrom(from.position);
+        return DistanceFrom(from.position);
     }
 
     /// <summary>
@@ -450,9 +450,9 @@ public abstract class SpaceObject : MonoBehaviour
     /// </summary>
     /// <param name="from">Position to find the distance squared from.</param>
     /// <returns>Returns the ingame distance squared from the given position.</returns>
-    public float distanceFromSquared(Vector2 from)
+    public float DistanceFromSquared(Vector2 from)
     {
-        return distanceFromScreenPositionSquared(closestMirrorOfPosition(from));
+        return DistanceFromScreenPositionSquared(ClosestMirrorOfPosition(from));
     }
 
     /// <summary>
@@ -462,9 +462,9 @@ public abstract class SpaceObject : MonoBehaviour
     /// </summary>
     /// <param name="from">SpaceObject to find the distance squared from.</param>
     /// <returns>Returns the ingame distance squared from the given SpaceObject's position.</returns>
-    public float distanceFromSquared(SpaceObject from)
+    public float DistanceFromSquared(SpaceObject from)
     {
-        return distanceFromSquared(from.position);
+        return DistanceFromSquared(from.position);
     }
 
     /// <summary>
@@ -473,9 +473,9 @@ public abstract class SpaceObject : MonoBehaviour
     /// </summary>
     /// <param name="from">Position to find the Vector2 from.</param>
     /// <returns>Returns the ingame Vector2 from the given position.</returns>
-    public Vector2 vector2From(Vector2 from)
+    public Vector2 Vector2From(Vector2 from)
     {
-        return closestMirrorOfPosition(from) - position;
+        return ClosestMirrorOfPosition(from) - position;
     }
 
     /// <summary>
@@ -484,9 +484,9 @@ public abstract class SpaceObject : MonoBehaviour
     /// </summary>
     /// <param name="from">Position to find the Vector2 from.</param>
     /// <returns>Returns the ingame Vector2 from the given position.</returns>
-    public Vector2 vector2From(SpaceObject from)
+    public Vector2 Vector2From(SpaceObject from)
     {
-        return vector2From(from.position);
+        return Vector2From(from.position);
     }
 
     /// <summary>
@@ -496,7 +496,7 @@ public abstract class SpaceObject : MonoBehaviour
     /// <typeparam name="T">Type of SpaceObject.</typeparam>
     /// <param name="objectLists">SpaceObjects to look for closest in.</param>
     /// <returns>Return the cloest SpaceObject or null if no possibilites were found.</returns>
-    public T closestObject<T>(IEnumerable<IEnumerable<T>> objectLists) where T : SpaceObject
+    public T ClosestObject<T>(IEnumerable<IEnumerable<T>> objectLists) where T : SpaceObject
     {
         T closest = null;
         float closestDistance = float.MaxValue;
@@ -505,11 +505,11 @@ public abstract class SpaceObject : MonoBehaviour
         {
             if (item != null)
             {
-                T temp = closestObject<T>(item);
+                T temp = ClosestObject<T>(item);
 
                 if (temp != null)
                 {
-                    float tempDistance = distanceFromSquared(temp);
+                    float tempDistance = DistanceFromSquared(temp);
 
                     if (tempDistance < closestDistance)
                     {
@@ -531,7 +531,7 @@ public abstract class SpaceObject : MonoBehaviour
     /// <typeparam name="T">Type of SpaceObject.</typeparam>
     /// <param name="objectLists">SpaceObjects to look for closest in.</param>
     /// <returns>Return the cloest SpaceObject or null if no possibilites were found.</returns>
-    public T closestObject<T>(IEnumerable<T> objectList) where T: SpaceObject
+    public T ClosestObject<T>(IEnumerable<T> objectList) where T: SpaceObject
     {
         T closest = null;
         float closestDistance = float.MaxValue;
@@ -540,7 +540,7 @@ public abstract class SpaceObject : MonoBehaviour
         {
             if (item != null && item.active && item != this)
             {
-                float distance = this.distanceFromSquared(item);
+                float distance = this.DistanceFromSquared(item);
 
                 if (distance < closestDistance)
                 {
@@ -562,7 +562,7 @@ public abstract class SpaceObject : MonoBehaviour
     /// <param name="objectLists">SpaceObjects to look for closest in.</param>
     /// <param name="sameTeam">If ture, only looks for SpaceObjects on the same team. If false, only looks for SpaceObjects on a different team.</param>
     /// <returns>Return the cloest SpaceObject that meets the criteria or null if no possibilites were found.</returns>
-    public T closestObject<T>(IEnumerable<IEnumerable<T>> objectLists, bool sameTeam) where T : SpaceObject
+    public T ClosestObject<T>(IEnumerable<IEnumerable<T>> objectLists, bool sameTeam) where T : SpaceObject
     {
         T closest = null;
         float closestDistance = float.MaxValue;
@@ -571,11 +571,11 @@ public abstract class SpaceObject : MonoBehaviour
         {
             if (item != null)
             {
-                T temp = closestObject<T>(item, sameTeam);
+                T temp = ClosestObject<T>(item, sameTeam);
 
                 if (temp != null)
                 {
-                    float tempDistance = distanceFromSquared(temp);
+                    float tempDistance = DistanceFromSquared(temp);
 
                     if (tempDistance < closestDistance)
                     {
@@ -599,7 +599,7 @@ public abstract class SpaceObject : MonoBehaviour
     /// <param name="objectLists">SpaceObjects to look for closest in.</param>
     /// <param name="sameTeam">If ture, only looks for SpaceObjects on the same team. If false, only looks for SpaceObjects on a different team.</param>
     /// <returns>Return the cloest SpaceObject that meets the criteria or null if no possibilites were found.</returns>
-    public T closestObject<T>(IEnumerable<T> objectList, bool sameTeam) where T : SpaceObject
+    public T ClosestObject<T>(IEnumerable<T> objectList, bool sameTeam) where T : SpaceObject
     {
         T closest = null;
         float closestDistance = float.MaxValue;
@@ -608,7 +608,7 @@ public abstract class SpaceObject : MonoBehaviour
         {
             if (item != null && ((sameTeam && item.team == team) || (!sameTeam && item.team != team)) && item != this && item.active)
             {
-                float distance = this.distanceFromSquared(item);
+                float distance = this.DistanceFromSquared(item);
 
                 if (distance < closestDistance)
                 {
@@ -629,7 +629,7 @@ public abstract class SpaceObject : MonoBehaviour
     /// <param name="objectLists">SpaceObjects to look for closest in.</param>
     /// <param name="direction">Direction of this SpaceObject to look.</param>
     /// <returns>Return the cloest SpaceObject or null if no possibilites were found.</returns>
-    public T closestObjectInDirection<T>(IEnumerable<IEnumerable<T>> objectLists, float direction) where T : SpaceObject
+    public T ClosestObjectInDirection<T>(IEnumerable<IEnumerable<T>> objectLists, float direction) where T : SpaceObject
     {
         T closest = null;
         float closestDistance = float.MaxValue;
@@ -638,11 +638,11 @@ public abstract class SpaceObject : MonoBehaviour
         {
             if (item != null)
             {
-                T temp = closestObjectInDirection<T>(item, direction);
+                T temp = ClosestObjectInDirection<T>(item, direction);
 
                 if (temp != null)
                 {
-                    float tempDistance = distanceFromSquared(temp);
+                    float tempDistance = DistanceFromSquared(temp);
 
                     if (tempDistance < closestDistance)
                     {
@@ -666,9 +666,9 @@ public abstract class SpaceObject : MonoBehaviour
     /// <param name="objectLists">SpaceObjects to look for closest in.</param>
     /// <param name="direction">Direction of this SpaceObject to look.</param>
     /// <returns>Return the cloest SpaceObject or null if no possibilites were found.</returns>
-    public T closestObjectInDirection<T>(IEnumerable<T> objectList, float direction) where T : SpaceObject
+    public T ClosestObjectInDirection<T>(IEnumerable<T> objectList, float direction) where T : SpaceObject
     {
-        Ray ray = new Ray(position, new Vector2(0, 1).rotate(direction));
+        Ray ray = new Ray(position, new Vector2(0, 1).Rotate(direction));
 
         T closest = null;
         float closestDistance = float.MaxValue;
@@ -677,7 +677,7 @@ public abstract class SpaceObject : MonoBehaviour
         {
             if (item != null && item.active && item != this)
             {
-                float distance = this.distanceFromSquared(item);
+                float distance = this.DistanceFromSquared(item);
 
                 if (distance < closestDistance && item.bounds.IntersectRay(ray))
                 {
@@ -701,7 +701,7 @@ public abstract class SpaceObject : MonoBehaviour
     /// <param name="direction">Direction of this SpaceObject to look.</param>
     /// <param name="sameTeam">If ture, only looks for SpaceObjects on the same team. If false, only looks for SpaceObjects on a different team.</param>
     /// <returns>Return the cloest SpaceObject or null if no possibilites were found.</returns>
-    public T closestObjectInDirection<T>(IEnumerable<IEnumerable<T>> objectLists, float direction,  bool sameTeam) where T : SpaceObject
+    public T ClosestObjectInDirection<T>(IEnumerable<IEnumerable<T>> objectLists, float direction,  bool sameTeam) where T : SpaceObject
     {
         T closest = null;
         float closestDistance = float.MaxValue;
@@ -710,11 +710,11 @@ public abstract class SpaceObject : MonoBehaviour
         {
             if (item != null)
             {
-                T temp = closestObjectInDirection<T>(item, direction, sameTeam);
+                T temp = ClosestObjectInDirection<T>(item, direction, sameTeam);
 
                 if (temp != null)
                 {
-                    float tempDistance = distanceFromSquared(temp);
+                    float tempDistance = DistanceFromSquared(temp);
 
                     if (tempDistance < closestDistance)
                     {
@@ -740,9 +740,9 @@ public abstract class SpaceObject : MonoBehaviour
     /// <param name="direction">Direction of this SpaceObject to look.</param>
     /// <param name="sameTeam">If ture, only looks for SpaceObjects on the same team. If false, only looks for SpaceObjects on a different team.</param>
     /// <returns>Return the cloest SpaceObject or null if no possibilites were found.</returns>
-    public T closestObjectInDirection<T>(IEnumerable<T> objectList, float direction, bool sameTeam) where T : SpaceObject
+    public T ClosestObjectInDirection<T>(IEnumerable<T> objectList, float direction, bool sameTeam) where T : SpaceObject
     {
-        Ray ray = new Ray(position, new Vector2(0, 1).rotate(direction));
+        Ray ray = new Ray(position, new Vector2(0, 1).Rotate(direction));
         T closest = null;
         float closestDistance = float.MaxValue;
 
@@ -750,7 +750,7 @@ public abstract class SpaceObject : MonoBehaviour
         {
             if (item != null && ((sameTeam && item.team == team) || (!sameTeam && item.team != team)) && item != this && item.active)
             {
-                float distance = this.distanceFromSquared(item);
+                float distance = this.DistanceFromSquared(item);
 
                 if (distance < closestDistance && item.bounds.IntersectRay(ray))
                 {
@@ -767,10 +767,10 @@ public abstract class SpaceObject : MonoBehaviour
     /// </summary>
     /// <param name="moveTo">Position to move towards</param>
     /// <param name="speed">Speed to move towards position</param>
-    public void moveTowards(Vector2 moveTo, float speed)
+    public void MoveTowards(Vector2 moveTo, float speed)
     {
-        moveTo = closestMirrorOfPosition(moveTo);
-        modifyVelocityAbsolute((moveTo - position) / distanceFrom(moveTo) * speed);
+        moveTo = ClosestMirrorOfPosition(moveTo);
+        ModifyVelocityAbsolute((moveTo - position) / DistanceFrom(moveTo) * speed);
     }
 
     /// <summary>
@@ -778,18 +778,18 @@ public abstract class SpaceObject : MonoBehaviour
     /// </summary>
     /// <param name="moveTo">SpaceObject to move towards</param>
     /// <param name="speed">Speed to move towards the given SpaceObject</param>
-    public void moveTowards(SpaceObject moveTo, float speed)
+    public void MoveTowards(SpaceObject moveTo, float speed)
     {
-        moveTowards(moveTo.position, speed);
+        MoveTowards(moveTo.position, speed);
     }
 
     /// <summary>
     /// Turn this SpaceObject to face the given position
     /// </summary>
     /// <param name="turnTo">Position to turn to</param>
-    public void turnTowards(Vector2 turnTo)
+    public void TurnTowards(Vector2 turnTo)
     {
-        turnTo = closestMirrorOfPosition(turnTo);
+        turnTo = ClosestMirrorOfPosition(turnTo);
         angle = Mathf.Rad2Deg * (Mathf.Atan2(position.y - turnTo.y, position.x - turnTo.x) + Mathf.PI / 2);
     }
 
@@ -797,9 +797,9 @@ public abstract class SpaceObject : MonoBehaviour
     /// Turn this SpaceObject to face the given SpaceObject's position
     /// </summary>
     /// <param name="turnTo">SpaceObject to turn to</param>
-    public void turnTowards(SpaceObject turnTo)
+    public void TurnTowards(SpaceObject turnTo)
     {
-        turnTowards(turnTo.position);
+        TurnTowards(turnTo.position);
     }
 
     /// <summary>
@@ -810,7 +810,7 @@ public abstract class SpaceObject : MonoBehaviour
     /// </summary>
     /// <param name="rotateTo">Position to turn towards</param>
     /// <param name="amount">Amount to turn, in degrees</param>
-    public void turnTowards(Vector2 rotateTo, float amount)
+    public void TurnTowards(Vector2 rotateTo, float amount)
     {
         float theAngle = angle;
         while (theAngle < 0)
@@ -822,7 +822,7 @@ public abstract class SpaceObject : MonoBehaviour
             theAngle -= 360;
         }
 
-        rotateTo = closestMirrorOfPosition(rotateTo);
+        rotateTo = ClosestMirrorOfPosition(rotateTo);
         float angleTo = (float)Math.Atan2(position.y - rotateTo.y, position.x - rotateTo.x) + 0.5f * Mathf.PI;
         angleTo *= Mathf.Rad2Deg;
 
@@ -868,18 +868,18 @@ public abstract class SpaceObject : MonoBehaviour
     /// </summary>
     /// <param name="rotateTo">SpaceObject to turn towards</param>
     /// <param name="amount">Amount to turn, in degrees</param>
-    public void turnTowards(SpaceObject rotateTo, float amount)
+    public void TurnTowards(SpaceObject rotateTo, float amount)
     {
-        turnTowards(rotateTo.position, amount);
+        TurnTowards(rotateTo.position, amount);
     }
 
     /// <summary>
     /// Turn this SpaceObject to face away from the given position
     /// </summary>
     /// <param name="turnTo">Position to turn away from</param>
-    public void turnAway(Vector2 awayFrom)
+    public void TurnAway(Vector2 awayFrom)
     {
-        awayFrom = closestMirrorOfPosition(awayFrom);
+        awayFrom = ClosestMirrorOfPosition(awayFrom);
         angle = Mathf.Rad2Deg * (Mathf.Atan2(position.y - awayFrom.y, position.x - awayFrom.x) - Mathf.PI / 2);
     }
 
@@ -887,9 +887,9 @@ public abstract class SpaceObject : MonoBehaviour
     /// Turn this SpaceObject to face away from the given SpaceObject's position
     /// </summary>
     /// <param name="turnTo">SpaceObject to turn away from</param>
-    public void turnAway(SpaceObject awayFrom)
+    public void TurnAway(SpaceObject awayFrom)
     {
-        turnAway(awayFrom.position);
+        TurnAway(awayFrom.position);
     }
 
     /// <summary>
@@ -897,9 +897,9 @@ public abstract class SpaceObject : MonoBehaviour
     /// </summary>
     /// <param name="to">Position to find angle between.</param>
     /// <returns>Return the angle between this SpaceObject and the given position.</returns>
-    public float angleToAbsolute(Vector2 to)
+    public float AngleToAbsolute(Vector2 to)
     {
-        return position.angleFrom(to);
+        return position.AngleFrom(to);
     }
 
     /// <summary>
@@ -907,9 +907,9 @@ public abstract class SpaceObject : MonoBehaviour
     /// </summary>
     /// <param name="to">Position to find angle between.</param>
     /// <returns>Return the angle between this SpaceObject and the given SpaceObject's position.</returns>
-    public float angleToAbsolute(SpaceObject to)
+    public float AngleToAbsolute(SpaceObject to)
     {
-        return angleToAbsolute(to.position);
+        return AngleToAbsolute(to.position);
     }
 
     /// <summary>
@@ -917,9 +917,9 @@ public abstract class SpaceObject : MonoBehaviour
     /// </summary>
     /// <param name="to">Position to find angle between.</param>
     /// <returns>Returns the angle between the direction this SpaceObject is facing the given position.</returns>
-    public float angleToRelative(Vector2 to)
+    public float AngleToRelative(Vector2 to)
     {
-        return position.angleFrom(to) - angle;
+        return position.AngleFrom(to) - angle;
     }
 
     /// <summary>
@@ -927,18 +927,18 @@ public abstract class SpaceObject : MonoBehaviour
     /// </summary>
     /// <param name="to">Position to find angle between.</param>
     /// <returns>Returns the angle between the direction this SpaceObject is facing the given SpaceObject's position.</returns>
-    public float angleToRelative(SpaceObject to)
+    public float AngleToRelative(SpaceObject to)
     {
-        return angleToRelative(to.position);
+        return AngleToRelative(to.position);
     }
 
     /// <summary>
     /// Move this SpaceObject in the direction it is facing by the given amount. 
     /// </summary>
     /// <param name="speed">Amount to move.</param>
-    public void moveForward(float speed)
+    public void MoveForward(float speed)
     {
-        moveDirection(speed, angle);
+        MoveDirection(speed, angle);
     }
 
     /// <summary>
@@ -946,7 +946,7 @@ public abstract class SpaceObject : MonoBehaviour
     /// </summary>
     /// <param name="speed">Amount to move.</param>
     /// <param name="direction">Direction to move.</param>
-    public void moveDirection(float speed, float direction)
+    public void MoveDirection(float speed, float direction)
     {
         velocity += new Vector2(-Mathf.Sin(direction * Mathf.Deg2Rad) * speed, Mathf.Cos(direction * Mathf.Deg2Rad) * speed);
     }
@@ -960,9 +960,9 @@ public abstract class SpaceObject : MonoBehaviour
     /// <param name="intersect">Object to intersect with</param>
     /// <param name="speed">Speed this object will travel to intersect</param>
     /// <returns>(x, y) is the intersect position, (z) is the intersect time in seconds</returns>
-    public Vector3 intersectPosTime(SpaceObject intersect, float speed)
+    public Vector3 IntersectPosTime(SpaceObject intersect, float speed)
     {
-        return intersectPosTime(intersect, speed, position);
+        return IntersectPosTime(intersect, speed, position);
     }
 
     /// <summary>
@@ -975,13 +975,13 @@ public abstract class SpaceObject : MonoBehaviour
     /// <param name="speed">Speed object at position will travel to intersect</param>
     /// <param name="position">Position an object moving at the given speed will start from.</param>
     /// <returns>(x, y) is the intersect position, (z) is the intersect time in seconds</returns>
-    public static Vector3 intersectPosTime(SpaceObject intersect, float speed, Vector2 position)
+    public static Vector3 IntersectPosTime(SpaceObject intersect, float speed, Vector2 position)
     {
         float time = float.PositiveInfinity;
         Vector2 mirror = Vector2.positiveInfinity;
 
         //solve the quadratic equation
-        foreach (Vector2 pos in mirrorsOfPosition(intersect.position))
+        foreach (Vector2 pos in MirrorsOfPosition(intersect.position))
         {
             //find a in the quadratic equation
             float a = intersect.velocity.x * intersect.velocity.x + intersect.velocity.y * intersect.velocity.y - speed * speed;
@@ -1057,12 +1057,12 @@ public abstract class SpaceObject : MonoBehaviour
     /// <summary>
     /// Disables this SpaceObject. If this SpaceObject is not a Player, then also destroy it. 
     /// </summary>
-    public void destroyThis()
+    public void DestroyThis()
     {
         active = false;
         if (GetType() == typeof(Player))
         {
-            destroyObject();
+            DestroyObject();
         }
         else
         {
@@ -1071,18 +1071,18 @@ public abstract class SpaceObject : MonoBehaviour
     }
 
     //called shortly after this SpaceObject is created
-    protected abstract void startObject();
+    protected abstract void StartObject();
     protected void Start ()
     {
         theEffectAudio = gameObject.AddComponent<AudioSource>();
-        startObject();
+        StartObject();
 	}
 
     // Called every time the game is FixedUpated, 50 times a second by default
-    protected abstract void updateObject();
+    protected abstract void UpdateObject();
 	protected void FixedUpdate ()
     {
-        updateObject();
+        UpdateObject();
 
         //make sure this is not moving faster than its max values
         if (speed > maxSpeed)
@@ -1111,13 +1111,13 @@ public abstract class SpaceObject : MonoBehaviour
         }
 
         //update the effects volume
-        theEffectAudio.volume = Options.get().volumeMusic * effectVolume;
+        theEffectAudio.volume = Options.Get().volumeMusic * effectVolume;
     }
 
     // Called right before this SpaceObject is destroyed
-    protected abstract void destroyObject();
+    protected abstract void DestroyObject();
     protected void OnDestroy()
     {
-        destroyObject();
+        DestroyObject();
     }
 }

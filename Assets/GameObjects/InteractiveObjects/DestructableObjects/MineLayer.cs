@@ -22,37 +22,37 @@ public class MineLayer : DestructableObject
     public float acceleration = 0.2f;
     public Vector2 offset = new Vector2(0, -2);
 
-    protected override void destroyDestructableObject()
+    protected override void DestroyDestructableObject()
     {
 
     }
 
-    protected override void destructableObjectCollision(DestructableObject other, Collision2D collision)
-    {
-        
-    }
-
-    protected override void indestructableObjectCollision(IndestructableObject other, Collision2D collision)
+    protected override void DestructableObjectCollision(DestructableObject other, Collision2D collision)
     {
         
     }
 
-    protected override void nonInteractiveObjectCollision(NonInteractiveObject other)
+    protected override void IndestructableObjectCollision(IndestructableObject other, Collision2D collision)
     {
         
     }
 
-    protected override void playerCollision(Player other, Collision2D collision)
+    protected override void NonInteractiveObjectCollision(NonInteractiveObject other)
     {
         
     }
 
-    protected override void startDestructableObject()
+    protected override void PlayerCollision(Player other, Collision2D collision)
     {
         
     }
 
-    protected override void updateDestructableObject()
+    protected override void StartDestructableObject()
+    {
+        
+    }
+
+    protected override void UpdateDestructableObject()
     {
         //remove HomingMine entries of HomingMines that no longer exist
         List<HomingMine> remove = new List<HomingMine>();
@@ -77,12 +77,12 @@ public class MineLayer : DestructableObject
             if (mines.Count >= maxMines * difficultyModifier)
             {
                 HomingMine firstMine = mines.First.Value;
-                firstMine.destroyThis();
+                firstMine.DestroyThis();
                 mines.Remove(firstMine);
             }
 
             //create a new mine behind this 
-            HomingMine mine = (HomingMine)level.createObject("HomingMinePF", offset.rotate(angle) + position, 0, 0);
+            HomingMine mine = (HomingMine)level.CreateObject("HomingMinePF", offset.Rotate(angle) + position, 0, 0);
 
             mine.damage = damage;
             mine.team = team;
@@ -91,11 +91,11 @@ public class MineLayer : DestructableObject
         }
 
         //turn and move away from the closest enemy InteractiveObject if it is too close, or just move forward
-        SpaceObject turnFrom = closestObject(level.getTypes(true, true, true, false), false);
+        SpaceObject turnFrom = ClosestObject(level.GetTypes(true, true, true, false), false);
 
-        if (turnFrom != null && distanceFrom(turnFrom) < stayAwayDistance)
-            turnTowards(turnFrom, -turnSpeed);
+        if (turnFrom != null && DistanceFrom(turnFrom) < stayAwayDistance)
+            TurnTowards(turnFrom, -turnSpeed);
 
-        moveForward(acceleration);
+        MoveForward(acceleration);
     }
 }

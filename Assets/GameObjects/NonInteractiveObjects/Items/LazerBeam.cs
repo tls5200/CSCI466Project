@@ -20,21 +20,21 @@ public class LazerBeam : Item
     private Lazer lazer;
 
     //If this Item is dropped, destroy the Lazer if it exists
-    protected override void dropItem()
+    protected override void DropItem()
     {
         if (lazer != null)
         {
-            lazer.destroyThis();
+            lazer.DestroyThis();
             lazer = null;
         }
     }
 
-    protected override void holdingItem(bool use, bool startUse, bool endUse, bool doubleUse)
+    protected override void HoldingItem(bool use, bool startUse, bool endUse, bool doubleUse)
     {
         //if the holder presses this Item's key, create a Lazer
         if (startUse)
         {
-            lazer = (Lazer)level.createObject("LazerPF");
+            lazer = (Lazer)level.CreateObject("LazerPF");
             lazer.position = holder.position;
             lazer.angle = holder.angle;
             lazer.attachedTo = holder;
@@ -47,14 +47,14 @@ public class LazerBeam : Item
         //if the user presses releases this Item's key, destroy the Lazer
         if (!use && lazer != null)
         {
-            lazer.destroyThis();
+            lazer.DestroyThis();
             lazer = null;
 
             level.score += USE_POINTS;
         }
     }
 
-    protected override void pickupItem()
+    protected override void PickupItem()
     {
         
     }

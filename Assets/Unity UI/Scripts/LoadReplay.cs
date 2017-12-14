@@ -29,7 +29,7 @@ public class LoadReplay : MonoBehaviour
 
     void Start()
     {
-        refresh();
+        Refresh();
     }
 
     private void OnGUI()
@@ -57,7 +57,7 @@ public class LoadReplay : MonoBehaviour
     /// <summary>
     /// Clears and repopulats the list of replays
     /// </summary>
-    private void refresh()
+    private void Refresh()
     {
         //clear the list
         replays.Clear();
@@ -73,7 +73,7 @@ public class LoadReplay : MonoBehaviour
         //create a ReplayItem for each replay and add it to the replay list
         foreach (FileInfo item in files)
         {
-            GameObject replay = ReplayItem.getFromFile(item);
+            GameObject replay = ReplayItem.GetFromFile(item);
             if (replay != null)
             {
                 replay.transform.SetParent(replayList.transform);
@@ -90,13 +90,13 @@ public class LoadReplay : MonoBehaviour
 
     private void OnEnable()
     {
-        refresh();
+        Refresh();
     }
 
     /// <summary>
     /// creates a ReplayItem for each replay and add it to the replay list
     /// </summary>
-    public void load()
+    public void Load()
     {
         //find the selected replay and try to load it
         foreach (ReplayItem item in replays)
@@ -104,7 +104,7 @@ public class LoadReplay : MonoBehaviour
             if (item.toggle.isOn)
             {
                 //if load was successful, change the screen to Replay
-                if (item.loadReplay())
+                if (item.LoadReplay())
                 {
                     GameStates.gameState = GameStates.GameState.Replay;
                     return;
@@ -112,24 +112,24 @@ public class LoadReplay : MonoBehaviour
                 //if it wasn't successful, show an error
                 else
                 {
-                    showErrorMenu("Problem loading replay!");
+                    ShowErrorMenu("Problem loading replay!");
                 }
             }
         }
 
         //if no replay was selected, show an error
-        showErrorMenu("No replay selected.");
+        ShowErrorMenu("No replay selected.");
     }
 
     /// <summary>
     /// method the back button calls, changes the screen to the Main menu
     /// </summary>
-    public void back()
+    public void Back()
     {
         GameStates.gameState = GameStates.GameState.Main;
     }
 
-    public void showErrorMenu(string errorMsg)
+    public void ShowErrorMenu(string errorMsg)
     {
         errorText.text = errorMsg;
         errorPanel.SetActive(true);

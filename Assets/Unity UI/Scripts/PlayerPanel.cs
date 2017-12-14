@@ -42,9 +42,9 @@ public class PlayerPanel : MonoBehaviour
     
     void Update()
     {
-        if (thePlayer != null && Controls.get().players[player.playerNum] != null)
+        if (thePlayer != null && Controls.Get().players[player.playerNum] != null)
         {
-            PlayerControls controls = Controls.get().players[player.playerNum];
+            PlayerControls controls = Controls.Get().players[player.playerNum];
 
             //update the health and armor text displays baised on the Player's health and armor
             healthText.text = System.Math.Round(player.health, 2).ToString() + " / " + player.maxHealth.ToString();
@@ -82,7 +82,7 @@ public class PlayerPanel : MonoBehaviour
                 }
 
                 //display the Key the Item slot is assigned
-                itemKeys[i].text = controls.itemKeys[i].toShortString();
+                itemKeys[i].text = controls.itemKeys[i].ToShortString();
             }
         }
     }

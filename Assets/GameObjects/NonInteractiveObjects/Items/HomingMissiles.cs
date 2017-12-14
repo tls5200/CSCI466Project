@@ -25,12 +25,12 @@ public class HomingMissiles : Item
 
     public Vector2 offset = new Vector2(0, 2);
 
-    protected override void dropItem()
+    protected override void DropItem()
     {
         
     }
 
-    protected override void holdingItem(bool use, bool startUse, bool endUse, bool doubleUse)
+    protected override void HoldingItem(bool use, bool startUse, bool endUse, bool doubleUse)
     {
         //update the time before the next missle can be shot
         if (shotTimer > 0)
@@ -42,8 +42,8 @@ public class HomingMissiles : Item
         else if (use)
         {
             //create the missle infront of the holder
-            HomingMissile missile = (HomingMissile)level.createObject("HomingMissilePF",
-                holder.position + offset.rotate(holder.angle), holder.angle, holder.velocity);
+            HomingMissile missile = (HomingMissile)level.CreateObject("HomingMissilePF",
+                holder.position + offset.Rotate(holder.angle), holder.angle, holder.velocity);
 
             //set the missle's initial settings
             missile.damage = missileDamge;
@@ -61,7 +61,7 @@ public class HomingMissiles : Item
         }
     }
 
-    protected override void pickupItem()
+    protected override void PickupItem()
     {
         
     }

@@ -41,15 +41,6 @@ public class MainMenu : MonoBehaviour
     }
 
     /// <summary>
-    /// Method the Leaderboard button calls, opens the Leaderboard part of the game's website 
-    /// with the default browser
-    /// </summary>
-    public void Leaderboard()
-    {
-        Application.OpenURL("http://nebulawars.heliohost.org/#works");
-    }
-
-    /// <summary>
     /// Method the Options button calls, changes the screen to the Options Hub screen
     /// </summary>
     public void Options()

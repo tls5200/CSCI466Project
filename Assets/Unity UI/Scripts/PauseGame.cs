@@ -47,11 +47,11 @@ public class PauseGame : MonoBehaviour, IErrorPanel
         //if there is not a current Level, display error message
         if (Level.current == null)
         {
-            showErrorMenu("Current Level is null, can't restart");
+            ShowErrorMenu("Current Level is null, can't restart");
         }
         else
         {
-            Level.current.restartLevel();
+            Level.current.RestartLevel();
             Unpause();
         }
 	}
@@ -81,7 +81,7 @@ public class PauseGame : MonoBehaviour, IErrorPanel
         throw new NotImplementedException();
     }
 
-    public void showErrorMenu(string errorMsg)
+    public void ShowErrorMenu(string errorMsg)
     {
         errorText.text = errorMsg;
         errorPanel.SetActive(true);

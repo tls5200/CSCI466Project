@@ -30,18 +30,18 @@ public class HomingMines : Item
     private LinkedList<HomingMine> mines = new LinkedList<HomingMine>();
 
     //if this Item is dropped, destroy all of it's mines
-    protected override void dropItem()
+    protected override void DropItem()
     {
         foreach (HomingMine item in mines)
         {
             if (item != null)
-                item.destroyThis();
+                item.DestroyThis();
         }
 
         mines.Clear();
     }
 
-    protected override void holdingItem(bool use, bool startUse, bool endUse, bool doubleUse)
+    protected override void HoldingItem(bool use, bool startUse, bool endUse, bool doubleUse)
     {
         //Find and remove from the list any mines that no longer exist
         List<HomingMine> remove = new List<HomingMine>();
@@ -69,7 +69,7 @@ public class HomingMines : Item
             //create a mine behind the holder
             Vector2 direction = holder.velocity.normalized;
             direction.x *= -1;
-            HomingMine mine = (HomingMine)level.createObject("HomingMinePF", holder.position + offset.rotate(direction.getAngle()));
+            HomingMine mine = (HomingMine)level.CreateObject("HomingMinePF", holder.position + offset.Rotate(direction.GetAngle()));
 
             //set mine initial settings
             mine.acceleration = mineAcceleration;
@@ -82,7 +82,7 @@ public class HomingMines : Item
             //if there are too many mines, destroy the oldest
             if (mines.Count >= maxMines)
             {
-                mines.Last.Value.destroyThis();
+                mines.Last.Value.DestroyThis();
                 mines.RemoveLast();
             }
 
@@ -95,7 +95,7 @@ public class HomingMines : Item
 }
     }
 
-    protected override void pickupItem()
+    protected override void PickupItem()
     {
         
     }

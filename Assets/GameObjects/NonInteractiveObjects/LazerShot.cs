@@ -18,12 +18,12 @@ public class LazerShot : NonInteractiveObject
     private int timeAlive = 0;
     public float timeToLiveSecs = 2;
 
-    protected override void startNonInteractiveObject()
+    protected override void StartNonInteractiveObject()
     {
         
     }
 
-    public void resetTimeAlive()
+    public void ResetTimeAlive()
     {
         timeAlive = 0;
     }
@@ -32,43 +32,43 @@ public class LazerShot : NonInteractiveObject
     /// If the timeToLiveSecs is set to a positive number and this has been alive for
     /// longer than that many seconds, destroy this
     /// </summary>
-    protected override void updateNonInteractiveObject()
+    protected override void UpdateNonInteractiveObject()
     {
         if (timeToLiveSecs > 0)
         {
             timeAlive++;
             if (timeAlive > timeToLiveSecs * level.updatesPerSec)
             {
-                destroyThis();
+                DestroyThis();
             }
         }
     }
 
-    protected override void destroyNonInteractiveObject()
+    protected override void DestroyNonInteractiveObject()
     {
         
     }
 
-    protected override void playerCollision(Player other)
+    protected override void PlayerCollision(Player other)
     {
         if (team != other.team)
         {
-            other.damageThis(damage);
+            other.DamageThis(damage);
         }
-        destroyThis();
+        DestroyThis();
     }
 
-    protected override void destructableObjectCollision(DestructableObject other)
+    protected override void DestructableObjectCollision(DestructableObject other)
     {
         if (team != other.team)
         {
-            other.damageThis(damage);
+            other.DamageThis(damage);
         }
-        destroyThis();
+        DestroyThis();
     }
 
-    protected override void indestructableObjectCollision(IndestructableObject other)
+    protected override void IndestructableObjectCollision(IndestructableObject other)
     {
-        destroyThis();
+        DestroyThis();
     }
 }

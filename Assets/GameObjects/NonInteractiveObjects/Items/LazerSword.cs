@@ -26,22 +26,22 @@ public class LazerSword : Item
     private Lazer sword;
 
     //if this Item is dropped, destroy the Lazer if it exists
-    protected override void dropItem()
+    protected override void DropItem()
     {
         if (sword != null)
         {
-            sword.destroyThis();
+            sword.DestroyThis();
             sword = null;
         }
     }
 
-    protected override void holdingItem(bool use, bool startUse, bool endUse, bool doubleUse)
+    protected override void HoldingItem(bool use, bool startUse, bool endUse, bool doubleUse)
     {
         //if the holder double presses this Item's key, then destroy 
         //the Lazer sword if it exists
         if (doubleUse && sword != null)
         {
-            sword.destroyThis();
+            sword.DestroyThis();
             sword = null;
         }
         //if the holder presses this Item's key, then create a new Lazer attached
@@ -50,7 +50,7 @@ public class LazerSword : Item
         {
             if (sword == null)
             {
-                sword = (Lazer)level.createObject("LazerPF");
+                sword = (Lazer)level.CreateObject("LazerPF");
                 sword.attachedTo = holder;
                 sword.damage = swordDamge;
                 sword.maxLength = swordLength;
@@ -81,7 +81,7 @@ public class LazerSword : Item
         }
     }
 
-    protected override void pickupItem()
+    protected override void PickupItem()
     {
 
     }

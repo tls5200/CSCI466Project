@@ -21,33 +21,33 @@ public class Barrier : IndestructableObject
     private float originalWidth;
     public float previousWidth = 0;
 
-    protected override void destroyIndestructableObject()
+    protected override void DestroyIndestructableObject()
     {
         
     }
 
-    protected override void destructableObjectCollision(DestructableObject other, Collision2D collision)
+    protected override void DestructableObjectCollision(DestructableObject other, Collision2D collision)
     {
 
     }
 
-    protected override void indestructableObjectCollision(IndestructableObject other, Collision2D collision)
-    {
-        
-    }
-
-    protected override void nonInteractiveObjectCollision(NonInteractiveObject other)
+    protected override void IndestructableObjectCollision(IndestructableObject other, Collision2D collision)
     {
         
     }
 
-    protected override void playerCollision(Player other, Collision2D collision)
+    protected override void NonInteractiveObjectCollision(NonInteractiveObject other)
+    {
+        
+    }
+
+    protected override void PlayerCollision(Player other, Collision2D collision)
     {
 
     }
 
     
-    protected override void startIndestructableObject()
+    protected override void StartIndestructableObject()
     {
         //find and save the original width of this 
         angle = 0;
@@ -55,7 +55,7 @@ public class Barrier : IndestructableObject
         angle = attachedTo.angle + attachAngle;
     }
 
-    protected override void updateIndestructableObject()
+    protected override void UpdateIndestructableObject()
     {
 
         if (attachedTo != null && attachedTo.active)
@@ -71,7 +71,7 @@ public class Barrier : IndestructableObject
             //keep it attached to the correct position relative to what it is attached to
             angle = attachedTo.angle + attachAngle;
             Vector2 toRotate = attachPoint;
-            position = attachedTo.position + toRotate.rotate(angle);
+            position = attachedTo.position + toRotate.Rotate(angle);
 
             //make sure physics is not moving this, would cause it to be attached incorrectly
             velocity = Vector2.zero;
@@ -80,7 +80,7 @@ public class Barrier : IndestructableObject
         //if this is not attached to anything, destroy it
         else
         {
-            destroyThis();
+            DestroyThis();
         }
     }
 }

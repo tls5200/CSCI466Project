@@ -115,31 +115,31 @@ public abstract class InteractiveObject : SpaceObject
     }
 
     //Called shortly after this is created
-    protected abstract void startInteractiveObject();
-    protected override void startObject()
+    protected abstract void StartInteractiveObject();
+    protected override void StartObject()
     {
-        startInteractiveObject();
+        StartInteractiveObject();
     }
 
     // Called every time the game is FixedUpated, 50 times a second by default
-    protected abstract void updateInteractiveObject();
-    protected override void updateObject()
+    protected abstract void UpdateInteractiveObject();
+    protected override void UpdateObject()
     {
-        updateInteractiveObject();
+        UpdateInteractiveObject();
     }
 
     // Called right before this is destroyed
-    protected abstract void destroyInteractiveObject();
-    protected override void destroyObject()
+    protected abstract void DestroyInteractiveObject();
+    protected override void DestroyObject()
     {
-        destroyInteractiveObject();
+        DestroyInteractiveObject();
     }
 
     //Methods OnTriggerStay2D and OnCollsionEnter2D call depending on what it overlapped/collided with to catagorize the overlap/collsion
-    protected abstract void nonInteractiveObjectCollision(NonInteractiveObject other);
-    protected abstract void playerCollision(Player other, Collision2D collision);
-    protected abstract void destructableObjectCollision(DestructableObject other, Collision2D collision);
-    protected abstract void indestructableObjectCollision(IndestructableObject other, Collision2D collision);
+    protected abstract void NonInteractiveObjectCollision(NonInteractiveObject other);
+    protected abstract void PlayerCollision(Player other, Collision2D collision);
+    protected abstract void DestructableObjectCollision(DestructableObject other, Collision2D collision);
+    protected abstract void IndestructableObjectCollision(IndestructableObject other, Collision2D collision);
 
     /// <summary>
     /// Called by Unity when this GameObject's collier overlaps with with another GameObject's collider
@@ -152,19 +152,19 @@ public abstract class InteractiveObject : SpaceObject
 
         if (spaceObject.GetType() == (typeof(Player)))
         {
-            playerCollision((Player)spaceObject, new Collision2D());
+            PlayerCollision((Player)spaceObject, new Collision2D());
         }
         else if (spaceObject.GetType().IsSubclassOf(typeof(DestructableObject)))
         {
-            destructableObjectCollision((DestructableObject)spaceObject, new Collision2D());
+            DestructableObjectCollision((DestructableObject)spaceObject, new Collision2D());
         }
         else if (spaceObject.GetType().IsSubclassOf(typeof(IndestructableObject)))
         {
-            indestructableObjectCollision((IndestructableObject)spaceObject, new Collision2D());
+            IndestructableObjectCollision((IndestructableObject)spaceObject, new Collision2D());
         }
         else if (spaceObject.GetType().IsSubclassOf(typeof(NonInteractiveObject)))
         {
-            nonInteractiveObjectCollision((NonInteractiveObject)spaceObject);
+            NonInteractiveObjectCollision((NonInteractiveObject)spaceObject);
         }
     }
 }

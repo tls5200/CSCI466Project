@@ -26,88 +26,88 @@ public class Level9 : Level
         }
     }
 
-    protected override void createLevel()
+    protected override void CreateLevel()
     {
-        musicPlay("sounds/level1Loop");
+        MusicPlay("sounds/level1Loop");
   
         levelSize = new Vector2(80, 60); //set the level size
         
-        createObject("SpaceDustPF", gameBounds.center, 0);
+        CreateObject("SpaceDustPF", gameBounds.center, 0);
 
         for (int i = 0; i < 8; i++)
         {
-            HomingMine current = (HomingMine)createObject("HomingMinePF", getRandomPosition(), getRandomAngle());
+            HomingMine current = (HomingMine)CreateObject("HomingMinePF", GetRandomPosition(), GetRandomAngle());
         }
 
         for (int i = 0; i < 2; i++)
         {
-            SlowTurner current = (SlowTurner)createObject("SlowTurnerPF", getRandomPosition(), getRandomAngle());
-            current.velocity = getRandomVelocity(current.maxSpeed);
+            SlowTurner current = (SlowTurner)CreateObject("SlowTurnerPF", GetRandomPosition(), GetRandomAngle());
+            current.velocity = GetRandomVelocity(current.maxSpeed);
         }
 
         for (int i = 0; i < 2; i++)
         {
-            LazerShooter current = (LazerShooter)createObject("LazerShooterPF", getRandomPosition(), getRandomAngle());
-            current.velocity = getRandomVelocity(current.maxSpeed);
+            LazerShooter current = (LazerShooter)CreateObject("LazerShooterPF", GetRandomPosition(), GetRandomAngle());
+            current.velocity = GetRandomVelocity(current.maxSpeed);
         }
 
         for (int i = 0; i < 1; i++)
         {
-            MineLayer current = (MineLayer)createObject("MineLayerPF", getRandomPosition(), getRandomAngle());
-            current.velocity = getRandomVelocity(current.maxSpeed);
+            MineLayer current = (MineLayer)CreateObject("MineLayerPF", GetRandomPosition(), GetRandomAngle());
+            current.velocity = GetRandomVelocity(current.maxSpeed);
         }
 
         for (int i = 0; i < 1; i++)
         {
-            RotatingLazerSentry current = (RotatingLazerSentry)createObject("RotatingLazerSentryPF", getRandomPosition(), getRandomAngle());
-            current.velocity = getRandomVelocity(current.maxSpeed);
+            RotatingLazerSentry current = (RotatingLazerSentry)CreateObject("RotatingLazerSentryPF", GetRandomPosition(), GetRandomAngle());
+            current.velocity = GetRandomVelocity(current.maxSpeed);
         }
 
         for (int i = 0; i < 2; i++)
         {
-            LazerEmitter current = (LazerEmitter)createObject("LazerEmitterPF", getRandomPosition(), getRandomAngle());
-            current.velocity = getRandomVelocity(current.maxSpeed);
+            LazerEmitter current = (LazerEmitter)CreateObject("LazerEmitterPF", GetRandomPosition(), GetRandomAngle());
+            current.velocity = GetRandomVelocity(current.maxSpeed);
         }
 
         for (int i = 0; i < 4; i++)
         {
-            IndestructableDebris current = (IndestructableDebris)createObject("IndestructableDebrisPF", getRandomPosition(), getRandomAngle());
-            current.velocity = getRandomVelocity(current.maxSpeed);
+            IndestructableDebris current = (IndestructableDebris)CreateObject("IndestructableDebrisPF", GetRandomPosition(), GetRandomAngle());
+            current.velocity = GetRandomVelocity(current.maxSpeed);
         }
 
         for (int i = 0; i < 1; i++)
         {
-            RedBlob current = (RedBlob)createObject("RedBlobPF", getRandomPosition(), getRandomAngle());
-            current.velocity = getRandomVelocity(current.maxSpeed);
+            RedBlob current = (RedBlob)CreateObject("RedBlobPF", GetRandomPosition(), GetRandomAngle());
+            current.velocity = GetRandomVelocity(current.maxSpeed);
         }
 
         for (int i = 0; i < 1; i++)
         {
-            GreenBlob current = (GreenBlob)createObject("GreenBlobPF", getRandomPosition(), getRandomAngle());
-            current.velocity = getRandomVelocity(current.maxSpeed);
+            GreenBlob current = (GreenBlob)CreateObject("GreenBlobPF", GetRandomPosition(), GetRandomAngle());
+            current.velocity = GetRandomVelocity(current.maxSpeed);
         }
 
         for (int i = 0; i < 1; i++)
         {
-            BlueBlob current = (BlueBlob)createObject("BlueBlobPF", getRandomPosition(), getRandomAngle());
-            current.velocity = getRandomVelocity(current.maxSpeed);
+            BlueBlob current = (BlueBlob)CreateObject("BlueBlobPF", GetRandomPosition(), GetRandomAngle());
+            current.velocity = GetRandomVelocity(current.maxSpeed);
         }
 
-        Armor armor = (Armor)createObject("ArmorPF");
+        Armor armor = (Armor)CreateObject("ArmorPF");
     }
 
-    protected override void updateLevel()
+    protected override void UpdateLevel()
     {
 
     }
 
-    protected override void endLevel()
+    protected override void EndLevel()
     {
         
     }
     
     /*
-    protected override bool won()
+    protected override bool Won()
     {
         //add win conditinos here, default is when all enimes die    
 
@@ -115,7 +115,7 @@ public class Level9 : Level
     }
 
     
-    protected override bool lost()
+    protected override bool Lost()
     {
         //add loss conditions here, if player dies then its always loss
 

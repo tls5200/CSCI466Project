@@ -25,22 +25,22 @@ public class Shield : Item
     private Barrier shield;
 
     //if this Item is dropped, destroy the Barrier if it exists
-    protected override void dropItem()
+    protected override void DropItem()
     {
         if (shield != null)
         {
-            shield.destroyThis();
+            shield.DestroyThis();
             shield = null;
         }
     }
 
-    protected override void holdingItem(bool use, bool startUse, bool endUse, bool doubleUse)
+    protected override void HoldingItem(bool use, bool startUse, bool endUse, bool doubleUse)
     {
         //if the holder double presses this Item's key, then destroy 
         //the Barrier sword if it exists
         if (doubleUse && shield != null)
         {
-            shield.destroyThis();
+            shield.DestroyThis();
             shield = null;
         }
         //if the holder presses this Item's key, then create a new Barrier attached
@@ -49,7 +49,7 @@ public class Shield : Item
         {
             if (shield == null)
             {
-                shield = (Barrier)level.createObject("BarrierPF");
+                shield = (Barrier)level.CreateObject("BarrierPF");
                 shield.attachedTo = holder;
                 shield.width = shieldWidth;
                 shield.color = color;
@@ -79,7 +79,7 @@ public class Shield : Item
         }
     }
 
-    protected override void pickupItem()
+    protected override void PickupItem()
     {
         
     }

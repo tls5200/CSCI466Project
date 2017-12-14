@@ -22,12 +22,12 @@ public class RapidShots : Item
     public float shotCooldownSecs = 0.2f;
     private int shotCooldown = 0;
 
-    protected override void dropItem()
+    protected override void DropItem()
     {
         
     }
 
-    protected override void holdingItem(bool use, bool startUse, bool endUse, bool doubleUse)
+    protected override void HoldingItem(bool use, bool startUse, bool endUse, bool doubleUse)
     {
         //update the time before the next shot
         if (shotCooldown > 0)
@@ -38,10 +38,10 @@ public class RapidShots : Item
         //then create a LazerShot infront of the holder
         else if (use)
         {
-            LazerShot shot = (LazerShot)level.createObject("LazerShotPF", holder.position + offset.rotate(holder.angle), holder.angle);
+            LazerShot shot = (LazerShot)level.CreateObject("LazerShotPF", holder.position + offset.Rotate(holder.angle), holder.angle);
             shot.maxSpeed = shotSpeed + holder.velocity.magnitude;
             shot.velocity = holder.velocity;
-            shot.moveForward(shotSpeed);
+            shot.MoveForward(shotSpeed);
             shot.damage = shotDamage;
             shot.timeToLiveSecs = shotLifeSecs;
             shot.color = color;
@@ -54,7 +54,7 @@ public class RapidShots : Item
         }
     }
 
-    protected override void pickupItem()
+    protected override void PickupItem()
     {
         
     }

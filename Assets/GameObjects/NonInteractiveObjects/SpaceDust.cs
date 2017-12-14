@@ -12,27 +12,27 @@ using System.Collections;
 /// </summary>
 public class SpaceDust : NonInteractiveObject
 {
-    protected override void destroyNonInteractiveObject()
+    protected override void DestroyNonInteractiveObject()
     {
 
     }
 
-    protected override void destructableObjectCollision(DestructableObject other)
-    {
-        
-    }
-
-    protected override void indestructableObjectCollision(IndestructableObject other)
+    protected override void DestructableObjectCollision(DestructableObject other)
     {
         
     }
 
-    protected override void playerCollision(Player other)
+    protected override void IndestructableObjectCollision(IndestructableObject other)
     {
         
     }
 
-    protected override void startNonInteractiveObject()
+    protected override void PlayerCollision(Player other)
+    {
+        
+    }
+
+    protected override void StartNonInteractiveObject()
     {
         //tile the texture
         drawMode = SpriteDrawMode.Tiled;
@@ -44,7 +44,7 @@ public class SpaceDust : NonInteractiveObject
         position = level.gameBounds.center;
     }
 
-    protected override void updateNonInteractiveObject()
+    protected override void UpdateNonInteractiveObject()
     {
         //changes the size of this if the Level's bounds changed, to keep it twice the size of the Level
         if (size.x > level.gameBounds.width / 2f)

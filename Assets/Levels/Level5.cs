@@ -26,29 +26,29 @@ public class Level5 : Level
         }
     }
 
-    protected override void createLevel()
+    protected override void CreateLevel()
     {
-        musicPlay("sounds/level1Loop");
+        MusicPlay("sounds/level1Loop");
   
         levelSize = new Vector2(80, 60); //set the level size
         
-        createObject("SpaceDustPF", gameBounds.center, 0);
+        CreateObject("SpaceDustPF", gameBounds.center, 0);
 
-        IngameInterface.displayMessage("Survive the onslaught!", 3);
+        IngameInterface.DisplayMessage("Survive the onslaught!", 3);
 
         for (int i = 0; i < 6; i++)
         {
-            Asteroid current = (Asteroid)createObject("AsteroidPF", getRandomPosition(), getRandomAngle());
-            current.velocity = getRandomVelocity(current.maxSpeed);
+            Asteroid current = (Asteroid)CreateObject("AsteroidPF", GetRandomPosition(), GetRandomAngle());
+            current.velocity = GetRandomVelocity(current.maxSpeed);
         }
 
-        HomingMines mines = (HomingMines)createObject("HomingMinesPF");
+        HomingMines mines = (HomingMines)CreateObject("HomingMinesPF");
     }
 
     private int spawnTimer = 0;
     private float spawnTimeSecs = 60;
 
-    protected override void updateLevel()
+    protected override void UpdateLevel()
     {
         spawnTimer--;
 
@@ -58,26 +58,26 @@ public class Level5 : Level
 
             for (int i = 0; i < 1; i++)
             {
-                Asteroid current = (Asteroid)createObject("AsteroidPF", getRandomGameEdge(), getRandomAngle());
-                current.velocity = getRandomVelocity(current.maxSpeed);
+                Asteroid current = (Asteroid)CreateObject("AsteroidPF", GetRandomGameEdge(), GetRandomAngle());
+                current.velocity = GetRandomVelocity(current.maxSpeed);
             }
 
             for (int i = 0; i < 1; i++)
             {
-                LazerShooter current = (LazerShooter)createObject("LazerShooterPF", getRandomGameEdge(), getRandomAngle());
-                current.velocity = getRandomVelocity(current.maxSpeed);
+                LazerShooter current = (LazerShooter)CreateObject("LazerShooterPF", GetRandomGameEdge(), GetRandomAngle());
+                current.velocity = GetRandomVelocity(current.maxSpeed);
             }
 
             for (int i = 0; i < 1; i++)
             {
-                MineLayer current = (MineLayer)createObject("MineLayerPF", getRandomGameEdge(), getRandomAngle());
-                current.velocity = getRandomVelocity(current.maxSpeed);
+                MineLayer current = (MineLayer)CreateObject("MineLayerPF", GetRandomGameEdge(), GetRandomAngle());
+                current.velocity = GetRandomVelocity(current.maxSpeed);
             }
 
             for (int i = 0; i < 1; i++)
             {
-                LazerEmitter current = (LazerEmitter)createObject("LazerEmitterPF", getRandomGameEdge(), getRandomAngle());
-                current.velocity = getRandomVelocity(current.maxSpeed);
+                LazerEmitter current = (LazerEmitter)CreateObject("LazerEmitterPF", GetRandomGameEdge(), GetRandomAngle());
+                current.velocity = GetRandomVelocity(current.maxSpeed);
             }
         }
 
@@ -91,13 +91,13 @@ public class Level5 : Level
         }
     }
 
-    protected override void endLevel()
+    protected override void EndLevel()
     {
         
     }
     
     /*
-    protected override bool won()
+    protected override bool Won()
     {
         //add win conditinos here, default is when all enimes die    
 
@@ -105,7 +105,7 @@ public class Level5 : Level
     }
 
     
-    protected override bool lost()
+    protected override bool Lost()
     {
         //add loss conditions here, if player dies then its always loss
 

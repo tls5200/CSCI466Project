@@ -14,7 +14,7 @@ public abstract class BlobBehaviour
 {
     public float magnitude = 1;
 
-    public abstract void update(Blob thisBlob);
+    public abstract void Update(Blob thisBlob);
 
     /// <summary>
     /// Combines the given BlobBehavior with this one if they are of the same type,
@@ -23,7 +23,7 @@ public abstract class BlobBehaviour
     /// </summary>
     /// <param name="other">BlobBehavior to combine with this.</param>
     /// <returns>returns true if they combined, false if they didn't</returns>
-    public abstract bool combine(BlobBehaviour other);
+    public abstract bool Combine(BlobBehaviour other);
 
     public virtual BlobBehaviour clone()
     {
@@ -47,7 +47,7 @@ public class Blob : DestructableObject
     /// Merge's this Blob with the given other Blob, then the other Blob is destroyed. 
     /// </summary>
     /// <param name="other">Blob to merge with this Blob</param>
-    public void mergeWith(Blob other)
+    public void MergeWith(Blob other)
     {
         other.mergeTimer = -1;
         mergeTimer = (int)(mergeCooldownSecs * level.updatesPerSec);
@@ -93,7 +93,7 @@ public class Blob : DestructableObject
                 LinkedListNode<BlobBehaviour> next = current.Next;
                 do
                 {
-                    if (current.Value.combine(next.Value))
+                    if (current.Value.Combine(next.Value))
                     {
                         LinkedListNode<BlobBehaviour> toRemove = next;
                         next = next.Next;
@@ -111,57 +111,57 @@ public class Blob : DestructableObject
         }
 
         //Destroy the given Blob, since it will no longer be needed
-        other.destroyThis();
+        other.DestroyThis();
     }
 
-    protected override void destroyDestructableObject()
+    protected override void DestroyDestructableObject()
     {
 
     }
 
-    protected override void destructableObjectCollision(DestructableObject other, Collision2D collision)
+    protected override void DestructableObjectCollision(DestructableObject other, Collision2D collision)
     {
         if (other.team != this.team)
         {
-            other.damageThis(scale.x * damageMultiplier * difficultyModifier);
+            other.DamageThis(scale.x * damageMultiplier * difficultyModifier);
         }
         else if (other.GetType() == typeof(Blob))
         {
             if(mergeTimer == 0 && ((Blob)(other)).mergeTimer == 0 && scale.x + other.scale.x < maxSize)
             {
-                mergeWith((Blob)other);
+                MergeWith((Blob)other);
             }
         }
     }
 
-    protected override void indestructableObjectCollision(IndestructableObject other, Collision2D collision)
+    protected override void IndestructableObjectCollision(IndestructableObject other, Collision2D collision)
     {
         
     }
 
-    protected override void nonInteractiveObjectCollision(NonInteractiveObject other)
+    protected override void NonInteractiveObjectCollision(NonInteractiveObject other)
     {
         
     }
 
-    protected override void playerCollision(Player other, Collision2D collision)
+    protected override void PlayerCollision(Player other, Collision2D collision)
     {
         if (other.team != this.team)
         {
-            other.damageThis(scale.x * damageMultiplier * difficultyModifier);
+            other.DamageThis(scale.x * damageMultiplier * difficultyModifier);
         }
     }
 
-    protected virtual void startBlob() { }
-    protected override void startDestructableObject()
+    protected virtual void StartBlob() { }
+    protected override void StartDestructableObject()
     {
-        startBlob();
+        StartBlob();
     }
 
     /// <summary>
     /// Updates the Blob's behaviors and mergeTimer
     /// </summary>
-    protected override void updateDestructableObject()
+    protected override void UpdateDestructableObject()
     {
         if (mergeTimer > 0)
         {
@@ -170,7 +170,7 @@ public class Blob : DestructableObject
 
         foreach (BlobBehaviour item in behaviors)
         {
-            item.update(this);
+            item.Update(this);
         }
     }
 
@@ -180,12 +180,12 @@ public class Blob : DestructableObject
     /// baised on the damage dealt to it (minus the armor)
     /// </summary>
     /// <param name="damage"></param>
-    public override void damageThis(float damage)
+    public override void DamageThis(float damage)
     {
         damage -= armor;
         if (damage > health)
         {
-            base.damageThis(damage + armor);
+            base.DamageThis(damage + armor);
         }
         else if (damage > 0 && mergeTimer > -1)
         {
@@ -204,8 +204,8 @@ public class Blob : DestructableObject
                 {  
                     //make each new Blob and have them spread out from the old Blob's position
                     float theAngle = i * 360.0f / pieces + angle;
-                    Blob current = (Blob)level.createObject("BlobPF", position + new Vector2(size.x / pieces, 0).rotate(theAngle), angle,
-                        velocity + new Vector2(pieces, 0).rotate(theAngle), angularVelocity + pieces, theScale);
+                    Blob current = (Blob)level.CreateObject("BlobPF", position + new Vector2(size.x / pieces, 0).Rotate(theAngle), angle,
+                        velocity + new Vector2(pieces, 0).Rotate(theAngle), angularVelocity + pieces, theScale);
 
                     //give each new Blob an equal portion of the old Blob's healh, mass and behaviors
                     current.mass = mass / pieces;
@@ -225,11 +225,11 @@ public class Blob : DestructableObject
 
                 //Destory the old Blob, since it is no longer needed. Make sure it dones't try to merge in the meantime. 
                 mergeTimer = -1;
-                destroyThis();
+                DestroyThis();
             }
             else
             {
-                base.damageThis(damage + armor);
+                base.DamageThis(damage + armor);
             }
         }
     }

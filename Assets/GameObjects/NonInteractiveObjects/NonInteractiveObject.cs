@@ -105,8 +105,8 @@ public abstract class NonInteractiveObject : SpaceObject
     }
 
     //Called shortly after this is created
-    protected abstract void startNonInteractiveObject();
-    protected override void startObject()
+    protected abstract void StartNonInteractiveObject();
+    protected override void StartObject()
     {
         //if there is no level, this should not exist, so it is destoryed
         if (level == null)
@@ -116,38 +116,38 @@ public abstract class NonInteractiveObject : SpaceObject
         }
         else
         {
-            startNonInteractiveObject();
+            StartNonInteractiveObject();
 
             //add this to the Level's lists of what it contains
-            level.addToGame(this);
+            level.AddToGame(this);
         }
     }
 
     // Called every time the game is FixedUpated, 50 times a second by default
     //its position and angle are adjusted baised on its velocity and angularVelocity
-    protected abstract void updateNonInteractiveObject();
-    protected override void updateObject()
+    protected abstract void UpdateNonInteractiveObject();
+    protected override void UpdateObject()
     {
-        updateNonInteractiveObject();
+        UpdateNonInteractiveObject();
         position += velocity * level.secsPerUpdate;
         angle += angularVelocity * level.secsPerUpdate;
     }
 
     // Called right before this is destroyed, removes this from the Level's lists
-    protected abstract void destroyNonInteractiveObject();
-    protected override void destroyObject()
+    protected abstract void DestroyNonInteractiveObject();
+    protected override void DestroyObject()
     {
-        destroyNonInteractiveObject();
+        DestroyNonInteractiveObject();
         if (level != null && level.nonInteractives != null)
         {
-            level.removeFromGame(this);
+            level.RemoveFromGame(this);
         }
     }
 
     //Methods OnTriggerStay2D calls depending on what it overlapped with to catagorize the overlap
-    protected abstract void playerCollision(Player other);
-    protected abstract void destructableObjectCollision(DestructableObject other);
-    protected abstract void indestructableObjectCollision(IndestructableObject other);
+    protected abstract void PlayerCollision(Player other);
+    protected abstract void DestructableObjectCollision(DestructableObject other);
+    protected abstract void IndestructableObjectCollision(IndestructableObject other);
 
     /// <summary>
     /// Called by Unity when this GameObject's collier overlaps with with another GameObject's collider
@@ -160,17 +160,15 @@ public abstract class NonInteractiveObject : SpaceObject
 
         if (spaceObject.GetType() == (typeof(Player)))
         {
-            playerCollision((Player) spaceObject);
+            PlayerCollision((Player) spaceObject);
         }
         else if (spaceObject.GetType().IsSubclassOf(typeof(DestructableObject)))
         {
-            destructableObjectCollision((DestructableObject)spaceObject);
+            DestructableObjectCollision((DestructableObject)spaceObject);
         }
         else if (spaceObject.GetType().IsSubclassOf(typeof(IndestructableObject)))
         {
-            indestructableObjectCollision((IndestructableObject)spaceObject);
+            IndestructableObjectCollision((IndestructableObject)spaceObject);
         }
     }
-
-
 }

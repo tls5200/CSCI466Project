@@ -15,52 +15,52 @@ public class RubberyDebris : DestructableObject
     public float damage = 5;
     private Vector2 previousVelocity;
 
-    protected override void destroyDestructableObject()
+    protected override void DestroyDestructableObject()
     {
 
     }
 
-    protected override void destructableObjectCollision(DestructableObject other, Collision2D collision)
+    protected override void DestructableObjectCollision(DestructableObject other, Collision2D collision)
     {
         if (other.team != team)
         {
-            other.damageThis(damage * difficultyModifier);
+            other.DamageThis(damage * difficultyModifier);
         }
 
-        bounce(collision);
+        Bounce(collision);
     }
 
-    protected override void indestructableObjectCollision(IndestructableObject other, Collision2D collision)
+    protected override void IndestructableObjectCollision(IndestructableObject other, Collision2D collision)
     {
-        bounce(collision);
+        Bounce(collision);
     }
 
-    protected override void nonInteractiveObjectCollision(NonInteractiveObject other)
+    protected override void NonInteractiveObjectCollision(NonInteractiveObject other)
     {
         
     }
 
-    protected override void playerCollision(Player other, Collision2D collision)
+    protected override void PlayerCollision(Player other, Collision2D collision)
     {
         if (other.team != team)
         {
-            other.damageThis(damage * difficultyModifier);
+            other.DamageThis(damage * difficultyModifier);
         }
 
-        bounce(collision);
+        Bounce(collision);
     }
 
-    protected override void startDestructableObject()
+    protected override void StartDestructableObject()
     {
         
     }
 
-    protected override void updateDestructableObject()
+    protected override void UpdateDestructableObject()
     {
         previousVelocity = velocity;
     }
 
-    private void bounce(Collision2D collision)
+    private void Bounce(Collision2D collision)
     {
         // Normal
         Vector2 N = collision.contacts[0].normal;

@@ -27,7 +27,7 @@ public class OptionsHub : MonoBehaviour
     /// <summary>
     /// Method the Game Options button calls, change the screen to the Optons Game screen
     /// </summary>
-    public void gameOptions()
+    public void GameOptions()
     {
         gameState = GameState.OptionsGame;
     }
@@ -35,7 +35,7 @@ public class OptionsHub : MonoBehaviour
     /// <summary>
     /// Method the Player 1 Controls button calls, changes the screen to the Controls Player 1 screen
     /// </summary>
-    public void controls1()
+    public void Controls1()
     {
         gameState = GameState.OptionsPlayer1;
     }
@@ -43,7 +43,7 @@ public class OptionsHub : MonoBehaviour
     /// <summary>
     /// Method the Player 2 Controls button calls, changes the screen to the Controls Player 2 screen
     /// </summary>
-    public void controls2()
+    public void Controls2()
     {
         gameState = GameState.OptionsPlayer2;
     }
@@ -51,7 +51,7 @@ public class OptionsHub : MonoBehaviour
     /// <summary>
     /// Method the Audio/Video button calls, changes the screen to the Audio screen
     /// </summary>
-    public void audioVideo()
+    public void AudioVideo()
     {
         gameState = GameState.OptionsAudVid;
     }
@@ -59,7 +59,7 @@ public class OptionsHub : MonoBehaviour
     /// <summary>
     /// Method the Back button calls, changes the screen to the screen that opened this one
     /// </summary>
-    public void back()
+    public void Back()
     {
         gameState = callingScreen;
     }

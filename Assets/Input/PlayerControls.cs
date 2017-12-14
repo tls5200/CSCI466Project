@@ -44,7 +44,7 @@ public class PlayerControls
             return current.relativeMovement;
         }
     }
-    public void setRelativeMovement(bool setTo)
+    public void SetRelativeMovement(bool setTo)
     {
         theRelativeMovement = setTo;
     }
@@ -57,7 +57,7 @@ public class PlayerControls
             return current.turns;
         }
     }
-    public void setTurns(bool setTo)
+    public void SetTurns(bool setTo)
     {
         theTurns = setTo;
     }
@@ -144,24 +144,24 @@ public class PlayerControls
     {
         get
         {
-            previousPause = pauseKey.isPressed();
-            return pauseKey.isPressed();
+            previousPause = pauseKey.IsPressed();
+            return pauseKey.IsPressed();
         }
     }
     public bool zoomIn
     {
         get
         {
-            previousZoomIn = zoomInKey.isPressed();
-            return zoomInKey.isPressed();
+            previousZoomIn = zoomInKey.IsPressed();
+            return zoomInKey.IsPressed();
         }
     }
     public bool zoomOut
     {
         get
         {
-            previousZoomOut = zoomOutKey.isPressed();
-            return zoomOutKey.isPressed();
+            previousZoomOut = zoomOutKey.IsPressed();
+            return zoomOutKey.IsPressed();
         }
     }
 
@@ -246,8 +246,8 @@ public class PlayerControls
     {
         get
         {
-            bool toReturn = pauseKey.isPressed() && !previousPause;
-            previousPause = pauseKey.isPressed();
+            bool toReturn = pauseKey.IsPressed() && !previousPause;
+            previousPause = pauseKey.IsPressed();
             return toReturn;
         }
     }
@@ -255,8 +255,8 @@ public class PlayerControls
     {
         get
         {
-            bool toReturn = zoomInKey.isPressed() && !previousZoomIn;
-            previousZoomIn = zoomInKey.isPressed();
+            bool toReturn = zoomInKey.IsPressed() && !previousZoomIn;
+            previousZoomIn = zoomInKey.IsPressed();
             return toReturn;
         }
     }
@@ -264,8 +264,8 @@ public class PlayerControls
     {
         get
         {
-            bool toReturn = zoomOutKey.isPressed() && !previousZoomOut;
-            previousZoomOut = zoomOutKey.isPressed();
+            bool toReturn = zoomOutKey.IsPressed() && !previousZoomOut;
+            previousZoomOut = zoomOutKey.IsPressed();
             return toReturn;
         }
     }
@@ -289,16 +289,16 @@ public class PlayerControls
     /// Creates a new PlayerInput and sets its values from the corrosponding Keys current value
     /// this new PlayerInput is set as the current input
     /// </summary>
-    public void updateFromInput()
+    public void UpdateFromInput()
     {
         previous = current;
         current = new PlayerInput();
 
         //set movement values from the corrosponding Key' current values
-        current.forward = forwardKey.getAxis();
-        current.backward = backwardKey.getAxis();
-        current.straifL = straifLKey.getAxis();
-        current.straifR = straifRKey.getAxis();
+        current.forward = forwardKey.GetAxis();
+        current.backward = backwardKey.GetAxis();
+        current.straifL = straifLKey.GetAxis();
+        current.straifR = straifRKey.GetAxis();
 
         //if mouseTurn option is enabled, set the turn values from the cursor's location
         //relative to the Player's position
@@ -310,9 +310,9 @@ public class PlayerControls
 
             if (Level.current != null)
             {
-                for (int i = Controls.get().players.Length - 1; i >= 0; i--)
+                for (int i = Controls.Get().players.Length - 1; i >= 0; i--)
                 {
-                    PlayerControls current = Controls.get().players[i];
+                    PlayerControls current = Controls.Get().players[i];
                     if (current == this)
                     {
                         playerPos = Level.current.players[i].position;
@@ -347,21 +347,21 @@ public class PlayerControls
         //if the mouseTurn option is not enabled, set turn values from the corrosponding Keys' current values
         else
         {
-            current.turnUp = turnUpKey.getAxis();
-            current.turnDown = turnDownKey.getAxis();
-            current.turnL = turnLKey.getAxis();
-            current.turnR = turnRKey.getAxis();
+            current.turnUp = turnUpKey.GetAxis();
+            current.turnDown = turnDownKey.GetAxis();
+            current.turnL = turnLKey.GetAxis();
+            current.turnR = turnRKey.GetAxis();
         }
 
         //set item values from the corrosponding Keys' current values
         for (int i = 0; i < PlayerInput.NUM_ITEMS; i++)
         {
-            current.items[i] = itemKeys[i].isPressed();
+            current.items[i] = itemKeys[i].IsPressed();
         }
 
         //set other values from the corrosponding Keys' current values
-        current.pickupDrop = pickupDropKey.isPressed();
-        current.shoot = shootKey.isPressed();
+        current.pickupDrop = pickupDropKey.IsPressed();
+        current.shoot = shootKey.IsPressed();
 
         //set the input settings options from the saved options
         current.relativeMovement = theRelativeMovement;
@@ -384,7 +384,7 @@ public class PlayerControls
     /// this new PlayerInput is set as the current input
     /// </summary>
     /// <param name="updateInfo">string to create the PlayerInput with</param>
-    public void updateFromString(string updateInfo)
+    public void UpdateFromString(string updateInfo)
     {
         previous = current;
         current = new PlayerInput(updateInfo);
@@ -395,7 +395,7 @@ public class PlayerControls
     /// <summary>
     /// Resets the input history, current and previous inputs
     /// </summary>
-    public void clearInputs()
+    public void ClearInputs()
     {
         theInputs = new List<PlayerInput>(INITIAL_INPUT_SIZE);
         previous = new PlayerInput();
@@ -406,7 +406,7 @@ public class PlayerControls
     /// Sets the controls from the given string
     /// </summary>
     /// <param name="settings">set the controls from</param>
-    public void setFromString(string settings)
+    public void SetFromString(string settings)
     {
         //string for each value should be seperated by a space
         char[] seperators = new char[1];
@@ -454,23 +454,23 @@ public class PlayerControls
         string toReturn = "";
 
         //make each Key a string with a space seperating them
-        toReturn += forwardKey.getValue() + " ";
-        toReturn += backwardKey.getValue() + " ";
-        toReturn += straifLKey.getValue() + " ";
-        toReturn += straifRKey.getValue() + " ";
-        toReturn += turnUpKey.getValue() + " ";
-        toReturn += turnDownKey.getValue() + " ";
-        toReturn += turnLKey.getValue() + " ";
-        toReturn += turnRKey.getValue() + " ";
+        toReturn += forwardKey.GetValue() + " ";
+        toReturn += backwardKey.GetValue() + " ";
+        toReturn += straifLKey.GetValue() + " ";
+        toReturn += straifRKey.GetValue() + " ";
+        toReturn += turnUpKey.GetValue() + " ";
+        toReturn += turnDownKey.GetValue() + " ";
+        toReturn += turnLKey.GetValue() + " ";
+        toReturn += turnRKey.GetValue() + " ";
         for (int i = 0; i < PlayerInput.NUM_ITEMS; i++)
         {
-            toReturn += itemKeys[i].getValue() + " ";
+            toReturn += itemKeys[i].GetValue() + " ";
         }
-        toReturn += pickupDropKey.getValue() + " ";
-        toReturn += shootKey.getValue() + " ";
-        toReturn += pauseKey.getValue() + " ";
-        toReturn += zoomInKey.getValue() + " ";
-        toReturn += zoomOutKey.getValue() + " ";
+        toReturn += pickupDropKey.GetValue() + " ";
+        toReturn += shootKey.GetValue() + " ";
+        toReturn += pauseKey.GetValue() + " ";
+        toReturn += zoomInKey.GetValue() + " ";
+        toReturn += zoomOutKey.GetValue() + " ";
         toReturn += theRelativeMovement.ToString() + " ";
         toReturn += theTurns.ToString() + " ";
         toReturn += mouseTurn.ToString();

@@ -34,7 +34,7 @@ public abstract class DestructableObject : InteractiveObject
     /// If its health decreases to 0 or less, it will be destroyed next time it is updated.
     /// </summary>
     /// <param name="damage"></param>
-    public virtual void damageThis(float damage)
+    public virtual void DamageThis(float damage)
     {
         if (damage > armor)
         {
@@ -46,8 +46,8 @@ public abstract class DestructableObject : InteractiveObject
     }
 
     // Called shortly after this is created
-    protected abstract void startDestructableObject();
-    protected override void startInteractiveObject()
+    protected abstract void StartDestructableObject();
+    protected override void StartInteractiveObject()
     {
         //if there is no level, this should not exist, so it is destoryed
         if (level == null) 
@@ -57,11 +57,11 @@ public abstract class DestructableObject : InteractiveObject
         }
         else
         {
-            startDestructableObject();
+            StartDestructableObject();
             if (this.GetType() != typeof(Player))
             {
                 //add this to the Level's lists of what it contains
-                level.addToGame(this);
+                level.AddToGame(this);
             }
 
             theMaxHealth = health;
@@ -76,10 +76,10 @@ public abstract class DestructableObject : InteractiveObject
     }
 
     // Called every time the game is FixedUpated, 50 times a second by default
-    protected abstract void updateDestructableObject();
-    protected override void updateInteractiveObject()
+    protected abstract void UpdateDestructableObject();
+    protected override void UpdateInteractiveObject()
     {
-        updateDestructableObject();
+        UpdateDestructableObject();
 
         //if this has 0 or less health, deactivate it if is a Player, otherwise destroy it
         if (health <= 0)
@@ -90,7 +90,7 @@ public abstract class DestructableObject : InteractiveObject
             }
             else
             {
-                destroyThis();
+                DestroyThis();
             }
         }       
     }
@@ -122,15 +122,15 @@ public abstract class DestructableObject : InteractiveObject
 
     // Called right before this is destroyed
     // removes this from the Level's lists and destroys its healhbar
-    protected abstract void destroyDestructableObject();
-    protected override void destroyInteractiveObject()
+    protected abstract void DestroyDestructableObject();
+    protected override void DestroyInteractiveObject()
     {
-        destroyDestructableObject();
+        DestroyDestructableObject();
         if (GetType() != typeof(Player))
         {
             if (level != null && level.destructables != null)
             {
-                level.removeFromGame(this);
+                level.RemoveFromGame(this);
             }
             Destroy(healthBar);
         }
@@ -147,11 +147,11 @@ public abstract class DestructableObject : InteractiveObject
         SpaceObject spaceObject = collision.gameObject.GetComponent<SpaceObject>();
 
         if (spaceObject.GetType() == (typeof(Player)))
-            playerCollision((Player)spaceObject, collision);
+            PlayerCollision((Player)spaceObject, collision);
         else if (spaceObject.GetType().IsSubclassOf(typeof(DestructableObject)))
-            destructableObjectCollision((DestructableObject)spaceObject, collision);
+            DestructableObjectCollision((DestructableObject)spaceObject, collision);
         else if (spaceObject.GetType().IsSubclassOf(typeof(IndestructableObject)))
-            indestructableObjectCollision((IndestructableObject)spaceObject, collision);
+            IndestructableObjectCollision((IndestructableObject)spaceObject, collision);
         else
             Debug.Log(this.ToString() + " collided with an unknown type of object: " + spaceObject.ToString());
     }

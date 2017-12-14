@@ -19,55 +19,55 @@ public class SlowTurner : DestructableObject
     public float acceleration = 0.1f;
     private SpaceObject target;
 
-    protected override void destroyDestructableObject()
+    protected override void DestroyDestructableObject()
     {
 
     }
 
-    protected override void destructableObjectCollision(DestructableObject other, Collision2D collision)
-    {
-        if (other.team != team)
-        {
-            other.damageThis(damage);
-        }
-    }
-
-    protected override void indestructableObjectCollision(IndestructableObject other, Collision2D collision)
-    {
-        
-    }
-
-    protected override void nonInteractiveObjectCollision(NonInteractiveObject other)
-    {
-        
-    }
-
-    protected override void playerCollision(Player other, Collision2D collision)
+    protected override void DestructableObjectCollision(DestructableObject other, Collision2D collision)
     {
         if (other.team != team)
         {
-            other.damageThis(damage);
+            other.DamageThis(damage);
         }
     }
 
-    protected override void startDestructableObject()
+    protected override void IndestructableObjectCollision(IndestructableObject other, Collision2D collision)
     {
         
     }
 
-    protected override void updateDestructableObject()
+    protected override void NonInteractiveObjectCollision(NonInteractiveObject other)
+    {
+        
+    }
+
+    protected override void PlayerCollision(Player other, Collision2D collision)
+    {
+        if (other.team != team)
+        {
+            other.DamageThis(damage);
+        }
+    }
+
+    protected override void StartDestructableObject()
+    {
+        
+    }
+
+    protected override void UpdateDestructableObject()
     {
         //find a target if there is not currently one
         if (target == null || !target.active)
         {
-            target = closestObject(level.getTypes(true, true, false, false));
+            target = ClosestObject(level.GetTypes(true, true, false, false));
         }
         //if there is a target, turn towards it
         else
         {
-            turnTowards(target, turnSpeed * difficultyModifier);
+            TurnTowards(target, turnSpeed * difficultyModifier);
         }
 
-        moveForward(acceleration);
+        MoveForward(acceleration);
     }
 }

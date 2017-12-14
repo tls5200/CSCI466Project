@@ -19,7 +19,7 @@ public class Heal : Item
 
     private bool activated = false;
 
-    protected override void dropItem()
+    protected override void DropItem()
     {
         //if activated when dropped, deactivate before dropping.
         if (activated)
@@ -29,7 +29,7 @@ public class Heal : Item
         }
     }
 
-    protected override void holdingItem(bool use, bool startUse, bool endUse, bool doubleUse)
+    protected override void HoldingItem(bool use, bool startUse, bool endUse, bool doubleUse)
     {
         //if the user presses this item's corropsoing key, toggle this item's activation.
         if (startUse)
@@ -46,7 +46,7 @@ public class Heal : Item
                 //if the holder does not have enough acceleration, don't activate it and display that it won't be activated.
                 else
                 {
-                    IngameInterface.displayMessage("Can't activate Heal, not enough acceleration remaining!", 5f);
+                    IngameInterface.DisplayMessage("Can't activate Heal, not enough acceleration remaining!", 5f);
                     activated = false;
                 }
             }
@@ -68,14 +68,14 @@ public class Heal : Item
             //if the holder's health is full, display that the Item is being deacitvated, then deactivate it.
             else
             {
-                IngameInterface.displayMessage("Heal deactivated, fully healed.", 5f);
+                IngameInterface.DisplayMessage("Heal deactivated, fully healed.", 5f);
                 holder.accelerationPerSec += accelerationPerSecLoss;
                 activated = false;
             }
         }
     }
 
-    protected override void pickupItem()
+    protected override void PickupItem()
     {
         
     }

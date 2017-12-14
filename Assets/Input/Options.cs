@@ -63,7 +63,7 @@ class Options
     /// </summary>
     /// <param name="width">Screen width in pixles.</param>
     /// <param name="height">Screen height in pixles.</param>
-    public void setResolution(int width, int height)
+    public void SetResolution(int width, int height)
     {
         Screen.SetResolution(width, height, Screen.fullScreen);
     }
@@ -73,7 +73,7 @@ class Options
     /// The string should be the output from Resolution.toString()
     /// </summary>
     /// <param name="toString">Resolution string</param>
-    public void setResolution(string toString)
+    public void SetResolution(string toString)
     {
         try
         {
@@ -81,7 +81,7 @@ class Options
             seperators[0] = ' ';
             string[] parts = toString.Split(seperators);
 
-            setResolution(System.Convert.ToInt32(parts[0]), System.Convert.ToInt32(parts[2]));
+            SetResolution(System.Convert.ToInt32(parts[0]), System.Convert.ToInt32(parts[2]));
         }
         catch
         {
@@ -96,19 +96,19 @@ class Options
         //set the options to default values
         try
         {
-            loadOptions();
+            LoadOptions();
         }
         catch
         {
             Debug.Log("Error loading options, setting default options.");
-            setDefaultOptions();
+            SetDefaultOptions();
         }
     }
 
     /// <summary>
     /// Sets the options to default values
     /// </summary>
-    public void setDefaultOptions()
+    public void SetDefaultOptions()
     {
         ingameInterfaceAlpha = 0.7f;
         healthBarAlpha = 0.7f;
@@ -129,16 +129,16 @@ class Options
     /// <summary>
     /// Load the options from the default file
     /// </summary>
-    public void loadOptions()
+    public void LoadOptions()
     {
-        loadOptions(OPTIONS_FILE);
+        LoadOptions(OPTIONS_FILE);
     }
 
     /// <summary>
     /// Load the options from the given file
     /// </summary>
     /// <param name="fileName">File to load the options from</param>
-    public void loadOptions(string fileName)
+    public void LoadOptions(string fileName)
     {
         System.IO.StreamReader file = null;
         try
@@ -158,7 +158,7 @@ class Options
             cameraEdgeBufferSize = System.Convert.ToSingle(file.ReadLine());
             cameraZoomSpeed = System.Convert.ToSingle(file.ReadLine());
             fullScreen = System.Convert.ToBoolean(file.ReadLine());
-            setResolution(file.ReadLine());
+            SetResolution(file.ReadLine());
 
             file.Close();
         }
@@ -178,16 +178,16 @@ class Options
     /// <summary>
     /// Save the options to the default file
     /// </summary>
-    public void saveOptions()
+    public void SaveOptions()
     {
-        saveOptions(OPTIONS_FILE);
+        SaveOptions(OPTIONS_FILE);
     }
 
     /// <summary>
     /// Save the options to the given file
     /// </summary>
     /// <param name="fileName">File to save the options to</param>
-    public void saveOptions(string fileName)
+    public void SaveOptions(string fileName)
     {
         System.IO.StreamWriter file = null;
         try
@@ -225,7 +225,7 @@ class Options
     }
 
     private static Options singleton;
-    public static Options get()
+    public static Options Get()
     {
         if (singleton == null)
         {

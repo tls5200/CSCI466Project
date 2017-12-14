@@ -104,7 +104,7 @@ public class Key
     /// Returns the int value used to keep track of which input it represents
     /// </summary>
     /// <returns>The value used to keep track of the input</returns>
-    public int getValue()
+    public int GetValue()
     {
         return value;
     }
@@ -113,7 +113,7 @@ public class Key
     /// Changes the value used to keep track of which input it represents
     /// </summary>
     /// <param name="value">Value to change to</param>
-    public void changeValue(int value)
+    public void ChangeValue(int value)
     {
         this.value = value;
     }
@@ -122,9 +122,9 @@ public class Key
     /// Changes this Key to represent the same input as the given Key
     /// </summary>
     /// <param name="key">Key to copy</param>
-    public void changeValue(Key copy)
+    public void ChangeValue(Key copy)
     {
-        value = copy.getValue();
+        value = copy.GetValue();
     }
 
     /// <summary>
@@ -133,7 +133,7 @@ public class Key
     /// If this represents an axis, true will be returned if the value is above the KeyActivationThreshold.
     /// </summary>
     /// <returns>If this is activated or not.</returns>
-    public bool isPressed()
+    public bool IsPressed()
     {
         try
         {
@@ -161,11 +161,11 @@ public class Key
 
                 if (name[0] == '+')
                 {
-                    return (Input.GetAxis(name.Substring(1)) > Options.get().keyActivationThreshold);
+                    return (Input.GetAxis(name.Substring(1)) > Options.Get().keyActivationThreshold);
                 }
                 else if (name[0] == '-')
                 {
-                    return (Input.GetAxis(name.Substring(1)) < -Options.get().keyActivationThreshold);
+                    return (Input.GetAxis(name.Substring(1)) < -Options.Get().keyActivationThreshold);
                 }
                 else
                 {
@@ -189,7 +189,7 @@ public class Key
     /// If this represents an axis, the axis's value will be returned if it is greater than the keyDeadZone
     /// </summary>
     /// <returns>If this is activated or not.</returns>
-    public float getAxis()
+    public float GetAxis()
     {
         try
         {
@@ -218,9 +218,9 @@ public class Key
 
                 if (name[0] == '+')
                 {
-                    if (axisValue > 0 && axisValue > Options.get().keyDeadZone)
+                    if (axisValue > 0 && axisValue > Options.Get().keyDeadZone)
                     {
-                        axisValue = (axisValue - Options.get().keyDeadZone) / (1 - Options.get().keyDeadZone);
+                        axisValue = (axisValue - Options.Get().keyDeadZone) / (1 - Options.Get().keyDeadZone);
                         return axisValue;
                     }
                     else
@@ -230,10 +230,10 @@ public class Key
                 }
                 else if (name[0] == '-')
                 {
-                    if (axisValue < 0 && axisValue < -Options.get().keyDeadZone)
+                    if (axisValue < 0 && axisValue < -Options.Get().keyDeadZone)
                     {
                         axisValue = -axisValue;
-                        axisValue = (axisValue - Options.get().keyDeadZone) / (1 - Options.get().keyDeadZone);
+                        axisValue = (axisValue - Options.Get().keyDeadZone) / (1 - Options.Get().keyDeadZone);
                         return axisValue;
                     }
                     else
@@ -265,7 +265,7 @@ public class Key
     /// Return a string representing this Key's represented input in 5 charaters or less
     /// </summary>
     /// <returns>5 charater or less string representing this Key</returns>
-    public string toShortString()
+    public string ToShortString()
     {
         switch (value)
         {
@@ -566,7 +566,7 @@ public class Key
             int controller = temp / 20;
             int button = temp % 20;
 
-            if (Options.get().keyXboxNames)
+            if (Options.Get().keyXboxNames)
             {
                 switch (button)
                 {
@@ -610,7 +610,7 @@ public class Key
             bool positive = (tempValue % 2) == 0;
             axis = axis / 2 + 1;
 
-            if (Options.get().keyXboxNames)
+            if (Options.Get().keyXboxNames)
             {
                 if (positive)
                 {
@@ -706,7 +706,7 @@ public class Key
                 bool positive = (tempValue % 2) == 0;
                 axis = axis / 2 + 1;
 
-                return (getAxisString(controller, axis, positive));
+                return (GetAxisString(controller, axis, positive));
             }
             else
             {
@@ -725,7 +725,7 @@ public class Key
     /// <param name="controller">Which controller the axis is from</param>
     /// <param name="axis">Which axis from the controller</param>
     /// <returns>String representing the axis</returns>
-    public static string getAxisString(int controller, int axis)
+    public static string GetAxisString(int controller, int axis)
     {
         return ("Con" + controller.ToString() + "Axis" + axis.ToString());
     }
@@ -737,15 +737,15 @@ public class Key
     /// <param name="axis">Which axis from the controller</param>
     /// <param name="positive">If this represents the positive or negative part of the axis</param>
     /// <returns>String representing the axis</returns>
-    public static string getAxisString(int controller, int axis, bool positive)
+    public static string GetAxisString(int controller, int axis, bool positive)
     {
         if (positive)
         {
-            return ("+" + getAxisString(controller, axis));
+            return ("+" + GetAxisString(controller, axis));
         }
         else
         {
-            return ("-" + getAxisString(controller, axis));
+            return ("-" + GetAxisString(controller, axis));
         }
     }
 
@@ -753,7 +753,7 @@ public class Key
     /// Returns one of the inputs that is currently activated. If none are, it will return null.
     /// </summary>
     /// <returns>The activated input or null</returns>
-    public static Key activatedKey()
+    public static Key ActivatedKey()
     {
         foreach (KeyCode item in System.Enum.GetValues(typeof(KeyCode)))
         {
@@ -769,8 +769,8 @@ public class Key
         {
             for (int j = 1; j <= NUM_AXIS / 2; j++)
             {
-                axisValue = Input.GetAxis(getAxisString(i, j));
-                if (System.Math.Abs(axisValue) > Options.get().keyDeadZone)
+                axisValue = Input.GetAxis(GetAxisString(i, j));
+                if (System.Math.Abs(axisValue) > Options.Get().keyDeadZone)
                 {
                     if (axisValue > 0)
                     {

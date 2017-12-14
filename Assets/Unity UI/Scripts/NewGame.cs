@@ -34,7 +34,7 @@ public class NewGame : MonoBehaviour
     /// <summary>
     /// Method called by the Start button, creates a new Level with the settings selected by the user
     /// </summary>
-    public void start()
+    public void StartGame()
     {
         int numPlayers = 1;
         bool pvp = false;
@@ -82,8 +82,8 @@ public class NewGame : MonoBehaviour
         //if campaign is selected, Create Level1 of the campain
         if (campaign.isOn) 
         {
-            Level level1 = Level.getLevel(1);
-            level1.create(numPlayers, difficulty, (int)System.DateTime.Now.Ticks, pvp);
+            Level level1 = Level.GetLevel(1);
+            level1.Create(numPlayers, difficulty, (int)System.DateTime.Now.Ticks, pvp);
         }
         else if (practice.isOn)
         {
@@ -94,7 +94,7 @@ public class NewGame : MonoBehaviour
         {
             Level levelSurvival = (Instantiate(Resources.Load(Level.LEVEL_PATH + "LevelSurvivalPF"))
                 as GameObject).GetComponent<Level>();
-            levelSurvival.create(numPlayers, difficulty, (int)System.DateTime.Now.Ticks, pvp);
+            levelSurvival.Create(numPlayers, difficulty, (int)System.DateTime.Now.Ticks, pvp);
         }
         else
         {
@@ -107,7 +107,7 @@ public class NewGame : MonoBehaviour
     /// <summary>
     /// method the back button calls, changes the screen to the Main menu
     /// </summary>
-    public void back()
+    public void Back()
     {
         gameState = GameState.Main;
     }

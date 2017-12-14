@@ -31,7 +31,7 @@ public class LoadGame : MonoBehaviour
    
     void Start()
     {
-        refresh();
+        Refresh();
     }
 
     private void OnGUI()
@@ -60,7 +60,7 @@ public class LoadGame : MonoBehaviour
     /// <summary>
     /// Clears and repopulats the list of saved games
     /// </summary>
-    private void refresh()
+    private void Refresh()
     {
         //clear the list
         saves.Clear();
@@ -93,13 +93,13 @@ public class LoadGame : MonoBehaviour
 
     private void OnEnable()
     {
-        refresh();
+        Refresh();
     }
 
     /// <summary>
     /// creates a SavedGameItem for each saved game and add it to the saved game list
     /// </summary>
-    public void load()
+    public void Load()
     {
         //find the selected saved gae and try to load it
         foreach (SavedGameItem item in saves)
@@ -107,7 +107,7 @@ public class LoadGame : MonoBehaviour
             if (item.toggle.isOn)
             {
                 //if load was successful, change the screen to Playing
-                if (item.loadSave())
+                if (item.LoadSave())
                 {
                     GameStates.gameState = GameStates.GameState.Playing;
                     return;
@@ -115,24 +115,24 @@ public class LoadGame : MonoBehaviour
                 //if it wasn't successful, show an error
                 else
                 {
-                    showErrorMenu("Problem loading save!");
+                    ShowErrorMenu("Problem loading save!");
                 }
             }
         }
 
         //if no saved game was selected, show an error
-        showErrorMenu("No save selected.");
+        ShowErrorMenu("No save selected.");
     }
 
     /// <summary>
     /// method the back button calls, changes the screen to the Main menu
     /// </summary>
-    public void back()
+    public void Back()
     {
         GameStates.gameState = GameStates.GameState.Main;
     }
 
-    public void showErrorMenu(string errorMsg)
+    public void ShowErrorMenu(string errorMsg)
     {
         errorText.text = errorMsg;
         errorPanel.SetActive(true);

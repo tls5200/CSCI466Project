@@ -36,14 +36,14 @@ public class LevelComplete : MonoBehaviour, IErrorPanel //add the error panel in
     /// <summary>
     /// Method called by the Continue button, creates the next Level and sets the screen to Playing
     /// </summary>
-    public void conntiue()
+    public void Contiue()
     {
         //if the current Level does not exist then an error message is displayed
         if (Level.current == null)
-            showErrorMenu("CurrentLevel is null when trying to go to next Level");
+            ShowErrorMenu("CurrentLevel is null when trying to go to next Level");
         //if there is a problem loading the next Level, display an error
-        if (Level.current.nextLevel() == null)
-            showErrorMenu("Problem loading next Level");
+        if (Level.current.NextLevel() == null)
+            ShowErrorMenu("Problem loading next Level");
             
         GameStates.gameState = GameStates.GameState.Playing;
         
@@ -53,83 +53,56 @@ public class LevelComplete : MonoBehaviour, IErrorPanel //add the error panel in
     /// Method called by the Save Game button, saves the information about the current Level so 
     /// it can be loaded later to bring the user back to the same point in the game
     /// </summary>
-    public void saveGame()
+    public void SaveGame()
     {
         //if the current Level does not exist then an error message is displayed
         if (Level.current == null)
-            showErrorMenu("CurrentLevel is null when trying to save");
+            ShowErrorMenu("CurrentLevel is null when trying to save");
         //if there is an error with the replay file name then throw an exception
         else if (saveNameInputField == null || saveNameInputField.text == null)
             throw new Exception("Problem with SaveName InputField");
         //if user does not enter name in input field then desplay a message to him
         else if (saveNameInputField.text == "")
-            showErrorMenu("You must enter a name to create a save game"); 
+            ShowErrorMenu("You must enter a name to create a save game"); 
         //create a save
         else
         {
-            if (Level.current.save(saveNameInputField.text))
-                showErrorMenu("Save game created successfully!");
+            if (Level.current.Save(saveNameInputField.text))
+                ShowErrorMenu("Save game created successfully!");
             else
-                showErrorMenu("There was an error creating the save game...");
+                ShowErrorMenu("There was an error creating the save game...");
         }
     }
-
-    /* Not using, saving to leadboard automatically in Level.cs when the Level is completed. 
-    public void addToLeaderboard() // method used by the level complete menu to take user input from input field and create recording file on user's device
-    {
-        if (Level.currentLevel == null) //if there is an error with the current level then throw an exception and an error message is displayed
-        {
-            showErrorMenu("CurrentLevel is null when trying to go to addToLeaderboard");
-        }
-        else if (addedToLeaderboard) //if score is already on the database
-        {
-            showErrorMenu("CurrentLevel was already added to the leaderboard");
-        }
-        else //else save the score to the database
-        {
-            userData.currentLevel = Level.currentLevel.levelNumber;
-            userData.timeAlive = (int)Level.currentLevel.duration.TotalMilliseconds; //convert from double to int
-            userData.difficulty = Level.currentLevel.difficulty;
-            
-            //userData.enemiesKilled = Level.currentLevel.
-           
-
-            //add to leaderboard
-            crud.SaveUserData(); //save it to the backend DB...all of the data should already be stored in the userData class object.
-            addedToLeaderboard = true;
-        }
-    }
-    */
 
     /// <summary>
     /// Method called by the Save Replay button, saves a replay of the current Level
     /// to a file of the replayName.
     /// </summary>
-    public void saveReplay()
+    public void SaveReplay()
     {
         //if the current Level does not exist then an error message is displayed
         if (Level.current == null)
-            showErrorMenu("CurrentLevel is null when trying to saveReplay");
+            ShowErrorMenu("CurrentLevel is null when trying to saveReplay");
         //if there is an error with the replay file name then throw an exception
         else if (replayName == null || replayName.text == null)
             throw new Exception("Problem with replayName InputField");
         //if user does not enter name in input field then desplay a message to him
         else if (replayName.text == "")
-            showErrorMenu("You need to enter a name before saving the replay");
+            ShowErrorMenu("You need to enter a name before saving the replay");
         //else create save the replay
         else
         {
-            if (Level.current.saveReplay(replayName.text))
-                showErrorMenu("Replay has been saved successfully!");
+            if (Level.current.SaveReplay(replayName.text))
+                ShowErrorMenu("Replay has been saved successfully!");
             else
-                showErrorMenu("There was a problem saving the replay!");
+                ShowErrorMenu("There was a problem saving the replay!");
         }
     }
 
     /// <summary>
     /// Method called by the Quit button, destroys the current Level and changes the screen to the Main menu 
     /// </summary>
-    public void quit()
+    public void Quit()
     {
         if (Level.current != null)
         {
@@ -146,7 +119,7 @@ public class LevelComplete : MonoBehaviour, IErrorPanel //add the error panel in
         return hasError;
     }
 
-    public void showErrorMenu(string errorMsg)
+    public void ShowErrorMenu(string errorMsg)
     {
         errorText.text = errorMsg;
         errorPanel.SetActive(true);

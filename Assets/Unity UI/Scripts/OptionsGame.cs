@@ -27,14 +27,14 @@ public class OptionsGame : MonoBehaviour
     {
         get
         {
-            return Options.get();
+            return Options.Get();
         }
     }
 
     /// <summary>
     /// Set values in the menu to the values in Options
     /// </summary>
-    private void refresh()
+    private void Refresh()
     {
         autoSaves.value = options.levelMaxAutosaves;
         interfaceAlpha.value = options.ingameInterfaceAlpha;
@@ -49,12 +49,12 @@ public class OptionsGame : MonoBehaviour
 
     void Start()
     {
-        refresh();
+        Refresh();
     }
 
     private void OnEnable()
     {
-        refresh();
+        Refresh();
     }
 
     //The following methods are called when the value of the corrosponding input UI item is 
@@ -62,47 +62,47 @@ public class OptionsGame : MonoBehaviour
     public void AutoSaves()
     {
         options.levelMaxAutosaves = (int)autoSaves.value;
-        refresh();
+        Refresh();
     }
     public void InterfaceAlpha()
     {
         options.ingameInterfaceAlpha = interfaceAlpha.value;
-        refresh();
+        Refresh();
     }
     public void HealthbarAlpha()
     {
         options.healthBarAlpha = healthbarAlpha.value;
-        refresh();
+        Refresh();
     }
     public void CameraEdgeBuffer()
     {
         options.cameraEdgeBufferSize = cameraEdgeBuffer.value;
-        refresh();
+        Refresh();
     }
     public void ZoomSpeed()
     {
         options.cameraZoomSpeed = zoomSpeed.value;
-        refresh();
+        Refresh();
     }
     public void KeyDeadzone()
     {
         options.keyDeadZone = keyDeadzone.value;
-        refresh();
+        Refresh();
     }
     public void KeyActivationThreshold()
     {
         options.keyActivationThreshold = keyActivationThreshold.value;
-        refresh();
+        Refresh();
     }
     public void FixedGameBounds()
     {
         options.levelStatic = fixedGameBounds.isOn;
-        refresh();
+        Refresh();
     }
     public void XBox360Names()
     {
         options.keyXboxNames = xboxNames.isOn;
-        refresh();
+        Refresh();
     }
 
     /// <summary>
@@ -111,8 +111,8 @@ public class OptionsGame : MonoBehaviour
     /// </summary>
     public void ResetButton()
     {
-        options.setDefaultOptions();
-        refresh();
+        options.SetDefaultOptions();
+        Refresh();
     }
 
     /// <summary>

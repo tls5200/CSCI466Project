@@ -19,7 +19,7 @@ public class Accelerant : Item
 
     private bool activated = false;
 
-    protected override void dropItem()
+    protected override void DropItem()
     {
         //if activated when dropped, deactivate before dropping.
         if (activated)
@@ -30,7 +30,7 @@ public class Accelerant : Item
         }
     }
 
-    protected override void holdingItem(bool use, bool startUse, bool endUse, bool doubleUse)
+    protected override void HoldingItem(bool use, bool startUse, bool endUse, bool doubleUse)
     {
         //if the user presses this item's corropsoing key, toggle this item's activation.
         if (startUse)
@@ -58,7 +58,7 @@ public class Accelerant : Item
         }
     }
 
-    protected override void pickupItem()
+    protected override void PickupItem()
     {
         
     }

@@ -21,51 +21,51 @@ public class HomingMine : DestructableObject
     public SpaceObject target;
     public float damage = 10f;
 
-    protected override void destroyDestructableObject()
+    protected override void DestroyDestructableObject()
     {
 
     }
 
-    protected override void destructableObjectCollision(DestructableObject other, Collision2D collision)
+    protected override void DestructableObjectCollision(DestructableObject other, Collision2D collision)
     {
-        other.damageThis(damage);
-        destroyThis();
+        other.DamageThis(damage);
+        DestroyThis();
     }
 
-    protected override void indestructableObjectCollision(IndestructableObject other, Collision2D collision)
+    protected override void IndestructableObjectCollision(IndestructableObject other, Collision2D collision)
     {
-        destroyThis();
+        DestroyThis();
     }
 
-    protected override void nonInteractiveObjectCollision(NonInteractiveObject other)
-    {
-        
-    }
-
-    protected override void playerCollision(Player other, Collision2D collision)
-    {
-        other.damageThis(damage);
-        destroyThis();
-    }
-
-    protected override void startDestructableObject()
+    protected override void NonInteractiveObjectCollision(NonInteractiveObject other)
     {
         
     }
 
-    protected override void updateDestructableObject()
+    protected override void PlayerCollision(Player other, Collision2D collision)
+    {
+        other.DamageThis(damage);
+        DestroyThis();
+    }
+
+    protected override void StartDestructableObject()
+    {
+        
+    }
+
+    protected override void UpdateDestructableObject()
     {
         //if the target is too far away, make it no longer the target
-        if (target != null && distanceFrom(target) > targetLossProximity)
+        if (target != null && DistanceFrom(target) > targetLossProximity)
             target = null;
 
         if (target == null || !target.active)
         {
             //set the target to the closest enemy DestructableObject
-            target = closestObject(level.getTypes(true, true, false, false), false);
+            target = ClosestObject(level.GetTypes(true, true, false, false), false);
 
             //if the target is too far away, make it no longer the target
-            if (target != null && distanceFrom(target) > targetFindProximity)
+            if (target != null && DistanceFrom(target) > targetFindProximity)
                 target = null;
         }
 
@@ -102,7 +102,7 @@ public class HomingMine : DestructableObject
                     angularVelocity += angularAcceleration;
             }
 
-            moveTowards(target, acceleration * difficultyModifier);
+            MoveTowards(target, acceleration * difficultyModifier);
         }
     }
 }

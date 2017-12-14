@@ -26,53 +26,53 @@ public class Level3 : Level
         }
     }
 
-    protected override void createLevel()
+    protected override void CreateLevel()
     {
-        musicPlay("sounds/level1Loop");
+        MusicPlay("sounds/level1Loop");
   
         levelSize = new Vector2(80, 60); //set the level size
         
-        createObject("SpaceDustPF", gameBounds.center, 0);
+        CreateObject("SpaceDustPF", gameBounds.center, 0);
 
         for (int i = 0; i < 4; i++)
         {
-            Blob current = (Blob)createObject("BlobPF", getRandomPosition(), getRandomAngle());
-            current.velocity = getRandomVelocity(current.maxSpeed);
+            Blob current = (Blob)CreateObject("BlobPF", GetRandomPosition(), GetRandomAngle());
+            current.velocity = GetRandomVelocity(current.maxSpeed);
         }
 
         for (int i = 0; i < 1; i++)
         {
-            GravityWell current = (GravityWell)createObject("GravityWellPF", getRandomPosition(), getRandomAngle());
-            current.velocity = getRandomVelocity(current.maxSpeed);
+            GravityWell current = (GravityWell)CreateObject("GravityWellPF", GetRandomPosition(), GetRandomAngle());
+            current.velocity = GetRandomVelocity(current.maxSpeed);
         }
 
         for (int i = 0; i < 2; i++)
         {
-            RotatingLazerSentry current = (RotatingLazerSentry)createObject("RotatingLazerSentryPF", getRandomPosition(), getRandomAngle());
-            current.velocity = getRandomVelocity(current.maxSpeed);
+            RotatingLazerSentry current = (RotatingLazerSentry)CreateObject("RotatingLazerSentryPF", GetRandomPosition(), GetRandomAngle());
+            current.velocity = GetRandomVelocity(current.maxSpeed);
         }
 
         for (int i = 0; i < 3; i++)
         {
-            LazerEmitter current = (LazerEmitter)createObject("LazerEmitterPF", getRandomPosition(), getRandomAngle());
-            current.velocity = getRandomVelocity(current.maxSpeed);
+            LazerEmitter current = (LazerEmitter)CreateObject("LazerEmitterPF", GetRandomPosition(), GetRandomAngle());
+            current.velocity = GetRandomVelocity(current.maxSpeed);
         }
 
-        RapidShots rapid = (RapidShots)createObject("RapidShotsPF");
+        RapidShots rapid = (RapidShots)CreateObject("RapidShotsPF");
     }
 
-    protected override void updateLevel()
+    protected override void UpdateLevel()
     {
 
     }
 
-    protected override void endLevel()
+    protected override void EndLevel()
     {
         
     }
     
     /*
-    protected override bool won()
+    protected override bool Won()
     {
         //add win conditinos here, default is when all enimes die    
 
@@ -80,7 +80,7 @@ public class Level3 : Level
     }
 
     
-    protected override bool lost()
+    protected override bool Lost()
     {
         //add loss conditions here, if player dies then its always loss
 

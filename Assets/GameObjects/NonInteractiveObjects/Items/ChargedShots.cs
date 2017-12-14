@@ -27,11 +27,11 @@ public class ChargedShots : Item
     private LazerShot chargingShot;
 
     //when dropped, destroy any shot that is being charged. 
-    protected override void dropItem()
+    protected override void DropItem()
     {
         if (chargingShot != null)
         {
-            chargingShot.destroyThis();
+            chargingShot.DestroyThis();
             chargingShot = null;
         }
     }
@@ -40,14 +40,14 @@ public class ChargedShots : Item
     /// To be called when the shot is being charged. Update's the shots position relative 
     /// to the holder and charges it if it is not fully charged already.  
     /// </summary>
-    private void updateChargingShot()
+    private void UpdateChargingShot()
     {
         if (chargingShot != null)
         {
             //update reletive to user
-            chargingShot.position = holder.position + offset.rotate(holder.angle);
+            chargingShot.position = holder.position + offset.Rotate(holder.angle);
             chargingShot.angle = holder.angle;
-            chargingShot.resetTimeAlive();
+            chargingShot.ResetTimeAlive();
 
             //charge the shot
             chargingShot.damage += damageChargeSpeed;
@@ -61,38 +61,38 @@ public class ChargedShots : Item
         }
     }
 
-    protected override void holdingItem(bool use, bool startUse, bool endUse, bool doubleUse)
+    protected override void HoldingItem(bool use, bool startUse, bool endUse, bool doubleUse)
     {
         //When the holder first presses this Item's key, create a LazerShot to charge
         if (startUse)
         {
             if (chargingShot != null)
-                chargingShot.destroyThis();
+                chargingShot.DestroyThis();
 
-            chargingShot = (LazerShot)level.createObject("LazerShotPF");
+            chargingShot = (LazerShot)level.CreateObject("LazerShotPF");
             chargingShot.team = holder.team;
             chargingShot.color = color;
             chargingShot.timeToLiveSecs = shotLifeSecs;
             chargingShot.damage = shotMinDamage;
-            updateChargingShot();
+            UpdateChargingShot();
         }
         //When the holder holds down this Item's key, update the LazerShot
         else if (use)
         {
-            updateChargingShot();
+            UpdateChargingShot();
         }
 
         //When the holder release's this Item's key, shoot the LazerShot
         if (endUse && chargingShot != null)
         {
             chargingShot.velocity = holder.velocity;
-            chargingShot.moveForward(shotSpeed);
+            chargingShot.MoveForward(shotSpeed);
             chargingShot = null;
         }
 
     }
 
-    protected override void pickupItem()
+    protected override void PickupItem()
     {
         //calculate the charge speed
         damageChargeSpeed = (shotMaxDamage - shotMinDamage) / (toFullChargeSecs * level.updatesPerSec);

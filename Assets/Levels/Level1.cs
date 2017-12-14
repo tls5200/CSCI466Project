@@ -26,44 +26,44 @@ public class Level1 : Level
         }
     }
 
-    protected override void createLevel()
+    protected override void CreateLevel()
     {
-        musicPlay("sounds/level1Loop");
+        MusicPlay("sounds/level1Loop");
   
         levelSize = new Vector2(80, 60); //set the level size
         
-        createObject("SpaceDustPF", gameBounds.center, 0);
+        CreateObject("SpaceDustPF", gameBounds.center, 0);
 
         for (int i = 0; i < 6; i++)
         {
-            Asteroid current = (Asteroid)createObject("AsteroidPF", getRandomPosition(), getRandomAngle());
-            current.velocity = getRandomVelocity(current.maxSpeed);
+            Asteroid current = (Asteroid)CreateObject("AsteroidPF", GetRandomPosition(), GetRandomAngle());
+            current.velocity = GetRandomVelocity(current.maxSpeed);
         }
 
         for (int i = 0; i < 2; i++)
         {
-            RubberyDebris current = (RubberyDebris)createObject("RubberyDebrisPF", getRandomPosition(), getRandomAngle());
-            current.velocity = getRandomVelocity(current.maxSpeed);
+            RubberyDebris current = (RubberyDebris)CreateObject("RubberyDebrisPF", GetRandomPosition(), GetRandomAngle());
+            current.velocity = GetRandomVelocity(current.maxSpeed);
         }
 
 
-        LazerSword sword = (LazerSword)createObject("LazerSwordPF");
-        MultiShots multiShot = (MultiShots)createObject("MultiShotPF");
-        Heal heal = (Heal)createObject("HealPF");
+        LazerSword sword = (LazerSword)CreateObject("LazerSwordPF");
+        MultiShots multiShot = (MultiShots)CreateObject("MultiShotPF");
+        Heal heal = (Heal)CreateObject("HealPF");
     }
 
-    protected override void updateLevel()
+    protected override void UpdateLevel()
     {
 
     }
 
-    protected override void endLevel()
+    protected override void EndLevel()
     {
         
     }
     
     /*
-    protected override bool won()
+    protected override bool Won()
     {
         //add win conditinos here, default is when all enimes die    
 
@@ -71,7 +71,7 @@ public class Level1 : Level
     }
 
     
-    protected override bool lost()
+    protected override bool Lost()
     {
         //add loss conditions here, if player dies then its always loss
 

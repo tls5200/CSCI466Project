@@ -21,37 +21,37 @@ public class LazerEmitter : DestructableObject
 
     private int emitTimer = 100;
 
-    protected override void destroyDestructableObject()
+    protected override void DestroyDestructableObject()
     {
         
     }
 
-    protected override void destructableObjectCollision(DestructableObject other, Collision2D collision)
+    protected override void DestructableObjectCollision(DestructableObject other, Collision2D collision)
     {
         
     }
 
-    protected override void indestructableObjectCollision(IndestructableObject other, Collision2D collision)
+    protected override void IndestructableObjectCollision(IndestructableObject other, Collision2D collision)
     {
         
     }
 
-    protected override void nonInteractiveObjectCollision(NonInteractiveObject other)
+    protected override void NonInteractiveObjectCollision(NonInteractiveObject other)
     {
         
     }
 
-    protected override void playerCollision(Player other, Collision2D collision)
+    protected override void PlayerCollision(Player other, Collision2D collision)
     {
         
     }
 
-    protected override void startDestructableObject()
+    protected override void StartDestructableObject()
     {
         
     }
 
-    protected override void updateDestructableObject()
+    protected override void UpdateDestructableObject()
     {
         emitTimer--;
 
@@ -64,7 +64,7 @@ public class LazerEmitter : DestructableObject
             for (int i = 0; i < numLazers * difficultyModifier; i++)
             {
                 float currentAngle = angle + i * 360f / numLazers;
-                LazerShot current = (LazerShot)level.createObject("LazerShotPF", position + lazerOffset.rotate(currentAngle), currentAngle, new Vector2(lazerSpeed, 0).toAngle(currentAngle) + velocity);
+                LazerShot current = (LazerShot)level.CreateObject("LazerShotPF", position + lazerOffset.Rotate(currentAngle), currentAngle, new Vector2(lazerSpeed, 0).ToAngle(currentAngle) + velocity);
                 current.damage = damage;
                 current.timeToLiveSecs = lazerLifeSecs;
                 current.color = lazerColor;

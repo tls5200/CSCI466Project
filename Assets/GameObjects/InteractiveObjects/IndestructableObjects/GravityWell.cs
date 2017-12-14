@@ -21,44 +21,44 @@ class GravityWell : IndestructableObject
     public float gravity = 1f;
     public float damage = 10f;
 
-    protected override void destroyIndestructableObject()
+    protected override void DestroyIndestructableObject()
     {
 
     }
 
-    protected override void destructableObjectCollision(DestructableObject other, Collision2D collision)
-    {
-        //push the other away from this, as fast as it can go
-        other.velocity = -collision.relativeVelocity.normalized * other.maxSpeed;
-
-        other.damageThis(damage);
-    }
-
-    protected override void indestructableObjectCollision(IndestructableObject other, Collision2D collision)
+    protected override void DestructableObjectCollision(DestructableObject other, Collision2D collision)
     {
         //push the other away from this, as fast as it can go
         other.velocity = -collision.relativeVelocity.normalized * other.maxSpeed;
+
+        other.DamageThis(damage);
     }
 
-    protected override void nonInteractiveObjectCollision(NonInteractiveObject other)
+    protected override void IndestructableObjectCollision(IndestructableObject other, Collision2D collision)
+    {
+        //push the other away from this, as fast as it can go
+        other.velocity = -collision.relativeVelocity.normalized * other.maxSpeed;
+    }
+
+    protected override void NonInteractiveObjectCollision(NonInteractiveObject other)
     {
             
     }
 
-    protected override void playerCollision(Player other, Collision2D collision)
+    protected override void PlayerCollision(Player other, Collision2D collision)
     {
         //push the other away from this, as fast as it can go
         other.velocity = -collision.relativeVelocity.normalized * other.maxSpeed;
 
-        other.damageThis(damage);
+        other.DamageThis(damage);
     }
 
-    protected override void startIndestructableObject()
+    protected override void StartIndestructableObject()
     {
         mass = 1000 * gravity;
     }
 
-    protected override void updateIndestructableObject()
+    protected override void UpdateIndestructableObject()
     {
         //change the size of this if the gravity was changed
         if (scale.x != scaleMultipleOfGravity * gravity)
@@ -70,15 +70,15 @@ class GravityWell : IndestructableObject
         //pull all Players towards this baised on the distance squared between them
         foreach (Player item in level.players)
         {
-            Vector2 pull = gravity / (float)Math.Pow(distanceFrom(item), 2) * -vector2From(item).normalized;
-            item.modifyVelocityAbsolute(pull);
+            Vector2 pull = gravity / (float)Math.Pow(DistanceFrom(item), 2) * -Vector2From(item).normalized;
+            item.ModifyVelocityAbsolute(pull);
         }
 
         //pull all non-Players DestructableObjects towards this baised on the distance squared between them
         foreach (DestructableObject item in level.destructables)
         {
-            Vector2 pull = gravity / (float)Math.Pow(distanceFrom(item), 2) * -vector2From(item).normalized;
-            item.modifyVelocityAbsolute(pull);
+            Vector2 pull = gravity / (float)Math.Pow(DistanceFrom(item), 2) * -Vector2From(item).normalized;
+            item.ModifyVelocityAbsolute(pull);
         }
 
         //pull all IndestructableObjects that are not GravityWells towards this baised on the distance squared between them
@@ -86,8 +86,8 @@ class GravityWell : IndestructableObject
         {
             if (item.GetType() != typeof(GravityWell))
             {
-                Vector2 pull = gravity / (float)Math.Pow(distanceFrom(item), 2) * -vector2From(item).normalized;
-                item.modifyVelocityAbsolute(pull);
+                Vector2 pull = gravity / (float)Math.Pow(DistanceFrom(item), 2) * -Vector2From(item).normalized;
+                item.ModifyVelocityAbsolute(pull);
             }
         }
     }

@@ -20,7 +20,7 @@ public class Shoot : BlobBehaviour
         this.shotSpeed = shotSpeed;
     }
 
-    public override bool combine(BlobBehaviour other)
+    public override bool Combine(BlobBehaviour other)
     {
         if (other.GetType() == typeof(Shoot))
         {
@@ -46,7 +46,7 @@ public class Shoot : BlobBehaviour
     /// Every so often, shoots a shotBlob from itself at closest enemy DestructableObject
     /// </summary>
     /// <param name="thisBlob">The Blob this behavior is attached to.</param>
-    public override void update(Blob thisBlob)
+    public override void Update(Blob thisBlob)
     {
         if (thisBlob.scale.x > shotSize)
         {
@@ -57,14 +57,14 @@ public class Shoot : BlobBehaviour
                 //reset shootTimer
                 shootTimer = (int)(shootTimeSecs * Level.current.updatesPerSec / magnitude / thisBlob.difficultyModifier);
 
-                SpaceObject target = thisBlob.closestObject<SpaceObject>(Level.current.getTypes(true, true, false, false), false);
+                SpaceObject target = thisBlob.ClosestObject<SpaceObject>(Level.current.GetTypes(true, true, false, false), false);
 
                 if (target != null)
                 {
-                    thisBlob.turnTowards(target);
+                    thisBlob.TurnTowards(target);
 
                     //find where the shotBlob should be shot to hit the target, given their current positions and velocities
-                    Vector3 aimAt = SpaceObject.intersectPosTime(target, shotSpeed, thisBlob.position + new Vector2(0, thisBlob.scale.x * 3).rotate(thisBlob.angle));
+                    Vector3 aimAt = SpaceObject.IntersectPosTime(target, shotSpeed, thisBlob.position + new Vector2(0, thisBlob.scale.x * 3).Rotate(thisBlob.angle));
 
                     //if the taget cannot be hit, just shoot straight at its current position
                     if (aimAt.z < 0)
@@ -73,9 +73,9 @@ public class Shoot : BlobBehaviour
                     }
 
                     //create the shotBlob with an the velocity to hit where it is being aimed at
-                    float theAngle = thisBlob.angleToAbsolute(aimAt);
-                    Blob shotBlob = (Blob)Level.current.createObject("BlobPF", thisBlob.position + new Vector2(0, thisBlob.scale.x * 3).rotate(thisBlob.angle), theAngle,
-                        new Vector2(0, shotSpeed).rotate(theAngle), thisBlob.angularVelocity + magnitude, shotSize);
+                    float theAngle = thisBlob.AngleToAbsolute(aimAt);
+                    Blob shotBlob = (Blob)Level.current.CreateObject("BlobPF", thisBlob.position + new Vector2(0, thisBlob.scale.x * 3).Rotate(thisBlob.angle), theAngle,
+                        new Vector2(0, shotSpeed).Rotate(theAngle), thisBlob.angularVelocity + magnitude, shotSize);
 
                     float shotPortion = shotSize / thisBlob.scale.x;
                     float thisPortion = 1 - shotPortion;
@@ -119,7 +119,7 @@ public class GreenBlob : Blob
     public float shotSize = 0.25f;
     public float shotSpeed = 15;
 
-    protected override void startBlob()
+    protected override void StartBlob()
     {
         color = new Color(0, 1, 0, color.a);
 

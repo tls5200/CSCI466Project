@@ -96,7 +96,7 @@ public class SavedGameItem : MonoBehaviour
     /// Creates a Level in play mode from the saved game file represented by this SavedGameItem
     /// </summary>
     /// <returns>True if the Level was created succesfully, false otherwise.</returns>
-    public bool loadSave()
+    public bool LoadSave()
     {
         if (saveFile == null)
         {
@@ -104,7 +104,7 @@ public class SavedGameItem : MonoBehaviour
         }
         else
         {
-            return (Level.loadLevel(saveFile.FullName) != null);
+            return (Level.LoadLevel(saveFile.FullName) != null);
         }
     }
 }

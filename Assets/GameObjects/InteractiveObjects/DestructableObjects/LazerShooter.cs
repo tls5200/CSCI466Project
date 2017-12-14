@@ -26,55 +26,55 @@ class LazerShooter : DestructableObject
     public float acceleration = 0.3f;
     public float targetDistanceFrom = 10f;
 
-    protected override void destroyDestructableObject()
+    protected override void DestroyDestructableObject()
     {
 
     }
 
-    protected override void destructableObjectCollision(DestructableObject other, Collision2D collision)
-    {
-        
-    }
-
-    protected override void indestructableObjectCollision(IndestructableObject other, Collision2D collision)
+    protected override void DestructableObjectCollision(DestructableObject other, Collision2D collision)
     {
         
     }
 
-    protected override void nonInteractiveObjectCollision(NonInteractiveObject other)
+    protected override void IndestructableObjectCollision(IndestructableObject other, Collision2D collision)
     {
         
     }
 
-    protected override void playerCollision(Player other, Collision2D collision)
+    protected override void NonInteractiveObjectCollision(NonInteractiveObject other)
     {
         
     }
 
-    protected override void startDestructableObject()
+    protected override void PlayerCollision(Player other, Collision2D collision)
+    {
+        
+    }
+
+    protected override void StartDestructableObject()
     {
         //wait awhile before starting to fire
         shootTimer = 4 * level.updatesPerSec;
     }
 
-    protected override void updateDestructableObject()
+    protected override void UpdateDestructableObject()
     {
         //try to find a target if it doesn't have one
         if (target == null || !target.active)
         {
-            target = closestObject(level.getTypes(true, true, false, false), false);
+            target = ClosestObject(level.GetTypes(true, true, false, false), false);
         }
         else
         {
             shootTimer--;
 
             //find where this needs to shoot to hit the target given their current positions, the LazerShot's speed and the Target's position
-            Vector3 intersect = intersectPosTime(target, shotSpeed, new Vector2(0, 3).rotate(angle) + position);
+            Vector3 intersect = IntersectPosTime(target, shotSpeed, new Vector2(0, 3).Rotate(angle) + position);
 
             //if the target can be hit, turn towards where this would need to shoot
             if (intersect.z >= 0)
             {
-                turnTowards(intersect);
+                TurnTowards(intersect);
             }
 
             //shoot if it is time to
@@ -91,8 +91,8 @@ class LazerShooter : DestructableObject
                 //create a LazerShot aimed to hit the target
                 else
                 {
-                    LazerShot shot = (LazerShot)level.createObject("LazerShotPF", 
-                        new Vector2(0, 3 + shotSpeed * level.secsPerUpdate).rotate(angle) + position, angle);
+                    LazerShot shot = (LazerShot)level.CreateObject("LazerShotPF", 
+                        new Vector2(0, 3 + shotSpeed * level.secsPerUpdate).Rotate(angle) + position, angle);
 
                     shot.maxSpeed = shotSpeed;
                     shot.speed = shotSpeed;
@@ -104,10 +104,10 @@ class LazerShooter : DestructableObject
             else
             {
                 //try to keep a certain distance from the target
-                if (distanceFrom(target) > targetDistanceFrom)
-                    moveTowards(target, acceleration);
+                if (DistanceFrom(target) > targetDistanceFrom)
+                    MoveTowards(target, acceleration);
                 else
-                    moveTowards(target, -acceleration);
+                    MoveTowards(target, -acceleration);
             }
         }
     }

@@ -22,16 +22,16 @@ public class GravityWellController : Item
     private GravityWell well;
 
     //If this Item is dropped, destroy its GravityWell if it currrently has one
-    protected override void dropItem()
+    protected override void DropItem()
     {
         if (well != null)
         {
-            well.destroyThis();
+            well.DestroyThis();
             well = null;
         }
     }
 
-    protected override void holdingItem(bool use, bool startUse, bool endUse, bool doubleUse)
+    protected override void HoldingItem(bool use, bool startUse, bool endUse, bool doubleUse)
     {
         //When the holder first presses this Item's key, create a GravityWell 
         //behind the holder if there isn't one, if there is one move it behind the holder. 
@@ -41,13 +41,13 @@ public class GravityWellController : Item
             direction.x *= -1;
             if (well == null)
             {
-                well = (GravityWell)level.createObject("GravityWellPF", holder.position + offset.rotate(direction.getAngle()));
+                well = (GravityWell)level.CreateObject("GravityWellPF", holder.position + offset.Rotate(direction.GetAngle()));
                 well.damage = wellDamage;
                 well.gravity = startGravity;
             }
             else
             {
-                well.position = holder.position + offset.rotate(direction.getAngle());
+                well.position = holder.position + offset.Rotate(direction.GetAngle());
             }
         }
         //When the holder holds down this Item's key, increase the GravityWell's size.
@@ -64,7 +64,7 @@ public class GravityWellController : Item
         //When the holder double presses this Item's key, destroy the GravityWell if one exists.
         if (doubleUse && well != null)
         {
-            well.destroyThis();
+            well.DestroyThis();
             well = null;
         }
 
@@ -74,7 +74,7 @@ public class GravityWellController : Item
         }
     }
 
-    protected override void pickupItem()
+    protected override void PickupItem()
     {
         
     }

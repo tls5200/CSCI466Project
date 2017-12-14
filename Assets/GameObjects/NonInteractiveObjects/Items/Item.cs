@@ -20,24 +20,24 @@ public abstract class Item : NonInteractiveObject
     private int doubleClickTimer;
 
     //If this Item is being destroyed, drop it. 
-    protected override void destroyNonInteractiveObject()
+    protected override void DestroyNonInteractiveObject()
     {
-        dropItem();
+        DropItem();
         holder = null;
     }
 
-    protected override void startNonInteractiveObject()
+    protected override void StartNonInteractiveObject()
     {
         drawDepth = 1;
     }
 
-    protected override void destructableObjectCollision(DestructableObject other) { }
+    protected override void DestructableObjectCollision(DestructableObject other) { }
 
-    protected override void indestructableObjectCollision(IndestructableObject other) { }
+    protected override void IndestructableObjectCollision(IndestructableObject other) { }
 
-    protected override void playerCollision(Player other) { }
+    protected override void PlayerCollision(Player other) { }
 
-    protected override void updateNonInteractiveObject()
+    protected override void UpdateNonInteractiveObject()
     {
         //If update is being called, this Item is active in the Level and
         //should ot be held, do drop it
@@ -45,7 +45,7 @@ public abstract class Item : NonInteractiveObject
         {
             if (!itemUpdated || !holder.active)
             {
-                drop();
+                Drop();
             }
         }
 
@@ -58,14 +58,14 @@ public abstract class Item : NonInteractiveObject
     }
 
     //called when a Player picksup this Item
-    protected abstract void pickupItem();
+    protected abstract void PickupItem();
 
     /// <summary>
     /// Picks up this Item and puts it in the given Player's first open Item slot
     /// </summary>
     /// <param name="player">Player to pickup this Item.</param>
     /// <returns>Return true if the Item was succesfully pickup, false otherwise.</returns>
-    public bool pickup(Player player)
+    public bool Pickup(Player player)
     {
         //Given Player should not be null
         if (player == null)
@@ -81,7 +81,7 @@ public abstract class Item : NonInteractiveObject
                 //If a slot is open, then pickup this Item
                 if (player.items[i] == null)
                 {
-                    return pickup(player, i);
+                    return Pickup(player, i);
                 }
                 //If this item is already in this Player's invintory,
                 //stop looking for a slot to put it in
@@ -100,7 +100,7 @@ public abstract class Item : NonInteractiveObject
     /// <param name="player">Player to pickup this Item.</param>
     /// <param name="itemSlot">Slot number to put the Item in.</param>
     /// <returns>Return true if the Item was succesfully pickup, false otherwise.</returns>
-    public bool pickup(Player player, int itemSlot)
+    public bool Pickup(Player player, int itemSlot)
     {
         //Given Player should not be null
         if (player == null)
@@ -116,12 +116,12 @@ public abstract class Item : NonInteractiveObject
         else if (pickupDropTimer <= 0)
         {
             //Make sure this Item is not already held
-            dropItem();
+            DropItem();
 
             //Pickup this Item
             player.items[itemSlot] = this;
             holder = player;
-            pickupItem();
+            PickupItem();
 
             //Pickedup items should not be active in the game
             active = false;
@@ -135,12 +135,12 @@ public abstract class Item : NonInteractiveObject
     }
 
     //Called when the holding Player drops this Item
-    protected abstract void dropItem();
-    public void drop()
+    protected abstract void DropItem();
+    public void Drop()
     {
         if (holder != null && pickupDropTimer <= 0)
         {
-            dropItem();
+            DropItem();
 
             //find this Item in the holding Player's Item list and remove it
             for (int i = 0; i < holder.items.Length; i++)
@@ -166,8 +166,8 @@ public abstract class Item : NonInteractiveObject
     }
 
     //called each update that a Player is holding this Item
-    protected abstract void holdingItem(bool use, bool startUse, bool endUse, bool doubleUse);
-    public void holding(bool use)
+    protected abstract void HoldingItem(bool use, bool startUse, bool endUse, bool doubleUse);
+    public void Holding(bool use)
     {
         //if this is being called, holder should not be null
         if (holder == null)
@@ -177,7 +177,7 @@ public abstract class Item : NonInteractiveObject
         //if holder is not active, drop this Item
         else if (!holder.active)
         {
-            drop();
+            Drop();
         }
         else
         {
@@ -212,7 +212,7 @@ public abstract class Item : NonInteractiveObject
             }
 
             //update this Item's particular use behavior
-            holdingItem(use, start, end, dbl);
+            HoldingItem(use, start, end, dbl);
         }
 
         //update status values
@@ -229,7 +229,7 @@ public abstract class Item : NonInteractiveObject
     /// this particular instance. The saved values are read from the given string. 
     /// </summary>
     /// <param name="values"></param>
-    public virtual void loadValues(string values)
+    public virtual void LoadValues(string values)
     {
 
     }
@@ -239,7 +239,7 @@ public abstract class Item : NonInteractiveObject
     /// this particular instance. The values to be saved will be return in a string.  
     /// </summary>
     /// <param name="values"></param>
-    public virtual string getValues()
+    public virtual string GetValues()
     {
         return "";
     }

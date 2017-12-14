@@ -20,7 +20,7 @@ public class TowardsTarget : BlobBehaviour
         this.updateTargetSecs = updateTargetSecs;
     }
 
-    public override bool combine(BlobBehaviour other)
+    public override bool Combine(BlobBehaviour other)
     {
         if (other.GetType() == typeof(TowardsTarget))
         {
@@ -46,7 +46,7 @@ public class TowardsTarget : BlobBehaviour
     /// Moves thisBlob towars the target. 
     /// </summary>
     /// <param name="thisBlob">The Blob this behavior is attached to.</param>
-    public override void update(Blob thisBlob)
+    public override void Update(Blob thisBlob)
     {
         updateTargetTimer--;
         if (updateTargetTimer <= 0)
@@ -57,11 +57,11 @@ public class TowardsTarget : BlobBehaviour
 
         if (target == null || !target.enabled)
         {
-            target = thisBlob.closestObject<SpaceObject>(Level.current.getTypes(true, true, false, false), false);
+            target = thisBlob.ClosestObject<SpaceObject>(Level.current.GetTypes(true, true, false, false), false);
         }
         else
         {
-            thisBlob.moveTowards(target, moveSpeed * magnitude * thisBlob.difficultyModifier);
+            thisBlob.MoveTowards(target, moveSpeed * magnitude * thisBlob.difficultyModifier);
         }
     }
 }
@@ -71,7 +71,7 @@ public class RedBlob : Blob
     public float moveSpeed = 2f;
     public float updateTargetSecs = 2f;
 
-    protected override void startBlob()
+    protected override void StartBlob()
     {
         color = new Color(1, 0, 0, color.a);
 

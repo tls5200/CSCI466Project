@@ -40,11 +40,11 @@ public class ModifyControls : MonoBehaviour
     /// <summary>
     /// Set values in the menu to the values in the PlayerControls
     /// </summary>
-    private void refresh()
+    private void Refresh()
     {
         //sets this menu's PlayerContorls the PlayerControls for the playerNumber set
         if (playerNumber >= 0 && playerNumber < Controls.MAX_PLAYERS)
-            playerControls = Controls.get().players[playerNumber];
+            playerControls = Controls.Get().players[playerNumber];
         else
             throw new System.Exception("Player Numbe in ModifyControls invalid: " + playerNumber);
 
@@ -77,12 +77,12 @@ public class ModifyControls : MonoBehaviour
 
     void Start()
     {
-        refresh();
+        Refresh();
     }
 
     private void OnEnable()
     {
-        refresh();
+        Refresh();
     }
 
     void Update()
@@ -95,14 +95,14 @@ public class ModifyControls : MonoBehaviour
             chooseInput.enabled = true;
 
             //see if an input is activated
-            Key temp = Key.activatedKey();
+            Key temp = Key.ActivatedKey();
 
             //if one is, set the key being modifed to it
             if (temp != null)
             {
-                keyToModify.changeValue(temp);
+                keyToModify.ChangeValue(temp);
                 keyToModify = null;
-                refresh();
+                Refresh();
             }
         }
         else
@@ -211,18 +211,18 @@ public class ModifyControls : MonoBehaviour
     //changed, then they change their corrosponding Controls Options value.
     public void RelativeDirect()
     {
-        playerControls.setRelativeMovement(relative.isOn);
+        playerControls.SetRelativeMovement(relative.isOn);
         //refresh();
     }
     public void TurnPoint()
     {
-        playerControls.setTurns(turn.isOn);
+        playerControls.SetTurns(turn.isOn);
         //refresh();
     }
     public void Mouse()
     {
         playerControls.mouseTurn = mouse.isOn;
-        refresh();
+        Refresh();
     }
 
     /// <summary>
@@ -231,8 +231,8 @@ public class ModifyControls : MonoBehaviour
     /// </summary>
     public void ResetButton()
     {
-        Controls.get().setDefaultControls();
-        refresh();
+        Controls.Get().SetDefaultControls();
+        Refresh();
     }
 
     /// <summary>
