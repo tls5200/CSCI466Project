@@ -45,7 +45,7 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void Options()
     {
-        gameState = GameState.OptionsHub;
+        gameState = GameState.Options;
     }
 
     /// <summary>

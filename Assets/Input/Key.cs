@@ -691,12 +691,13 @@ public class Key
         {
             if (value == MOUSE_WHEEL_UP)
             {
-                return "Mouse Wheel Up";
+                return "Wheel Up";
             }
             else if (value == MOUSE_WHELL_DOWN)
             {
-                return "Mouse Whell Down";
+                return "Wheel Down";
             }
+            //Key represents a controller's axis
             else if (value >= START_AXIS)
             {
                 int tempValue = value - START_AXIS;
@@ -707,6 +708,46 @@ public class Key
                 axis = axis / 2 + 1;
 
                 return (GetAxisString(controller, axis, positive));
+            }
+            //Key represents a controller's button
+            else if (value >= 330 && value < 510)
+            {
+                int temp = value - 330;
+                int controller = temp / 20;
+                int button = temp % 20;
+
+                if (Options.Get().keyXboxNames)
+                {
+                    switch (button)
+                    {
+                        case 0:
+                            return "Con" + controller + " A-Btn";
+                        case 1:
+                            return "Con" + controller + " B-Btn";
+                        case 2:
+                            return "Con" + controller + " X-Btn";
+                        case 3:
+                            return "Con" + controller + " Y-Btn";
+                        case 4:
+                            return "Con" + controller + " L-Bmp";
+                        case 5:
+                            return "Con" + controller + " R-Bmp";
+                        case 6:
+                            return "Con" + controller + " Back";
+                        case 7:
+                            return "Con" + controller + " Start";
+                        case 8:
+                            return "Con" + controller + " L-Stk";
+                        case 9:
+                            return "Con" + controller + " R-Stk";
+                        default:
+                            return "Con" + controller + " Btn" + button;
+                    }
+                }
+                else
+                {
+                    return "Con" + controller + " Btn" + button;
+                }
             }
             else
             {
@@ -727,7 +768,7 @@ public class Key
     /// <returns>String representing the axis</returns>
     public static string GetAxisString(int controller, int axis)
     {
-        return ("Con" + controller.ToString() + "Axis" + axis.ToString());
+        return ("Con" + controller.ToString() + " Axis" + axis.ToString());
     }
 
     /// <summary>

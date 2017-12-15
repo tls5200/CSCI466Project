@@ -28,11 +28,7 @@ public class GameLoop : MonoBehaviour
     public GameObject gameOverMenu;
     public GameObject gameCompleteMenu;
     public GameObject loadReplayMenu;
-    public GameObject optionsHubMenu;
-    public GameObject optionsGameMenu;
-    public GameObject optionsAudVidMenu;
-    public GameObject optionsPlayer1Menu;
-    public GameObject optionsPlayer2Menu;
+    public GameObject optionsMenu;
     public GameObject aboutMenu;
 
     //here we ensure that this stays as a singleton---if any other user object is instantiated after the initial one, it is destroyed
@@ -82,11 +78,7 @@ public class GameLoop : MonoBehaviour
                     gameOverMenu.SetActive(false);
                     gameCompleteMenu.SetActive(false);
                     loadReplayMenu.SetActive(false);
-                    optionsHubMenu.SetActive(false);
-                    optionsGameMenu.SetActive(false);
-                    optionsAudVidMenu.SetActive(false);
-                    optionsPlayer1Menu.SetActive(false);
-                    optionsPlayer2Menu.SetActive(false);
+                    optionsMenu.SetActive(false);
                     aboutMenu.SetActive(false);
                     previousGameState = lastGameState;
                 }
@@ -164,20 +156,8 @@ public class GameLoop : MonoBehaviour
                             }
                         }
                         break;
-                    case GameState.OptionsHub:
-                        optionsHubMenu.SetActive(true);
-                        break;
-                    case GameState.OptionsGame:
-                        optionsGameMenu.SetActive(true);
-                        break;
-                    case GameState.OptionsAudVid:
-                        optionsAudVidMenu.SetActive(true);
-                        break;
-                    case GameState.OptionsPlayer1:
-                        optionsPlayer1Menu.SetActive(true);
-                        break;
-                    case GameState.OptionsPlayer2:
-                        optionsPlayer2Menu.SetActive(true);
+                    case GameState.Options:
+                        optionsMenu.SetActive(true);
                         break;
                     case GameState.About:
                         aboutMenu.SetActive(true);

@@ -61,7 +61,7 @@ public class PauseGame : MonoBehaviour, IErrorPanel
     /// </summary>
     public void Options()
     {
-        gameState = GameState.OptionsHub;
+        gameState = GameState.Options;
 	}
 
     /// <summary>
