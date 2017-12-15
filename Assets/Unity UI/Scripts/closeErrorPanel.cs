@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class closeErrorPanel : MonoBehaviour {
+public class CloseErrorPanel : MonoBehaviour {
 
     public Button myBtn;
     public CanvasGroup canvasGrp;

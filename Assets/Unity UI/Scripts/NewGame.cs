@@ -15,21 +15,40 @@ using static GameStates;
 public class NewGame : MonoBehaviour
 {
     //initilized in editor
-    public Toggle singlePlayer;
+    public Toggle onePlayer;
+    public Toggle twoPlayer;
+    public Toggle threePlayer;
+    public Toggle fourPlayer;
     public Toggle cooperative;
     public Toggle competative;
+    public Toggle teams;
     public Toggle campaign;
-    public Toggle practice;
+    public Toggle custom;
     public Toggle survival;
     public Toggle easy;
-    public Toggle medium;
+    public Toggle normal;
     public Toggle hard;
+    public Button startGameButton;
 
 	void Start ()
     {
-        //remove later once this feature is implimented
-        practice.interactable = false;
+        //remove later once these features are implimented
+        custom.interactable = false;
+        teams.interactable = false;
 	}
+
+    private void OnEnable()
+    {
+        startGameButton.Select();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("InterfaceCancel"))
+        {
+            Back();
+        }
+    }
 
     /// <summary>
     /// Method called by the Start button, creates a new Level with the settings selected by the user
@@ -40,44 +59,37 @@ public class NewGame : MonoBehaviour
         bool pvp = false;
         float difficulty = 2;
 
-        //set numPlayers and pvp depending on player setting
-        if (singlePlayer.isOn) 
-        {
+        //set numPlayers depending on num players setting
+        if (onePlayer.isOn) 
             numPlayers = 1;
-            pvp = false;
-        }
-        else if (cooperative.isOn)
-        {
+        else if (twoPlayer.isOn)
             numPlayers = 2;
-            pvp = false;
-        }
-        else if (competative.isOn)
-        {
-            numPlayers = 2;
-            pvp = true;
-        }
+        else if (threePlayer.isOn)
+            numPlayers = 3;
+        else if (fourPlayer.isOn)
+            numPlayers = 4;
         else
-        {
-            throw new System.Exception("No player setting was selected when trying to start a new game.");
-        }
+            throw new System.Exception("No number players setting was selected when trying to start a new game.");
+
+        //set pvp depending on competitive type setting
+        if (cooperative.isOn)
+            pvp = false;
+        else if (competative.isOn)
+            pvp = true;
+        else if (teams.isOn)
+            pvp = false;//to impliment
+        else
+            throw new System.Exception("No competative setting was selected when trying to start a new game.");
 
         //set difficulty depending on difficulty setting
         if (easy.isOn)
-        {
             difficulty = 1;
-        }
-        else if (medium.isOn)
-        {
+        else if (normal.isOn)
             difficulty = 2;
-        }
         else if (hard.isOn)
-        {
             difficulty = 3;
-        }
         else
-        {
             throw new System.Exception("No difficulty setting was selected when trying to start a new game.");
-        }
 
         //if campaign is selected, Create Level1 of the campain
         if (campaign.isOn) 
@@ -85,7 +97,7 @@ public class NewGame : MonoBehaviour
             Level level1 = Level.GetLevel(1);
             level1.Create(numPlayers, difficulty, (int)System.DateTime.Now.Ticks, pvp);
         }
-        else if (practice.isOn)
+        else if (custom.isOn)
         {
             //to impliment later
         }

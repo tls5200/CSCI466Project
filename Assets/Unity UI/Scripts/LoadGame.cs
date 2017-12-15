@@ -25,6 +25,7 @@ public class LoadGame : MonoBehaviour
     public GameObject errorPanel;
     public CanvasGroup canvasGroup;
     public Text errorText;
+    public Button loadButton;
 
     public List<SavedGameItem> saves = new List<SavedGameItem>();
 
@@ -32,6 +33,14 @@ public class LoadGame : MonoBehaviour
     void Start()
     {
         Refresh();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("InterfaceCancel"))
+        {
+            Back();
+        }
     }
 
     private void OnGUI()
@@ -94,6 +103,8 @@ public class LoadGame : MonoBehaviour
     private void OnEnable()
     {
         Refresh();
+
+        loadButton.Select();
     }
 
     /// <summary>

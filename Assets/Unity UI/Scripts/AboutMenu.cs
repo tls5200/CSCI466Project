@@ -11,6 +11,24 @@ using System.Collections;
 /// </summary>
 public class AboutMenu : MonoBehaviour
 {
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("InterfaceCancel"))
+        {
+            Back();
+        }
+    }
+
+        public void Email()
+    {
+        Application.OpenURL("mailto: t_stewart@mail.fhsu.edu");
+    }
+
+    public void Website()
+    {
+        Application.OpenURL("http://nebulawars.heliohost.org/");
+    }
+    
     /// <summary>
     /// method the back button calls, changes the screen to the Main menu
     /// </summary>

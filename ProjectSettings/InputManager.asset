@@ -649,10 +649,10 @@ InputManager:
     m_Name: InterfaceXAxis
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: s
-    positiveButton: w
-    altNegativeButton: up
-    altPositiveButton: down
+    negativeButton: a
+    positiveButton: d
+    altNegativeButton: left
+    altPositiveButton: right
     gravity: 0
     dead: 0.2
     sensitivity: 1
@@ -665,10 +665,10 @@ InputManager:
     m_Name: InterfaceYAxis
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: a
-    positiveButton: d
-    altNegativeButton: left
-    altPositiveButton: right
+    negativeButton: s
+    positiveButton: w
+    altNegativeButton: down
+    altPositiveButton: up
     gravity: 0
     dead: 0.2
     sensitivity: 1

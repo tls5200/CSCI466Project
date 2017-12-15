@@ -159,6 +159,7 @@ public class GameLoop : MonoBehaviour
                     case GameState.Options:
                         optionsMenu.SetActive(true);
                         break;
+
                     case GameState.About:
                         aboutMenu.SetActive(true);
                         break;

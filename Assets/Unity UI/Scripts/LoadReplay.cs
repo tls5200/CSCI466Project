@@ -24,12 +24,21 @@ public class LoadReplay : MonoBehaviour
     public GameObject errorPanel;
     public CanvasGroup canvasGroup;
     public Text errorText;
+    public Button loadButton;
 
     public List<ReplayItem> replays = new List<ReplayItem>();
 
     void Start()
     {
         Refresh();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("InterfaceCancel"))
+        {
+            Back();
+        }
     }
 
     private void OnGUI()
@@ -91,6 +100,8 @@ public class LoadReplay : MonoBehaviour
     private void OnEnable()
     {
         Refresh();
+
+        loadButton.Select();
     }
 
     /// <summary>

@@ -21,6 +21,20 @@ public class GameOver : MonoBehaviour, IErrorPanel
     public GameObject errorPanel;
     public CanvasGroup canvasGroup;
     public Text errorText;
+    public Button restartButton;
+
+    private void OnEnable()
+    {
+        restartButton.Select();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("InterfaceCancel"))
+        {
+            Quit();
+        }
+    }
 
     /// <summary>
     /// Method called by the Restart button on the gameover menu to set level to its beginning

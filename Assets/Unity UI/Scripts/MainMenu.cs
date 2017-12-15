@@ -15,6 +15,20 @@ public class MainMenu : MonoBehaviour
     //initilized in editor
     public UnityEngine.UI.Button loadGame;
     public UnityEngine.UI.Button watchReplay;
+    public UnityEngine.UI.Button newGameButton;
+
+    private void OnEnable()
+    {
+        newGameButton.Select();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("InterfaceCancel"))
+        {
+            Quit();
+        }
+    }
 
     /// <summary>
     /// Method the New Game button calls, changes the screen to the New Game screen

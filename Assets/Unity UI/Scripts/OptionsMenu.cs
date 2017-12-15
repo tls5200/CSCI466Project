@@ -168,8 +168,13 @@ public class OptionsMenu : MonoBehaviour
         Refresh();
     }
 
-    void Update()
+    private void Update()
     {
+        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("InterfaceCancel")) && keyToModify == null)
+        {
+            Back();
+        }
+
         //if there is a key that needs to be modified, ask the user to activate
         //an input unil he does. Once he does, set the input to the key being modified
         if (keyToModify != null)

@@ -20,11 +20,22 @@ public class PauseGame : MonoBehaviour, IErrorPanel
     public GameObject errorPanel;
     public CanvasGroup canvasGroup;
     public Text errorText;
+    public Button resumeGameButton;
 
     private GameState callingScreen;
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("InterfaceCancel"))
+        {
+            Unpause();
+        }
+    }
+
     private void OnEnable()
     {
+        resumeGameButton.Select();
+
         //Find what Menu opened this and save which did so Back knows where to go back to
         if (previousGameState == GameState.Replay ||
             previousGameState == GameState.Playing)

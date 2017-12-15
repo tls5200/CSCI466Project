@@ -20,17 +20,28 @@ public class LevelComplete : MonoBehaviour, IErrorPanel //add the error panel in
     public GameObject errorPanel;
     public CanvasGroup canvasGroup;
     public Text errorText;
+    public Button continueButton;
 
     void Start ()
     {
         
 	}
-	
-	void Update ()
+
+    private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("InterfaceCancel"))
+        {
+            Quit();
+        }
+
         //show current level number, Level.currentLevel.levelNumber
         //show level duration, Level.currentLevel.duration
         //show level difficulty, Level.currentLevel.difficulty
+    }
+
+    private void OnEnable()
+    {
+        continueButton.Select();
     }
 
     /// <summary>
@@ -113,10 +124,7 @@ public class LevelComplete : MonoBehaviour, IErrorPanel //add the error panel in
 
     public bool HasError()
     {
-        Boolean hasError = false;
-
-
-        return hasError;
+        return false;
     }
 
     public void ShowErrorMenu(string errorMsg)
