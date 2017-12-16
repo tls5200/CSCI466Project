@@ -16,7 +16,8 @@ using System;
 public class GameLoop : MonoBehaviour
 {
     private static GameLoop gameLoop;
-    private GameState lastGameState;
+    private GameState lastGameState = GameState.Exit;
+    private bool pause = false;
     
     //initilzed in editor
     public GameObject mainMenu;
@@ -37,7 +38,6 @@ public class GameLoop : MonoBehaviour
         if (gameLoop == null)
         {
             gameLoop = this;
-            DontDestroyOnLoad(gameLoop);
         }
         else
         {
@@ -45,139 +45,106 @@ public class GameLoop : MonoBehaviour
         }
     }
 
-    // Use this for initialization
-    //start the state machine
-    void Start()
+    private void Update()
     {
-       
-        StartCoroutine("StateMachine"); //Start the GameLoop
-    }
-
-    IEnumerator StateMachine()
-    {
-        gameState = GameState.Main; //initial game state
-        previousGameState = GameState.Main;
-        lastGameState = GameState.Exit;
-
-        //keep repeting this loop to switch between screens and control the program until GameState
-        //is set to Exit, which will cause the program to be closed
-        while (gameState != GameState.Exit)
+        try
         {
-            try
+            //if the gamestate has changed disable all menus then in the switch below,
+            //only enable the one that it is set to
+            if (gameState != lastGameState)
             {
-                //if the gamestate has changed disable all menus then in the switch below,
-                //only enable the one that it is set to
-                if (gameState != lastGameState)
-                {
-                    mainMenu.SetActive(false);
-                    newGameMenu.SetActive(false);
-                    loadGameMenu.SetActive(false);
-                    ingameInterface.SetActive(false);
-                    levelCompleteMenu.SetActive(false);
-                    pauseMenu.SetActive(false);
-                    gameOverMenu.SetActive(false);
-                    gameCompleteMenu.SetActive(false);
-                    loadReplayMenu.SetActive(false);
-                    optionsMenu.SetActive(false);
-                    aboutMenu.SetActive(false);
-                    previousGameState = lastGameState;
-                }
-                lastGameState = gameState;
+                mainMenu.SetActive(false);
+                newGameMenu.SetActive(false);
+                loadGameMenu.SetActive(false);
+                ingameInterface.SetActive(false);
+                levelCompleteMenu.SetActive(false);
+                pauseMenu.SetActive(false);
+                gameOverMenu.SetActive(false);
+                gameCompleteMenu.SetActive(false);
+                loadReplayMenu.SetActive(false);
+                optionsMenu.SetActive(false);
+                aboutMenu.SetActive(false);
+            }
+            lastGameState = gameState;
 
-                //set to 0, then set to 1 only when playing
-                Time.timeScale = 0;
+            pause = false;
+            //make sure to check each Player's pause Key to update their prevous pause
+            foreach (PlayerControls item in Controls.Get().players)
+            {
+                if (item.Pause)
+                    pause = true;
+            }
+
+            //set to 0, then set to 1 only when playing
+            Time.timeScale = 0;
 
                 //enable the menu that the screen is currently set to and 
                 //set the timeScale to 1 if the Level is being played or replayed
-                switch (gameState)
-                {
-                    case GameState.Main:
-                        mainMenu.SetActive(true);
-                        break;
-                    case GameState.NewGame:
-                        newGameMenu.SetActive(true);
-                        break;
-                    case GameState.LoadGame:
-                        loadGameMenu.SetActive(true);
-                        break;
-                    case GameState.Playing:
-                        ingameInterface.SetActive(true);
-                        Time.timeScale = 1;
-
-                        //pause the game if the pause key is pressed by the user
-                        foreach (PlayerControls item in Controls.Get().players)
-                        {
-                            if (item.Pause)
-                            {
-                                gameState = GameState.Paused;
-                                break;
-                            }
-                        }
-
-                        break;
-                    case GameState.Paused:
-                        ingameInterface.SetActive(true);
-                        pauseMenu.SetActive(true);
-
-                        //unpause the game and set the gameState to its prevous one
-                        //(Paying or Replay) if the pause key is pressed by the user
-                        foreach (PlayerControls item in Controls.Get().players)
-                        {
-                            if (item.Pause)
-                            {
-                                gameState = previousGameState;
-                                break;
-                            }
-                        }
-                        break;
-                    case GameState.LevelComplete:
-                        levelCompleteMenu.SetActive(true);
-                        break;
-                    case GameState.LostGame:
-                        gameOverMenu.SetActive(true);
-                        break;
-                    case GameState.WonGame:
-                        gameCompleteMenu.SetActive(true);
-                        break;
-                    case GameState.LoadReplay:
-                        loadReplayMenu.SetActive(true);
-                        break;
-                    case GameState.Replay:
-                        ingameInterface.SetActive(true);
-                        Time.timeScale = 1;
-
-                        //pause the game if the pause key is pressed by the user
-                        foreach (PlayerControls item in Controls.Get().players)
-                        {
-                            if (item.Pause)
-                            {
-                                gameState = GameState.Paused;
-                                break;
-                            }
-                        }
-                        break;
-                    case GameState.Options:
-                        optionsMenu.SetActive(true);
-                        break;
-
-                    case GameState.About:
-                        aboutMenu.SetActive(true);
-                        break;
-                    case GameState.Exit:
-                        //loop should break automatically next iteration
-                        break;
-                    default:
-                        throw new Exception("Invalid GameState: " + gameState.ToString());
-                }
-            }
-            catch (Exception e)
+            switch (gameState)
             {
-                throw new Exception("There was an error in the GameState Loop! StackTrace: " + e.StackTrace +
-                    " Message: " + e.Message);
+                case GameState.Main:
+                    mainMenu.SetActive(true);
+                    break;
+                case GameState.NewGame:
+                    newGameMenu.SetActive(true);
+                    break;
+                case GameState.LoadGame:
+                    loadGameMenu.SetActive(true);
+                    break;
+                case GameState.Playing:
+                    ingameInterface.SetActive(true);
+                    Time.timeScale = 1;
+                    if (pause)
+                        gameState = GameState.Paused;
+                    break;
+                case GameState.Paused:
+                    ingameInterface.SetActive(true);
+                    pauseMenu.SetActive(true);
+                    if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("InterfaceCancel"))
+                        pause = true;
+                    if (pause)
+                        gameState = previousPlay;
+                    break;
+                case GameState.LevelComplete:
+                    levelCompleteMenu.SetActive(true);
+                    break;
+                case GameState.LostGame:
+                    gameOverMenu.SetActive(true);
+                    break;
+                case GameState.WonGame:
+                    gameCompleteMenu.SetActive(true);
+                    break;
+                case GameState.LoadReplay:
+                    loadReplayMenu.SetActive(true);
+                    break;
+                case GameState.Replay:
+                    ingameInterface.SetActive(true);
+                    Time.timeScale = 1;
+                    if (pause)
+                        gameState = GameState.Paused;
+                    break;
+                case GameState.Options:
+                    optionsMenu.SetActive(true);
+                    break;
+                case GameState.About:
+                    aboutMenu.SetActive(true);
+                    break;
+                case GameState.Exit:
+                    Quit();
+                    break;
+                default:
+                    throw new Exception("Invalid GameState: " + gameState.ToString());
             }
-            yield return null; //return null to allow other things to continue
         }
+        catch (Exception e)
+        {
+            throw new Exception("There was an error in the GameState Loop! StackTrace: " + e.StackTrace +
+                " Message: " + e.Message);
+        }
+    }
 
+    private void Quit()
+    { 
         //save Controls and Options settings to their default files
         Controls.Get().SaveControls();
         Options.Get().SaveOptions();

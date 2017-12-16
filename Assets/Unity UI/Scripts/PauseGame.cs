@@ -14,40 +14,20 @@ using static GameStates;
 /// PauseGame is a MonoBehavior that controls the Pause Game menu and
 /// has methods that are called when the menus' buttons are pressed.
 /// </summary>
-public class PauseGame : MonoBehaviour, IErrorPanel
+public class PauseGame : MonoBehaviour
 {
     //initilized in editor
-    public GameObject errorPanel;
-    public CanvasGroup canvasGroup;
-    public Text errorText;
     public Button resumeGameButton;
-
-    private GameState callingScreen;
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("InterfaceCancel"))
-        {
-            Unpause();
-        }
-    }
 
     private void OnEnable()
     {
         resumeGameButton.Select();
-
-        //Find what Menu opened this and save which did so Back knows where to go back to
-        if (previousGameState == GameState.Replay ||
-            previousGameState == GameState.Playing)
-        {
-            callingScreen = previousGameState;
-        }
     }
 
     // method used by the resume button on the pause menu to change the screen back to Playing or Replay
     public void Unpause()
     {
-        gameState = callingScreen;
+        gameState = previousPlay;
 	}
 
     /// <summary>
@@ -58,7 +38,7 @@ public class PauseGame : MonoBehaviour, IErrorPanel
         //if there is not a current Level, display error message
         if (Level.current == null)
         {
-            ShowErrorMenu("Current Level is null, can't restart");
+            DialogBox.Create("Current Level is null, can't restart", "Error");
         }
         else
         {
@@ -85,17 +65,5 @@ public class PauseGame : MonoBehaviour, IErrorPanel
             Destroy(Level.current.gameObject);
         }
         gameState = GameState.Main; // sets gamestate back to main menu
-    }
-
-    public bool HasError()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void ShowErrorMenu(string errorMsg)
-    {
-        errorText.text = errorMsg;
-        errorPanel.SetActive(true);
-        canvasGroup.DOFade(1.0f, 2.0f);
     }
 }

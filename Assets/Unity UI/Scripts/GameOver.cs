@@ -14,13 +14,10 @@ using DG.Tweening;
 /// has methods that are called when the menus' buttons are pressed. The Game Complete menu
 /// doesn't use the Restart() method.
 /// </summary>
-public class GameOver : MonoBehaviour, IErrorPanel
+public class GameOver : MonoBehaviour
 {
     //initilized in editor
     public InputField replayName;
-    public GameObject errorPanel;
-    public CanvasGroup canvasGroup;
-    public Text errorText;
     public Button restartButton;
 
     private void OnEnable()
@@ -44,7 +41,7 @@ public class GameOver : MonoBehaviour, IErrorPanel
         //if there is not a current Level, display error message
         if (Level.current == null) 
         {
-            ShowErrorMenu("Can't restart level, current level is set to null");
+            DialogBox.Create("Can't restart level, current level is set to null", "Error");
         }
         else
         {
@@ -61,20 +58,20 @@ public class GameOver : MonoBehaviour, IErrorPanel
     {
         //if the current Level does not exist then an error message is displayed
         if (Level.current == null)
-            ShowErrorMenu("CurrentLevel is null when trying to saveReplay");
+            DialogBox.Create("CurrentLevel is null when trying to saveReplay", "Error");
         //if there is an error with the replay file name then throw an exception
         else if (replayName == null || replayName.text == null)
             throw new Exception("Problem with replayName InputField");
         //if user does not enter name in input field then desplay a message to him
         else if (replayName.text == "")
-            ShowErrorMenu("You need to enter a name before saving the replay");
+            DialogBox.Create("You need to enter a name before saving the replay", "Error");
         //else create save the replay
         else
         {
             if (Level.current.SaveReplay(replayName.text))
-                ShowErrorMenu("Replay has been saved successfully!");
+                DialogBox.Create("Replay has been saved successfully!", "Success");
             else
-                ShowErrorMenu("There was a problem saving the replay!");
+                DialogBox.Create("There was a problem saving the replay!", "Error");
         }
     }
 
@@ -89,16 +86,4 @@ public class GameOver : MonoBehaviour, IErrorPanel
         }
         GameStates.gameState = GameStates.GameState.Main;
 	}
-
-    public bool HasError()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void ShowErrorMenu(string errorMsg)
-    {
-        errorText.text = errorMsg;
-        errorPanel.SetActive(true);
-        canvasGroup.DOFade(1.0f, 2.0f);
-    }
 }

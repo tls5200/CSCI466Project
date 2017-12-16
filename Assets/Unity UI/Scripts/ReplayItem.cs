@@ -89,6 +89,19 @@ public class ReplayItem : MonoBehaviour
         }
     }
 
+    public bool DeleteReplay()
+    {
+        try
+        {
+            replayFile.Delete();
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
     /// <summary>
     /// Creates a Level in replay mode from the replay file represented by this ReplayItem
     /// </summary>

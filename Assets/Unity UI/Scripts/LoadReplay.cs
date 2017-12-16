@@ -39,6 +39,10 @@ public class LoadReplay : MonoBehaviour
         {
             Back();
         }
+        else if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            Delete();
+        }
     }
 
     private void OnGUI()
@@ -85,13 +89,26 @@ public class LoadReplay : MonoBehaviour
             GameObject replay = ReplayItem.GetFromFile(item);
             if (replay != null)
             {
-                replay.transform.SetParent(replayList.transform);
-                replay.transform.localScale = Vector3.one;
                 replay.GetComponent<Toggle>().group = group;
                 replay.GetComponent<Toggle>().isOn = false;
-
                 replays.Add(replay.GetComponent<ReplayItem>());
             }
+        }
+
+        SortByDate();
+    }
+
+    /// <summary>
+    /// Resets the parent of each replay in the list,
+    /// this reorders the replays in the UI to the order they are in the list
+    /// </summary>
+    private void RefreshList()
+    {
+        foreach (ReplayItem item in replays)
+        {
+            item.transform.parent = null;
+            item.transform.parent = replayList.transform;
+            item.transform.localScale = Vector3.one;
         }
 
         OnGUI();
@@ -102,6 +119,108 @@ public class LoadReplay : MonoBehaviour
         Refresh();
 
         loadButton.Select();
+    }
+
+    private bool sortDateForward = false;
+    public void SortByDate()
+    {
+        sortDateForward = !sortDateForward;
+
+        if (sortDateForward)
+        {
+            replays.Sort((x, y) => x.date.text.CompareTo(y.date.text));
+        }
+        else
+        {
+            replays.Sort((x, y) => y.date.text.CompareTo(x.date.text));
+        }
+
+        RefreshList();
+    }
+
+    private bool sortNameForward = false;
+    public void SortByName()
+    {
+        sortNameForward = !sortNameForward;
+
+        if (sortNameForward)
+        {
+            replays.Sort((x, y) => x.saveName.text.CompareTo(y.saveName.text));
+        }
+        else
+        {
+            replays.Sort((x, y) => y.saveName.text.CompareTo(x.saveName.text));
+        }
+
+        RefreshList();
+    }
+
+    private bool sortLevelForward = false;
+    public void SortByLevel()
+    {
+        sortLevelForward = !sortLevelForward;
+
+        if (sortLevelForward)
+        {
+            replays.Sort((x, y) => x.level.text.CompareTo(y.level.text));
+        }
+        else
+        {
+            replays.Sort((x, y) => y.level.text.CompareTo(x.level.text));
+        }
+
+        RefreshList();
+    }
+
+    private bool sortPlayersForward = false;
+    public void SortyByPlayers()
+    {
+        sortPlayersForward = !sortPlayersForward;
+
+        if (sortPlayersForward)
+        {
+            replays.Sort((x, y) => x.players.text.CompareTo(y.players.text));
+        }
+        else
+        {
+            replays.Sort((x, y) => y.players.text.CompareTo(x.players.text));
+        }
+
+        RefreshList();
+    }
+
+    private bool sortDifficultyForward = false;
+    public void SortyByDifficulty()
+    {
+        sortDifficultyForward = !sortDifficultyForward;
+
+        if (sortDifficultyForward)
+        {
+            replays.Sort((x, y) => x.difficulty.text.CompareTo(y.difficulty.text));
+        }
+        else
+        {
+            replays.Sort((x, y) => y.difficulty.text.CompareTo(x.difficulty.text));
+        }
+
+        RefreshList();
+    }
+
+    private bool sortPvpForward = false;
+    public void SortByPvp()
+    {
+        sortPvpForward = !sortPvpForward;
+
+        if (sortPvpForward)
+        {
+            replays.Sort((x, y) => x.pvp.text.CompareTo(y.pvp.text));
+        }
+        else
+        {
+            replays.Sort((x, y) => y.pvp.text.CompareTo(x.pvp.text));
+        }
+
+        RefreshList();
     }
 
     /// <summary>
@@ -118,13 +237,13 @@ public class LoadReplay : MonoBehaviour
                 if (item.LoadReplay())
                 {
                     GameStates.gameState = GameStates.GameState.Replay;
-                    return;
                 }
                 //if it wasn't successful, show an error
                 else
                 {
                     ShowErrorMenu("Problem loading replay!");
                 }
+                return;
             }
         }
 
@@ -138,6 +257,32 @@ public class LoadReplay : MonoBehaviour
     public void Back()
     {
         GameStates.gameState = GameStates.GameState.Main;
+    }
+
+    public void Delete()
+    {
+        //find the selected replay and try to delete it
+        foreach (ReplayItem item in replays)
+        {
+            if (item.toggle.isOn)
+            {
+                //if delete was successful, refresh the replays
+                if (item.DeleteReplay())
+                {
+                    Refresh();
+                }
+                //if it wasn't successful, show an error
+                else
+                {
+                    ShowErrorMenu("Problem deleting replay!");
+                }
+                return;
+            }
+        }
+
+        //if no replay was selected, show an error
+        //ShowErrorMenu("No replay selected.");
+        DialogBox.Create("Test message", "Test Title", delegate { Back(); });
     }
 
     public void ShowErrorMenu(string errorMsg)

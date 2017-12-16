@@ -26,6 +26,7 @@ public class LoadGame : MonoBehaviour
     public CanvasGroup canvasGroup;
     public Text errorText;
     public Button loadButton;
+    public Toggle hideAutoSavesToggle;
 
     public List<SavedGameItem> saves = new List<SavedGameItem>();
 
@@ -40,6 +41,10 @@ public class LoadGame : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("InterfaceCancel"))
         {
             Back();
+        }
+        else if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            Delete();
         }
     }
 
@@ -88,23 +93,145 @@ public class LoadGame : MonoBehaviour
             GameObject saveItem = SavedGameItem.getFromFile(item);
             if (saveItem != null)
             {
-                saveItem.transform.SetParent(gameSavesList.transform);
-                saveItem.transform.localScale = Vector3.one;
                 saveItem.GetComponent<Toggle>().group = group;
                 saveItem.GetComponent<Toggle>().isOn = false;
-
                 saves.Add(saveItem.GetComponent<SavedGameItem>());
             }
         }
 
+        SortByDate();
+    }
+
+    /// <summary>
+    /// Resets the parent of each save in the list,
+    /// this reorders the saves in the UI to the order they are in the list
+    /// </summary>
+    private void RefreshList()
+    {
+        foreach (SavedGameItem item in saves)
+        {
+            item.transform.parent = null;
+
+            if (!(hideAutoSavesToggle.isOn && item.autoSave))
+            {
+                item.transform.parent = gameSavesList.transform;
+                item.transform.localScale = Vector3.one;
+            }
+        }
         OnGUI();
     }
 
     private void OnEnable()
     {
         Refresh();
-
         loadButton.Select();
+    }
+
+    public void ToggleHideAutoSaves()
+    {
+        RefreshList();
+    }
+
+    private bool sortDateForward = false;
+    public void SortByDate()
+    {
+        sortDateForward = !sortDateForward;
+
+        if (sortDateForward)
+        {
+            saves.Sort((x, y) => x.date.text.CompareTo(y.date.text));
+        }
+        else
+        {
+            saves.Sort((x, y) => y.date.text.CompareTo(x.date.text));
+        }
+
+        RefreshList();
+    }
+
+    private bool sortNameForward = false;
+    public void SortByName()
+    {
+        sortNameForward = !sortNameForward;
+
+        if (sortNameForward)
+        {
+            saves.Sort((x, y) => x.saveName.text.CompareTo(y.saveName.text));
+        }
+        else
+        {
+            saves.Sort((x, y) => y.saveName.text.CompareTo(x.saveName.text));
+        }
+
+        RefreshList();
+    }
+
+    private bool sortLevelForward = false;
+    public void SortByLevel()
+    {
+        sortLevelForward = !sortLevelForward;
+
+        if (sortLevelForward)
+        {
+            saves.Sort((x, y) => x.level.text.CompareTo(y.level.text));
+        }
+        else
+        {
+            saves.Sort((x, y) => y.level.text.CompareTo(x.level.text));
+        }
+
+        RefreshList();
+    }
+
+    private bool sortPlayersForward = false;
+    public void SortyByPlayers()
+    {
+        sortPlayersForward = !sortPlayersForward;
+
+        if (sortPlayersForward)
+        {
+            saves.Sort((x, y) => x.players.text.CompareTo(y.players.text));
+        }
+        else
+        {
+            saves.Sort((x, y) => y.players.text.CompareTo(x.players.text));
+        }
+
+        RefreshList();
+    }
+
+    private bool sortDifficultyForward = false;
+    public void SortyByDifficulty()
+    {
+        sortDifficultyForward = !sortDifficultyForward;
+
+        if (sortDifficultyForward)
+        {
+            saves.Sort((x, y) => x.difficulty.text.CompareTo(y.difficulty.text));
+        }
+        else
+        {
+            saves.Sort((x, y) => y.difficulty.text.CompareTo(x.difficulty.text));
+        }
+
+        RefreshList();
+    }
+
+    private bool sortPvpForward = false;
+    public void SortByPvp()
+    {
+        sortPvpForward = !sortPvpForward;
+
+        if (sortPvpForward)
+        {
+            saves.Sort((x, y) => x.pvp.text.CompareTo(y.pvp.text));
+        }
+        else
+        {
+            saves.Sort((x, y) => y.pvp.text.CompareTo(x.pvp.text));
+        }
+
+        RefreshList();
     }
 
     /// <summary>
@@ -121,13 +248,14 @@ public class LoadGame : MonoBehaviour
                 if (item.LoadSave())
                 {
                     GameStates.gameState = GameStates.GameState.Playing;
-                    return;
+                    
                 }
                 //if it wasn't successful, show an error
                 else
                 {
                     ShowErrorMenu("Problem loading save!");
                 }
+                return;
             }
         }
 
@@ -141,6 +269,32 @@ public class LoadGame : MonoBehaviour
     public void Back()
     {
         GameStates.gameState = GameStates.GameState.Main;
+    }
+
+    public void Delete()
+    {
+        loadButton.onClick.AddListener(delegate { Back(); });
+        //find the selected saved and try to delete it
+        foreach (SavedGameItem item in saves)
+        {
+            if (item.toggle.isOn)
+            {
+                //if delete was successful, refresh the saves
+                if (item.DeleteSave())
+                {
+                    Refresh();
+                }
+                //if it wasn't successful, show an error
+                else
+                {
+                    ShowErrorMenu("Problem deleting save!");
+                }
+                return;
+            }
+        }
+
+        //if no saved game was selected, show an error
+        ShowErrorMenu("No save selected.");
     }
 
     public void ShowErrorMenu(string errorMsg)

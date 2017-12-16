@@ -13,19 +13,11 @@ using DG.Tweening;
 /// LevelComplete is a MonoBehavior that controls the Level Complete menu and
 /// has methods that are called when the menus' buttons are pressed.
 /// </summary>
-public class LevelComplete : MonoBehaviour, IErrorPanel //add the error panel interface to dislpay error messages and implement it's methods
+public class LevelComplete : MonoBehaviour
 {
     public UnityEngine.UI.InputField saveNameInputField; //initilzied in editor
     public UnityEngine.UI.InputField replayName; //initilized in editor
-    public GameObject errorPanel;
-    public CanvasGroup canvasGroup;
-    public Text errorText;
     public Button continueButton;
-
-    void Start ()
-    {
-        
-	}
 
     private void Update()
     {
@@ -51,10 +43,10 @@ public class LevelComplete : MonoBehaviour, IErrorPanel //add the error panel in
     {
         //if the current Level does not exist then an error message is displayed
         if (Level.current == null)
-            ShowErrorMenu("CurrentLevel is null when trying to go to next Level");
+            DialogBox.Create("CurrentLevel is null when trying to go to next Level", "Error");
         //if there is a problem loading the next Level, display an error
         if (Level.current.NextLevel() == null)
-            ShowErrorMenu("Problem loading next Level");
+            DialogBox.Create("Problem loading next Level", "Error");
             
         GameStates.gameState = GameStates.GameState.Playing;
         
@@ -68,20 +60,20 @@ public class LevelComplete : MonoBehaviour, IErrorPanel //add the error panel in
     {
         //if the current Level does not exist then an error message is displayed
         if (Level.current == null)
-            ShowErrorMenu("CurrentLevel is null when trying to save");
+            DialogBox.Create("CurrentLevel is null when trying to save", "Error");
         //if there is an error with the replay file name then throw an exception
         else if (saveNameInputField == null || saveNameInputField.text == null)
             throw new Exception("Problem with SaveName InputField");
         //if user does not enter name in input field then desplay a message to him
         else if (saveNameInputField.text == "")
-            ShowErrorMenu("You must enter a name to create a save game"); 
+            DialogBox.Create("You must enter a name to create a save game", "Error"); 
         //create a save
         else
         {
             if (Level.current.Save(saveNameInputField.text))
-                ShowErrorMenu("Save game created successfully!");
+                DialogBox.Create("Save game created successfully!", "Success");
             else
-                ShowErrorMenu("There was an error creating the save game...");
+                DialogBox.Create("There was an error creating the save game...", "Error");
         }
     }
 
@@ -93,20 +85,20 @@ public class LevelComplete : MonoBehaviour, IErrorPanel //add the error panel in
     {
         //if the current Level does not exist then an error message is displayed
         if (Level.current == null)
-            ShowErrorMenu("CurrentLevel is null when trying to saveReplay");
+            DialogBox.Create("CurrentLevel is null when trying to saveReplay", "Error");
         //if there is an error with the replay file name then throw an exception
         else if (replayName == null || replayName.text == null)
             throw new Exception("Problem with replayName InputField");
         //if user does not enter name in input field then desplay a message to him
         else if (replayName.text == "")
-            ShowErrorMenu("You need to enter a name before saving the replay");
+            DialogBox.Create("You need to enter a name before saving the replay", "Error");
         //else create save the replay
         else
         {
             if (Level.current.SaveReplay(replayName.text))
-                ShowErrorMenu("Replay has been saved successfully!");
+                DialogBox.Create("Replay has been saved successfully!", "Success");
             else
-                ShowErrorMenu("There was a problem saving the replay!");
+                DialogBox.Create("There was a problem saving the replay!", "Error");
         }
     }
 
@@ -120,17 +112,5 @@ public class LevelComplete : MonoBehaviour, IErrorPanel //add the error panel in
             Destroy(Level.current.gameObject);
         }
         GameStates.gameState = GameStates.GameState.Main;
-    }
-
-    public bool HasError()
-    {
-        return false;
-    }
-
-    public void ShowErrorMenu(string errorMsg)
-    {
-        errorText.text = errorMsg;
-        errorPanel.SetActive(true);
-        canvasGroup.DOFade(1.0f, 2.0f);
     }
 }

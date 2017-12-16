@@ -25,6 +25,15 @@ public class SavedGameItem : MonoBehaviour
 
     public FileInfo saveFile;
 
+    private bool theAutoSave = false;
+    public bool autoSave
+    {
+        get
+        {
+            return theAutoSave;
+        }
+    }
+
     /// <summary>
     /// Static method that creates a SavedGameItem from a file containing a saved game.
     /// Returns the SavedGameItem if it was created succesfully, null if not. 
@@ -38,15 +47,18 @@ public class SavedGameItem : MonoBehaviour
         try
         {
             string tempSaveName, tempDate, tempLevel, tempPlayers, tempDifficulty, tempPvp;
+            bool autoSave;
 
             //make sure the file is the correct type
             if (file.Extension.Equals(Level.AUTO_SAVE_EXTENTION))
             {
                 tempSaveName = "Auto Save";
+                autoSave = true;
             }
             else if (file.Extension.Equals(Level.SAVE_EXTENTION))
             {
                 tempSaveName = Path.GetFileNameWithoutExtension(file.Name);
+                autoSave = false;
             }
             else
             {
@@ -76,6 +88,7 @@ public class SavedGameItem : MonoBehaviour
             save.difficulty.text = tempDifficulty;
             save.pvp.text = tempPvp;
             save.saveFile = file;
+            save.theAutoSave = autoSave;
 
             return obj;
         }
@@ -89,6 +102,19 @@ public class SavedGameItem : MonoBehaviour
             {
                 reader.Close();
             }
+        }
+    }
+
+    public bool DeleteSave()
+    {
+        try
+        {
+            saveFile.Delete();
+            return true;
+        }
+        catch
+        {
+            return false;
         }
     }
 
